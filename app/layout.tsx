@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Noto_Sans_SC, Plus_Jakarta_Sans } from "next/font/google";
+import { ExperienceMotion } from "@/components/ExperienceMotion";
 import "./globals.css";
 
 const sans = Plus_Jakarta_Sans({ subsets: ["latin"], variable: "--font-en" });
@@ -16,7 +17,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="zh-CN" className={`${sans.variable} ${cn.variable}`}>
-      <body>{children}</body>
+      <body><ExperienceMotion />{children}</body>
     </html>
   );
 }
