@@ -321,7 +321,7 @@ footer { color: #45616d; background: #f9fcf9; }
 .next-case a { font-size: clamp(30px, 5vw, 65px); font-weight: 800; letter-spacing: -.035em; }
 
 .motion-ready [data-reveal] { opacity: 0; transform: translateY(22px); filter: blur(4px); }
-.motion-ready [data-reveal][data-visible="true"] { opacity: 1; transform: translateY(0); filter: blur(0); transition: opacity 620ms var(--ease-out), transform 620ms var(--ease-out), filter 480ms var(--ease-out); }
+.motion-ready [data-reveal][data-visible="true"] { opacity: 1; transform: none; filter: none; transition: opacity 620ms var(--ease-out), transform 620ms var(--ease-out), filter 480ms var(--ease-out); }
 
 @media (hover: hover) and (pointer: fine) {
   .site-header nav a:hover::after { right: 0; }

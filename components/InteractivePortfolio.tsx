@@ -132,7 +132,7 @@ export function ExperienceOrbit({ items, hint, labels }: { items: Experience[]; 
         {item && (
           <div className="experience-drawer" role="dialog" aria-modal="true" aria-labelledby="experience-drawer-title" ref={dialogRef}>
             <button type="button" className="drawer-close" onClick={() => setActive(null)} aria-label={labels.close}>
-              <span aria-hidden="true">×</span>
+              <span aria-hidden="true" />
             </button>
             <div className="drawer-heading">
               <span className="drawer-brand">{item.brand}</span>
