@@ -40,9 +40,9 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
             <p className="hero-intro">{t.heroIntro}</p>
             <div className="tag-row">{t.tags.map((tag) => <span key={tag}>{tag}</span>)}</div>
             <div className="cta-row">
-              <a className="button button-primary" href="#projects">{t.view}<span aria-hidden="true">↘</span></a>
-              <a className="button button-light" href="/Chelsea_Zhao_Product_Manager_Resume_CN.pdf" download>{t.resume}<span aria-hidden="true">↓</span></a>
-              <a className="text-link" href={`mailto:${t.email}`}>{t.contact}<span aria-hidden="true">↗</span></a>
+              <a className="button button-primary" href="#projects">{t.view}</a>
+              <a className="button button-light" href="/Chelsea_Zhao_Product_Manager_Resume_CN.pdf" download>{t.resume}</a>
+              <a className="text-link" href={`mailto:${t.email}`}>{t.contact}</a>
             </div>
             <small>{t.resumeLabel}</small>
           </div>
@@ -75,7 +75,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
                   <div className="archive-preview" aria-label={locale === "zh" ? "问题、行动与证据" : "Problem, action and evidence"}>
                     {project.preview.map((value, itemIndex) => <span key={value}><small>{locale === "zh" ? ["问题", "行动", "证据"][itemIndex] : ["Problem", "Action", "Evidence"][itemIndex]}</small>{value}</span>)}
                   </div>
-                  <div className="archive-footer"><span>{project.facts.join(" · ")}</span><strong>{project.cta}<i aria-hidden="true">→</i></strong></div>
+                  <div className="archive-footer"><span>{project.facts.join(" · ")}</span><strong>{project.cta}</strong></div>
                 </div>
               </Link>
             ))}
@@ -143,7 +143,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
       <section className="contact section" id="contact">
         <div className="shell contact-inner">
           <h2>{t.contactTitle}</h2>
-          <a className="email-link" href={`mailto:${t.email}`}>{t.email}<span aria-hidden="true">↗</span></a>
+          <a className="email-link" href={`mailto:${t.email}`}>{t.email}</a>
           <div className="contact-links"><a href="https://www.rescueducks.xyz" target="_blank" rel="noreferrer">Rescue Ducks</a><Link href={`/${locale}/projects/agora`}>Agora</Link><a href="/Chelsea_Zhao_Product_Manager_Resume_CN.pdf" download>{t.resumeLabel}</a></div>
         </div>
       </section>

@@ -44,6 +44,7 @@ export type Education = {
   badge: string;
   courses: string;
   image?: string;
+  secondaryImage?: string;
   imageAlt: string;
 };
 
@@ -150,7 +151,7 @@ export const copy: Record<Locale, PageCopy> = {
     educationHint: "点击翻面",
     education: [
       { id: "um", school: "马来亚大学", degree: "应用统计学 · 硕士", date: "2025.09 — 2027.06", badge: "QS 56 · GPA 3.82/4.00", courses: "R、Python、高级计量、时间序列分析、数据分析、统计学原理", imageAlt: "马来亚大学照片待补充" },
-      { id: "lzu", school: "兰州大学", degree: "管理学基地班 · 学士", date: "2020.09 — 2024.07", badge: "985／双一流 · GPA 3.82/5.00", courses: "博弈论、大数据与人工智能、数据挖掘与机器学习、线性代数、高等数学", image: "/lzu.jpg", imageAlt: "Chelsea 在兰州大学校门前" },
+      { id: "lzu", school: "兰州大学", degree: "管理学基地班 · 学士", date: "2020.09 — 2024.07", badge: "985／双一流 · GPA 3.82/5.00", courses: "博弈论、大数据与人工智能、数据挖掘与机器学习、线性代数、高等数学", image: "/lzu.jpg", secondaryImage: "/lzu-2.jpg", imageAlt: "Chelsea 在兰州大学校园" },
     ],
     awardsTitle: "荣誉不是终点，而是持续投入留下的坐标",
     awardsIntro: "当前先保留已确认的荣誉类别；具体获奖年份与其余四项名称将在公开前补齐。",
@@ -227,7 +228,7 @@ export const copy: Record<Locale, PageCopy> = {
     educationHint: "Click to flip",
     education: [
       { id: "um", school: "University of Malaya", degree: "MSc Applied Statistics", date: "Sep 2025 — Jun 2027", badge: "QS 56 · GPA 3.82/4.00", courses: "R, Python, advanced econometrics, time-series analysis, data analysis and statistical principles", imageAlt: "University of Malaya photo to add" },
-      { id: "lzu", school: "Lanzhou University", degree: "BSc Management", date: "Sep 2020 — Jul 2024", badge: "Project 985 / Double First Class · GPA 3.82/5.00", courses: "Game theory, big data and AI, data mining and machine learning, linear algebra and advanced mathematics", image: "/lzu.jpg", imageAlt: "Chelsea at the Lanzhou University gate" },
+      { id: "lzu", school: "Lanzhou University", degree: "BSc Management", date: "Sep 2020 — Jul 2024", badge: "Project 985 / Double First Class · GPA 3.82/5.00", courses: "Game theory, big data and AI, data mining and machine learning, linear algebra and advanced mathematics", image: "/lzu.jpg", secondaryImage: "/lzu-2.jpg", imageAlt: "Chelsea on the Lanzhou University campus" },
     ],
     awardsTitle: "Milestones left by sustained effort",
     awardsIntro: "Confirmed categories are shown now; exact years and the remaining four award names will be completed before public release.",

@@ -1,0 +1,75 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-08-09T10:30:00.000Z",
+  "title": "Design System: Chelsea Zhao Product Portfolio",
+  "extensions": {
+    "colorMeta": {
+      "ink": { "role": "neutral", "displayName": "Deep Lake Ink", "canonical": "#132d3d", "tonalRamp": ["#0c1e28", "#132d3d", "#26495a", "#456978", "#708d98", "#a1b5bc", "#d1dcdf", "#f2f6f6"] },
+      "lake": { "role": "primary", "displayName": "Lake Blue", "canonical": "#3c86ad", "tonalRamp": ["#0d2c3c", "#174864", "#246786", "#3c86ad", "#67a5c5", "#99c6dc", "#cbe5f0", "#edf8fc"] },
+      "leaf-dark": { "role": "primary", "displayName": "Deep Reed Green", "canonical": "#3e7144", "tonalRamp": ["#162b19", "#24482a", "#3e7144", "#639669", "#8fba91", "#b9d7b8", "#ddefdc", "#f3faf2"] },
+      "cream": { "role": "neutral", "displayName": "Warm Field Paper", "canonical": "#fbfdf9", "tonalRamp": ["#242821", "#484e43", "#72796b", "#9ea596", "#c5cbbe", "#dfe4da", "#eff3eb", "#fbfdf9"] }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "Hero and case titles only." },
+      "headline": { "displayName": "Section statement", "purpose": "Fast-scanning narrative anchors." },
+      "body": { "displayName": "Body", "purpose": "Evidence and explanatory reading." },
+      "label": { "displayName": "Label", "purpose": "Compact component descriptors." }
+    },
+    "shadows": [
+      { "name": "ambient-soft", "value": "0 22px 65px rgba(30, 77, 96, 0.13)", "purpose": "Resting cards and postcards." },
+      { "name": "interactive-lift", "value": "0 30px 80px rgba(30, 77, 96, 0.2)", "purpose": "Active and hovered evidence cards." }
+    ],
+    "motion": [
+      { "name": "ease-out", "value": "cubic-bezier(0.23, 1, 0.32, 1)", "purpose": "Card lifts and reveals." },
+      { "name": "ease-drawer", "value": "cubic-bezier(0.32, 0.72, 0, 1)", "purpose": "Experience drawer entrance." }
+    ],
+    "breakpoints": [
+      { "name": "tablet", "value": "980px" },
+      { "name": "mobile", "value": "720px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The main action used for project and resume entry points.",
+      "html": "<button class=\"ds-btn-primary\">Explore my work</button>",
+      "css": ".ds-btn-primary{min-height:48px;padding:0 22px;border:0;border-radius:14px;color:#fff;background:#3e7144;font:800 14px 'Plus Jakarta Sans',sans-serif;box-shadow:0 12px 30px rgba(63,113,68,.22);transition:transform 180ms cubic-bezier(.23,1,.32,1),box-shadow 180ms ease}.ds-btn-primary:hover{transform:translateY(-2px);box-shadow:0 18px 38px rgba(63,113,68,.28)}.ds-btn-primary:focus-visible{outline:3px solid rgba(46,120,158,.5);outline-offset:4px}"
+    },
+    {
+      "name": "Evidence Card",
+      "kind": "card",
+      "refersTo": "card",
+      "description": "A warm-white record that reveals process and proof.",
+      "html": "<article class=\"ds-card\"><small>PROBLEM · ACTION · EVIDENCE</small><h3>Rescue Ducks</h3><p>A product record built around a real learning obstacle.</p></article>",
+      "css": ".ds-card{max-width:380px;padding:28px;border-radius:22px;color:#132d3d;background:#fff;box-shadow:0 22px 65px rgba(30,77,96,.13);font-family:'Plus Jakarta Sans',sans-serif;transition:transform 260ms cubic-bezier(.23,1,.32,1),box-shadow 260ms ease}.ds-card small{color:#3e7144;font-size:11px;font-weight:800;letter-spacing:.08em}.ds-card h3{margin:12px 0 8px;font-size:32px;letter-spacing:-.035em}.ds-card p{margin:0;color:#45616d;line-height:1.7}.ds-card:hover{transform:translateY(-7px);box-shadow:0 30px 80px rgba(30,77,96,.2)}.ds-card:focus-within{outline:3px solid rgba(46,120,158,.5);outline-offset:4px}"
+    },
+    {
+      "name": "Evidence Chip",
+      "kind": "chip",
+      "description": "A quiet label for capabilities and facts.",
+      "html": "<span class=\"ds-chip\">User insight</span>",
+      "css": ".ds-chip{display:inline-flex;padding:8px 12px;border:1px solid rgba(54,106,118,.19);border-radius:999px;color:#315665;background:rgba(255,255,255,.7);font:700 12px 'Plus Jakarta Sans',sans-serif}"
+    },
+    {
+      "name": "Orbit Node",
+      "kind": "custom",
+      "description": "The signature career-map control.",
+      "html": "<button class=\"ds-orbit-node\"><span>KALO</span><strong>Kalowave</strong></button>",
+      "css": ".ds-orbit-node{display:flex;align-items:center;gap:13px;min-width:235px;min-height:86px;padding:12px 15px;border:0;border-radius:18px;color:#132d3d;background:#fff;box-shadow:0 16px 42px rgba(32,80,99,.14);font-family:'Plus Jakarta Sans',sans-serif;transition:transform 220ms cubic-bezier(.23,1,.32,1),box-shadow 220ms ease}.ds-orbit-node span{display:grid;place-items:center;width:54px;height:54px;border-radius:50%;color:#fff;background:#3c86ad;font-size:12px;font-weight:900}.ds-orbit-node:hover{transform:scale(1.12);box-shadow:0 30px 80px rgba(30,77,96,.2)}.ds-orbit-node:focus-visible{outline:3px solid rgba(46,120,158,.5);outline-offset:4px}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Lakeside Field Journal",
+    "overview": "A well-kept product notebook placed in an optimistic blue-sky lakeside world. Essential evidence stays visible at rest; interaction reveals process, photographs, and proof.",
+    "keyCharacteristics": ["Natural blue, green, warm white, and deep blue-green.", "Large compressed sans-serif headings with generous section rhythm.", "Real imagery and honest placeholders instead of fabricated completeness.", "Tactile cards with soft ambient depth and restrained motion."],
+    "rules": [
+      { "name": "The Natural Contrast Rule", "body": "Green and blue guide attention; deep ink carries information.", "section": "colors" },
+      { "name": "The Statement First Rule", "body": "A section begins with a meaningful sentence, not a generic category label.", "section": "typography" },
+      { "name": "The One Strong Interaction Rule", "body": "The career orbit may command attention; supporting surfaces animate only to clarify state or reveal evidence.", "section": "elevation" }
+    ],
+    "dos": ["Do keep essential role fit and project evidence visible before interaction.", "Do use real photographs, real interface captures, or explicitly labeled placeholders.", "Do give keyboard, touch, and reduced-motion visitors the same information."],
+    "donts": ["Don't turn the homepage into a chronological resume transcript.", "Don't fabricate company imagery, award dates, user outcomes, or branded logos.", "Don't add continuous rotation, parallax everywhere, heavy 3D, sound, or an opening gate."]
+  }
+}

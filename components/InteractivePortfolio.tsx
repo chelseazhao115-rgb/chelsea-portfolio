@@ -184,6 +184,11 @@ export function EducationPostcards({ items, hint }: { items: Education[]; hint: 
             <span className="postcard-inner">
               <span className="postcard-face postcard-front">
                 {item.image ? <Image src={item.image} alt={item.imageAlt} fill sizes="(max-width: 700px) 92vw, 48vw" /> : <span className="postcard-placeholder" aria-label={item.imageAlt}><i>UM</i><small>{item.imageAlt}</small></span>}
+                {item.secondaryImage ? (
+                  <span className="postcard-secondary" aria-hidden="true">
+                    <Image src={item.secondaryImage} alt="" fill sizes="180px" />
+                  </span>
+                ) : null}
                 <span className="postcard-shade" />
                 <span className="postcard-caption"><small>{item.date}</small><strong>{item.school}</strong><em>{hint}</em></span>
               </span>
