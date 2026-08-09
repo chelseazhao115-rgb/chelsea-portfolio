@@ -7,11 +7,16 @@ const sans = Plus_Jakarta_Sans({ subsets: ["latin"], variable: "--font-en" });
 const cn = Noto_Sans_SC({ subsets: ["latin"], variable: "--font-cn" });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://chelsea-zhao-product.sites.openai.com"),
+  metadataBase: new URL("https://chelsea-zhao-product.grand-prawn-3410.chatgpt.site"),
   title: "Chelsea Zhao · Product Portfolio",
   description: "Turning real problems into products people want to use.",
   icons: { icon: "/favicon.svg" },
-  openGraph: { images: ["/og-card.png"] },
+  openGraph: {
+    title: "Chelsea Zhao · Product Portfolio",
+    description: "Turning real problems into products people want to use.",
+    images: ["/og-card.png"],
+  },
+  twitter: { card: "summary_large_image", images: ["/og-card.png"] },
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
