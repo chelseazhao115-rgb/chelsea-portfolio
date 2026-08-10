@@ -154,7 +154,7 @@ export function ExperienceOrbit({ items, hint, labels }: { items: Experience[]; 
             <section className="drawer-section">
               <h3>{labels.gallery}</h3>
               {item.images.length ? (
-                <div className="drawer-gallery">{item.images.map((photo) => <figure key={photo.src}><Image src={photo.src} alt={photo.alt} fill sizes="(max-width: 700px) 88vw, 240px" /></figure>)}</div>
+                <div className="drawer-gallery">{item.images.map((photo) => <figure key={photo.src}><Image src={photo.src} alt={photo.alt} fill sizes="(max-width: 700px) 88vw, 360px" loading="lazy" decoding="async" /></figure>)}</div>
               ) : (
                 <div className="asset-placeholder"><span>{item.brand}</span><p>{item.placeholder}</p></div>
               )}
@@ -183,14 +183,17 @@ export function EducationPostcards({ items, hint }: { items: Education[]; hint: 
           >
             <span className="postcard-inner">
               <span className="postcard-face postcard-front">
-                {item.image ? <Image src={item.image} alt={item.imageAlt} fill sizes="(max-width: 700px) 92vw, 48vw" /> : <span className="postcard-placeholder" aria-label={item.imageAlt}><i>UM</i><small>{item.imageAlt}</small></span>}
-                {item.secondaryImage ? (
-                  <span className="postcard-secondary" aria-hidden="true">
-                    <Image src={item.secondaryImage} alt="" fill sizes="180px" />
-                  </span>
-                ) : null}
-                <span className="postcard-shade" />
-                <span className="postcard-caption"><small>{item.date}</small><strong>{item.school}</strong><em>{hint}</em></span>
+                <span className="postcard-photo">
+                  {item.image ? <Image src={item.image} alt={item.imageAlt} fill sizes="(max-width: 700px) 62vw, 360px" loading="lazy" decoding="async" /> : <span className="postcard-placeholder" aria-label={item.imageAlt}><i>UM</i><small>{item.imageAlt}</small></span>}
+                </span>
+                <span className="postcard-details">
+                  {item.secondaryImage ? (
+                    <span className="postcard-secondary" aria-hidden="true">
+                      <Image src={item.secondaryImage} alt="" fill sizes="(max-width: 700px) 110px, 220px" loading="lazy" decoding="async" />
+                    </span>
+                  ) : null}
+                  <span className="postcard-caption"><small>{item.date}</small><strong>{item.school}</strong><em>{hint}</em></span>
+                </span>
               </span>
               <span className="postcard-face postcard-back">
                 <span className="postcard-stamp">{item.id.toUpperCase()}</span>
