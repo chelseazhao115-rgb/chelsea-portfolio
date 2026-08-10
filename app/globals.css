@@ -198,6 +198,8 @@ img { display: block; }
 .drawer-gallery { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 .drawer-gallery figure { position: relative; min-height: 260px; margin: 0; overflow: hidden; border-radius: 16px; background: var(--sky); }
 .drawer-gallery figure:first-child { grid-column: 1 / -1; min-height: 330px; }
+.drawer-gallery:has(figure:nth-child(2):last-child) figure:first-child,
+.drawer-gallery:has(figure:nth-child(4)) figure:first-child { grid-column: auto; min-height: 260px; }
 .drawer-gallery img { object-fit: cover; }
 .asset-placeholder { min-height: 260px; display: grid; place-items: center; align-content: center; gap: 14px; border: 1px dashed rgba(47,100,118,.32); border-radius: 18px; color: var(--ink-soft); background: linear-gradient(145deg, #eef8fb, #f1f8ee); text-align: center; }
 .asset-placeholder span { display: grid; place-items: center; width: 72px; height: 72px; border-radius: 50%; color: #fff; background: var(--ink); font-size: 13px; font-weight: 900; }

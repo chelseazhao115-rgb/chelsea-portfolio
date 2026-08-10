@@ -47,7 +47,8 @@ Visitors arrive from a resume link or QR code, often on desktop during candidate
 - Lanzhou University photographs: `../pics/LZU.jpg`, `LZU_2.jpg`.
 - Personal photograph: `../pics/LIFE1.jpg`.
 - Product program certificates: `../CV/产品经理入门版证书.png`, `产品经理进阶版证书.png`.
-- Photos for Kalowave, Xiaohongshu, UTU IELTS, University of Malaya, photography, dance, and volunteering are not yet available and must not be fabricated.
+- Real photos are now available for Kalowave/Kalodata, Xiaohongshu, UTU IELTS, New Oriental, University of Malaya, Lanzhou University, and photography.
+- Dance and volunteering photos are not yet available and must not be fabricated.
 
 ## Product Principles
 
