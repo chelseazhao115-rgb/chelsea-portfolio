@@ -56,9 +56,12 @@ export type Award = {
 };
 
 export type AboutCard = {
+  id: "photography" | "dance" | "volunteering";
   title: string;
   subtitle: string;
   body: string;
+  action: string;
+  backTitle: string;
   image?: string;
   imageAlt: string;
   placeholder: string;
@@ -96,6 +99,10 @@ type PageCopy = {
   aboutTitle: string;
   aboutIntro: string;
   aboutCards: AboutCard[];
+  aboutClose: string;
+  previousPage: string;
+  nextPage: string;
+  pageLabel: string;
   contactTitle: string;
   email: string;
   back: string;
@@ -151,7 +158,7 @@ export const copy: Record<Locale, PageCopy> = {
     educationHint: "点击翻面",
     education: [
       { id: "um", school: "马来亚大学", degree: "应用统计学 · 硕士", date: "2025.09 — 2027.06", badge: "QS 56 · GPA 3.82/4.00", courses: "R、Python、高级计量、时间序列分析、数据分析、统计学原理", image: "/um-1.jpg", secondaryImage: "/um-2.jpg", imageAlt: "Chelsea 在马来亚大学校园" },
-      { id: "lzu", school: "兰州大学", degree: "管理学基地班 · 学士", date: "2020.09 — 2024.07", badge: "985／双一流 · GPA 3.82/5.00", courses: "博弈论、大数据与人工智能、数据挖掘与机器学习、线性代数、高等数学", image: "/lzu.jpg", secondaryImage: "/lzu-3.jpg", imageAlt: "Chelsea 在兰州大学校园" },
+      { id: "lzu", school: "兰州大学", degree: "管理学基地班 · 学士", date: "2020.09 — 2024.07", badge: "985／双一流 · GPA 3.82/5.00", courses: "博弈论、大数据与人工智能、数据挖掘与机器学习、线性代数、高等数学", image: "/lzu.jpg", secondaryImage: "/lzu-5.jpg", imageAlt: "Chelsea 在兰州大学校园" },
     ],
     awardsTitle: "荣誉不是终点，而是持续投入留下的坐标",
     awardsIntro: "从创新创业到数学建模，这些节点记录了我把分析、协作与长期投入转化为成果的过程。",
@@ -172,10 +179,14 @@ export const copy: Record<Locale, PageCopy> = {
     aboutTitle: "理性分析，也认真感受世界",
     aboutIntro: "教学训练我解释复杂问题，统计让我重视证据，产品则把观察、判断与行动连接起来。摄影、舞蹈和 581 小时志愿服务，也持续塑造我的审美、表达与共情。",
     aboutCards: [
-      { title: "摄影", subtitle: "观察与构图", body: "留意容易被忽略的细节，也理解审美是信息与情绪的组织方式。", image: "/photography-camera.jpg", imageAlt: "Chelsea 使用相机进行拍摄", placeholder: "" },
-      { title: "舞蹈", subtitle: "节奏与表达", body: "长期练习让我适应反馈、拆解动作，也更敏感于体验节奏。", imageAlt: "舞蹈照片待补充", placeholder: "舞蹈照片待补充" },
-      { title: "志愿服务", subtitle: "581 小时", body: "靠近不同人的真实处境，并把共情转化为具体行动。", imageAlt: "志愿服务照片待补充", placeholder: "志愿服务照片待补充" },
+      { id: "photography", title: "摄影", subtitle: "观察与构图", body: "留意容易被忽略的细节，也理解审美是信息与情绪的组织方式。", action: "翻开摄影集", backTitle: "九页摄影手记", image: "/photography-camera.jpg", imageAlt: "Chelsea 使用相机进行拍摄", placeholder: "个人摄影作品待补充" },
+      { id: "dance", title: "舞蹈", subtitle: "节奏与表达", body: "长期练习让我适应反馈、拆解动作，也更敏感于体验节奏。", action: "观看舞蹈视频", backTitle: "舞蹈片段", imageAlt: "舞蹈照片待补充", placeholder: "舞蹈视频待补充" },
+      { id: "volunteering", title: "志愿服务", subtitle: "581 小时", body: "靠近不同人的真实处境，并把共情转化为具体行动。", action: "查看服务档案", backTitle: "志愿服务记录", imageAlt: "志愿服务照片待补充", placeholder: "志愿服务图片与项目介绍待补充" },
     ],
+    aboutClose: "返回卡片正面",
+    previousPage: "上一页",
+    nextPage: "下一页",
+    pageLabel: "页",
     contactTitle: "如果你也在寻找真实问题背后的产品机会，我们聊聊。",
     email: "chelsea299@163.com",
     back: "返回首页",
@@ -229,7 +240,7 @@ export const copy: Record<Locale, PageCopy> = {
     educationHint: "Click to flip",
     education: [
       { id: "um", school: "University of Malaya", degree: "MSc Applied Statistics", date: "Sep 2025 — Jun 2027", badge: "QS 56 · GPA 3.82/4.00", courses: "R, Python, advanced econometrics, time-series analysis, data analysis and statistical principles", image: "/um-1.jpg", secondaryImage: "/um-2.jpg", imageAlt: "Chelsea on the University of Malaya campus" },
-      { id: "lzu", school: "Lanzhou University", degree: "BSc Management", date: "Sep 2020 — Jul 2024", badge: "Project 985 / Double First Class · GPA 3.82/5.00", courses: "Game theory, big data and AI, data mining and machine learning, linear algebra and advanced mathematics", image: "/lzu.jpg", secondaryImage: "/lzu-3.jpg", imageAlt: "Chelsea on the Lanzhou University campus" },
+      { id: "lzu", school: "Lanzhou University", degree: "BSc Management", date: "Sep 2020 — Jul 2024", badge: "Project 985 / Double First Class · GPA 3.82/5.00", courses: "Game theory, big data and AI, data mining and machine learning, linear algebra and advanced mathematics", image: "/lzu.jpg", secondaryImage: "/lzu-5.jpg", imageAlt: "Chelsea on the Lanzhou University campus" },
     ],
     awardsTitle: "Milestones left by sustained effort",
     awardsIntro: "Across entrepreneurship and mathematical modelling, these milestones reflect sustained analysis, collaboration and follow-through.",
@@ -250,10 +261,14 @@ export const copy: Record<Locale, PageCopy> = {
     aboutTitle: "Analytical by training. Attentive by nature.",
     aboutIntro: "Teaching trained me to explain complexity, statistics taught me to respect evidence, and product work connects observation with action. Photography, dance and 581 hours of volunteering shape my aesthetics, expression and empathy.",
     aboutCards: [
-      { title: "Photography", subtitle: "Observation & composition", body: "I notice easy-to-miss details and treat aesthetics as the organisation of information and emotion.", image: "/photography-camera.jpg", imageAlt: "Chelsea taking photographs with a camera", placeholder: "" },
-      { title: "Dance", subtitle: "Rhythm & expression", body: "Long-term practice made me comfortable with feedback, decomposition and the pacing of an experience.", imageAlt: "Dance photograph to add", placeholder: "Dance photograph to add" },
-      { title: "Volunteering", subtitle: "581 hours", body: "Service brought me closer to different realities and taught me to turn empathy into concrete action.", imageAlt: "Volunteering photograph to add", placeholder: "Volunteering photograph to add" },
+      { id: "photography", title: "Photography", subtitle: "Observation & composition", body: "I notice easy-to-miss details and treat aesthetics as the organisation of information and emotion.", action: "Open photo book", backTitle: "A nine-page photo journal", image: "/photography-camera.jpg", imageAlt: "Chelsea taking photographs with a camera", placeholder: "Photography work to add" },
+      { id: "dance", title: "Dance", subtitle: "Rhythm & expression", body: "Long-term practice made me comfortable with feedback, decomposition and the pacing of an experience.", action: "Watch dance video", backTitle: "Dance reel", imageAlt: "Dance photograph to add", placeholder: "Dance video to add" },
+      { id: "volunteering", title: "Volunteering", subtitle: "581 hours", body: "Service brought me closer to different realities and taught me to turn empathy into concrete action.", action: "Open service notes", backTitle: "Volunteering field notes", imageAlt: "Volunteering photograph to add", placeholder: "Volunteering images and project notes to add" },
     ],
+    aboutClose: "Return to card front",
+    previousPage: "Previous",
+    nextPage: "Next",
+    pageLabel: "Page",
     contactTitle: "If you are looking for product opportunities hidden inside real problems, let’s talk.",
     email: "chelsea299@163.com",
     back: "Back home",

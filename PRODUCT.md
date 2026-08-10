@@ -28,7 +28,7 @@ Visitors arrive from a resume link or QR code, often on desktop during candidate
 - Four project records: Rescue Ducks, Agora, Tencent Product Manager Bootcamp, and this portfolio.
 - Four work records: Xiaohongshu, New Oriental, UTU IELTS, and Kalowave.
 - Static content only; no database, login, CMS, or public phone number.
-- The first release remains privately hosted while incomplete dance and volunteering image fields are visibly marked as placeholders.
+- The first release remains privately hosted while the nine-page photography portfolio, dance video, and volunteering story assets are visibly marked as placeholders.
 - No fabricated user outcomes, confidential work artifacts, award dates, company photography, or product claims.
 
 ## Brand Commitments
@@ -44,7 +44,7 @@ Visitors arrive from a resume link or QR code, often on desktop during candidate
 - Existing hero composite and real Rescue Ducks and Agora screenshots in `public/`.
 - New Oriental workplace photos: `../pics/XDF1.jpg`, `XDF2.jpg`, `XDF3.jpg`.
 - Tencent program visual: `../pics/tencent pm.jpg`.
-- Lanzhou University photographs: `../pics/LZU.jpg`, `LZU_2.jpg`.
+- Lanzhou University photographs: `../pics/LZU.jpg`, `LZU_2.jpg`, `LZU_5.jpg`.
 - Personal photograph: `../pics/LIFE1.jpg`.
 - Product program certificates: `../CV/产品经理入门版证书.png`, `产品经理进阶版证书.png`.
 - Real photos are now available for Kalowave/Kalodata, Xiaohongshu, UTU IELTS, New Oriental, University of Malaya, Lanzhou University, and photography.

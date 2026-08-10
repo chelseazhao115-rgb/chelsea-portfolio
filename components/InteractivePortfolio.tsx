@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useEffect, useRef, useState, type CSSProperties, type PointerEvent } from "react";
-import type { Capability, Education, Experience } from "@/lib/content";
+import type { AboutCard, Capability, Education, Experience } from "@/lib/content";
 
 export function CapabilityDeck({ items }: { items: Capability[] }) {
   const [active, setActive] = useState(0);
@@ -205,6 +205,96 @@ export function EducationPostcards({ items, hint }: { items: Education[]; hint: 
               </span>
             </span>
           </button>
+        );
+      })}
+    </div>
+  );
+}
+
+type PersonalArchiveLabels = {
+  close: string;
+  previous: string;
+  next: string;
+  page: string;
+};
+
+export function PersonalArchiveCards({ items, labels }: { items: AboutCard[]; labels: PersonalArchiveLabels }) {
+  const [flipped, setFlipped] = useState<Record<string, boolean>>({});
+  const [photoPage, setPhotoPage] = useState(1);
+  const pageCount = 9;
+
+  const setCardFlipped = (id: AboutCard["id"], value: boolean) => {
+    setFlipped((current) => ({ ...current, [id]: value }));
+  };
+
+  return (
+    <div className="personal-archive-grid">
+      {items.map((card) => {
+        const isFlipped = Boolean(flipped[card.id]);
+        return (
+          <article className="personal-card" data-flipped={isFlipped} data-kind={card.id} data-reveal key={card.id}>
+            <div className="personal-card-inner">
+              <section className="personal-face personal-front" aria-hidden={isFlipped}>
+                <div className="personal-photo">
+                  {card.image ? (
+                    <Image src={card.image} alt={card.imageAlt} fill sizes="(max-width: 700px) 92vw, 31vw" loading="lazy" decoding="async" />
+                  ) : (
+                    <div className="personal-front-placeholder" aria-label={card.imageAlt}>
+                      <span>{card.title}</span>
+                      <i aria-hidden="true" />
+                      <small>{card.subtitle}</small>
+                    </div>
+                  )}
+                  <span className="personal-wash" />
+                </div>
+                <div className="personal-copy">
+                  <span>{card.subtitle}</span>
+                  <h3>{card.title}</h3>
+                  <p>{card.body}</p>
+                  <button type="button" onClick={() => setCardFlipped(card.id, true)} tabIndex={isFlipped ? -1 : 0}>{card.action}</button>
+                </div>
+              </section>
+
+              <section className="personal-face personal-back" aria-hidden={!isFlipped}>
+                <div className="personal-back-head">
+                  <div><span>{card.subtitle}</span><h3>{card.backTitle}</h3></div>
+                  <button type="button" onClick={() => setCardFlipped(card.id, false)} tabIndex={isFlipped ? 0 : -1}>{labels.close}</button>
+                </div>
+
+                {card.id === "photography" ? (
+                  <>
+                    <div className="photo-book" aria-live="polite">
+                      <div className="photo-book-page" key={photoPage}>
+                        <small>{labels.page} {photoPage} / {pageCount}</small>
+                        <span aria-hidden="true">{String(photoPage).padStart(2, "0")}</span>
+                        <strong>{card.placeholder}</strong>
+                      </div>
+                    </div>
+                    <div className="photo-book-controls">
+                      <button type="button" disabled={photoPage === 1} onClick={() => setPhotoPage((page) => Math.max(1, page - 1))} tabIndex={isFlipped ? 0 : -1}>{labels.previous}</button>
+                      <span>{photoPage} / {pageCount}</span>
+                      <button type="button" disabled={photoPage === pageCount} onClick={() => setPhotoPage((page) => Math.min(pageCount, page + 1))} tabIndex={isFlipped ? 0 : -1}>{labels.next}</button>
+                    </div>
+                  </>
+                ) : null}
+
+                {card.id === "dance" ? (
+                  <div className="dance-video-placeholder" role="img" aria-label={card.placeholder}>
+                    <i aria-hidden="true" />
+                    <strong>{card.placeholder}</strong>
+                    <span>9:16</span>
+                  </div>
+                ) : null}
+
+                {card.id === "volunteering" ? (
+                  <div className="volunteer-record" aria-label={card.placeholder}>
+                    <div className="volunteer-image-placeholder"><span>{card.placeholder}</span></div>
+                    <div className="volunteer-copy-placeholder"><strong>{card.placeholder}</strong><i /><i /><i /><i /></div>
+                  </div>
+                ) : null}
+              </section>
+            </div>
+          </article>
         );
       })}
     </div>

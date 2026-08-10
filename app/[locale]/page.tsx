@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { CapabilityDeck, EducationPostcards, ExperienceOrbit } from "@/components/InteractivePortfolio";
+import { CapabilityDeck, EducationPostcards, ExperienceOrbit, PersonalArchiveCards } from "@/components/InteractivePortfolio";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { copy, type Locale } from "@/lib/content";
@@ -126,17 +126,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
       <section className="section about-section" id="about">
         <div className="shell">
           <div className="about-intro" data-reveal><h2>{t.aboutTitle}</h2><p>{t.aboutIntro}</p></div>
-          <div className="developing-grid">
-            {t.aboutCards.map((card) => (
-              <article className="developing-card" key={card.title} data-reveal>
-                <div className="developing-photo">
-                  {card.image ? <Image src={card.image} alt={card.imageAlt} fill sizes="(max-width: 700px) 92vw, 31vw" /> : <div className="developing-placeholder" aria-label={card.imageAlt}><span>{card.title}</span><small>{card.placeholder}</small></div>}
-                  <span className="developing-wash" />
-                </div>
-                <div><span>{card.subtitle}</span><h3>{card.title}</h3><p>{card.body}</p></div>
-              </article>
-            ))}
-          </div>
+          <PersonalArchiveCards items={t.aboutCards} labels={{ close: t.aboutClose, previous: t.previousPage, next: t.nextPage, page: t.pageLabel }} />
         </div>
       </section>
 
