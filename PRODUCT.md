@@ -28,7 +28,7 @@ Visitors arrive from a resume link or QR code, often on desktop during candidate
 - Four project records: Rescue Ducks, Agora, Tencent Product Manager Bootcamp, and this portfolio.
 - Four work records: Xiaohongshu, New Oriental, UTU IELTS, and Kalowave.
 - Static content only; no database, login, CMS, or public phone number.
-- The first release remains privately hosted while incomplete image and award fields are visibly marked as placeholders.
+- The first release remains privately hosted while incomplete dance and volunteering image fields are visibly marked as placeholders.
 - No fabricated user outcomes, confidential work artifacts, award dates, company photography, or product claims.
 
 ## Brand Commitments
