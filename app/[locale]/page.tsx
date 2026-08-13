@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { CapabilityDeck, EducationPostcards, ExperienceOrbit, PersonalArchiveCards } from "@/components/InteractivePortfolio";
+import { ProjectArchive } from "@/components/ProjectArchive";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { copy, type Locale } from "@/lib/content";
@@ -64,22 +65,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
             <h2>{t.projectTitle}</h2>
             <p>{t.projectIntro}</p>
           </div>
-          <div className="project-archive">
-            {t.projects.map((project, index) => (
-              <Link className={`archive-card ${index < 2 ? "archive-card-featured" : "archive-card-compact"}`} href={`/${locale}/projects/${project.slug}`} key={project.slug} data-reveal>
-                <div className="archive-media"><Image src={project.image} alt={`${project.title} interface`} fill sizes={index < 2 ? "(max-width: 900px) 94vw, 52vw" : "(max-width: 700px) 94vw, 42vw"} /></div>
-                <div className="archive-copy">
-                  <span className="archive-kind">{project.kind}</span>
-                  <h3>{project.title}</h3>
-                  <p>{project.subtitle}</p>
-                  <div className="archive-preview" aria-label={locale === "zh" ? "问题、行动与证据" : "Problem, action and evidence"}>
-                    {project.preview.map((value, itemIndex) => <span key={value}><small>{locale === "zh" ? ["问题", "行动", "证据"][itemIndex] : ["Problem", "Action", "Evidence"][itemIndex]}</small>{value}</span>)}
-                  </div>
-                  <div className="archive-footer"><span>{project.facts.join(" · ")}</span><strong>{project.cta}</strong></div>
-                </div>
-              </Link>
-            ))}
-          </div>
+          <ProjectArchive locale={locale} projects={t.projects} />
         </div>
       </section>
 

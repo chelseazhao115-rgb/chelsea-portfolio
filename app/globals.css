@@ -122,15 +122,32 @@ img { display: block; }
 
 .project-section { position: relative; overflow: hidden; background: linear-gradient(180deg, #eaf6fb 0%, #f5fbf6 100%); }
 .project-section::before { content: ""; position: absolute; width: 480px; aspect-ratio: 1; left: -210px; top: 27%; border-radius: 50%; border: 1px solid rgba(71,137,164,.15); box-shadow: inset 0 0 90px rgba(255,255,255,.36); }
-.project-archive { position: relative; display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
-.archive-card { position: relative; display: grid; overflow: hidden; border-radius: 24px; background: var(--paper); box-shadow: var(--shadow-soft); transition: transform 260ms var(--ease-out), box-shadow 260ms ease; }
+.project-archive { position: relative; display: grid; grid-template-columns: 1fr 1fr; gap: 28px; perspective: 1400px; }
+.archive-card {
+  --card-rx: 0deg;
+  --card-ry: 0deg;
+  --card-x: 50%;
+  --card-y: 50%;
+  --media-x: 0px;
+  --media-y: 0px;
+  position: relative;
+  display: grid;
+  overflow: hidden;
+  border-radius: 24px;
+  background: var(--paper);
+  box-shadow: var(--shadow-soft);
+  transform: perspective(1400px) rotateX(var(--card-rx)) rotateY(var(--card-ry));
+  transform-style: preserve-3d;
+  transition: transform 420ms var(--ease-out), box-shadow 320ms ease;
+}
+.archive-card::after { content: ""; position: absolute; inset: 0; z-index: 3; border-radius: inherit; background: radial-gradient(circle 280px at var(--card-x) var(--card-y), rgba(255,255,255,.22), transparent 72%); opacity: 0; pointer-events: none; transition: opacity 260ms ease; }
 .archive-card-featured { grid-column: 1 / -1; grid-template-columns: 1.05fr .95fr; min-height: 500px; }
 .archive-card-featured:nth-child(2) { grid-template-columns: .95fr 1.05fr; }
 .archive-card-featured:nth-child(2) .archive-media { order: 2; }
 .archive-card-compact { min-height: 550px; grid-template-rows: 245px 1fr; }
 .archive-media { position: relative; min-height: 300px; overflow: hidden; background: #dbeef2; }
 .archive-media::after { content: ""; position: absolute; inset: 0; background: linear-gradient(135deg, transparent 58%, rgba(255,255,255,.2)); pointer-events: none; }
-.archive-media img { object-fit: cover; transition: transform 700ms var(--ease-out), filter 400ms ease; }
+.archive-media img { object-fit: cover; transform: scale(1.012) translate3d(var(--media-x), var(--media-y), 0); transition: transform 700ms var(--ease-out), filter 400ms ease; }
 .archive-card-featured:first-child .archive-media img { object-position: left center; }
 .archive-card-compact .archive-media img { object-position: center 22%; }
 .archive-copy { display: flex; flex-direction: column; padding: 42px; }
@@ -393,8 +410,11 @@ footer { color: #45616d; background: #f9fcf9; }
   .site-header nav a:hover::after { right: 0; }
   .button:hover { transform: translateY(-2px); }
   .button:active { transform: translateY(0) scale(.97); }
-  .archive-card:hover { transform: translateY(-7px); box-shadow: var(--shadow-hover); }
-  .archive-card:hover .archive-media img { transform: scale(1.035); }
+  .archive-card:hover { box-shadow: var(--shadow-hover); }
+  .archive-card[data-pointer-active="true"] { transform: perspective(1400px) rotateX(var(--card-rx)) rotateY(var(--card-ry)) translateY(-6px); transition-duration: 80ms, 260ms; }
+  .motion-ready .archive-card[data-reveal][data-visible="true"][data-pointer-active="true"] { transform: perspective(1400px) rotateX(var(--card-rx)) rotateY(var(--card-ry)) translateY(-6px); }
+  .archive-card[data-pointer-active="true"]::after { opacity: 1; }
+  .archive-card:hover .archive-media img { transform: scale(1.035) translate3d(var(--media-x), var(--media-y), 0); }
   .archive-card:hover .archive-footer i { transform: translateX(7px); }
   .experience-node:hover { z-index: 7; transform: scale(1.12); box-shadow: var(--shadow-hover); }
   .drawer-close:hover { background: var(--mist); }
@@ -407,6 +427,12 @@ footer { color: #45616d; background: #f9fcf9; }
 @keyframes hero-compose { from { opacity: 0; transform: translateY(18px); filter: blur(5px); } to { opacity: 1; transform: translateY(0); filter: blur(0); } }
 @keyframes line-arrive { from { transform: scaleX(0); } to { transform: scaleX(1); } }
 @keyframes scroll-pulse { 0%, 100% { transform: scaleY(.35); opacity: .45; } 50% { transform: scaleY(1); opacity: 1; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .archive-card,
+  .archive-media img { transform: none !important; transition: none !important; }
+  .archive-card::after { display: none; }
+}
 
 @media (max-width: 980px) {
   .site-header nav { display: none; }
