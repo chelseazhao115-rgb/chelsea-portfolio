@@ -34,6 +34,26 @@ test("renders all four project cases in both languages", async () => {
   }
 });
 
+test("renders the bilingual product workflow with honest evidence boundaries", async () => {
+  for (const [locale, expected] of [["zh", "从发现问题到持续经营的产品闭环"], ["en", "The product loop, from discovery to sustained value"]]) {
+    const response = await render(`/${locale}/projects/tencent-bootcamp`);
+    assert.equal(response.status, 200);
+    const html = await response.text();
+    assert.match(html, new RegExp(expected));
+    assert.match(html, /data-status="applied"/);
+    assert.match(html, /data-status="framework"/);
+    assert.match(html, new RegExp(`href="/${locale}/projects/rescue-ducks"`));
+  }
+});
+
+test("keeps the product workflow exclusive to the methods case", async () => {
+  for (const slug of ["rescue-ducks", "agora", "portfolio"]) {
+    const response = await render(`/zh/projects/${slug}`);
+    assert.equal(response.status, 200);
+    assert.doesNotMatch(await response.text(), /class="product-process shell"/);
+  }
+});
+
 test("keeps the root route pointed at Chinese", async () => {
   const response = await render("/");
   assert.ok([301, 302, 303, 307, 308].includes(response.status));

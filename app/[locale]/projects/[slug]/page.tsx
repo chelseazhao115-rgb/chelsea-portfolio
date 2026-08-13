@@ -46,6 +46,29 @@ export default async function CasePage({ params }: { params: Promise<{ locale: s
         </div>
       </section>
 
+      {item.process && <section className="product-process shell" data-reveal aria-labelledby="product-process-title">
+        <div className="product-process-heading">
+          <h2 id="product-process-title">{item.process.title}</h2>
+          <p>{item.process.intro}</p>
+        </div>
+        <ol className="product-process-track">
+          {item.process.steps.map((step, stepIndex) => <li key={step.title}>
+            <div className="process-stage">
+              <span>{String(stepIndex + 1).padStart(2, "0")}</span>
+              <h3>{step.title}</h3>
+            </div>
+            <strong>{step.question}</strong>
+            <p>{step.method}</p>
+            <div className="process-evidence" aria-label={locale === "zh" ? "对应证据" : "Related evidence"}>
+              {step.evidence.map((evidence) => evidence.href
+                ? <Link key={evidence.label} href={evidence.href} data-status={evidence.status}>{evidence.label}</Link>
+                : <span key={evidence.label} data-status={evidence.status}>{evidence.label}</span>)}
+            </div>
+          </li>)}
+        </ol>
+        <p className="product-process-conclusion">{item.process.conclusion}</p>
+      </section>}
+
       <section className="case-body shell">
         <aside data-reveal>
           <h2>{locale === "zh" ? "案例速览" : "Case at a glance"}</h2>

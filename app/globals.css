@@ -345,6 +345,27 @@ footer { color: #45616d; background: #f9fcf9; }
 .case-shot img { object-fit: cover; object-position: center; }
 .case-tencent-bootcamp .case-shot img { object-position: center top; }
 .case-portfolio .case-shot img { object-position: center; }
+.product-process { padding-top: 110px; padding-bottom: 30px; }
+.product-process-heading { display: grid; grid-template-columns: minmax(300px, .8fr) minmax(0, 1.2fr); gap: 70px; align-items: end; margin-bottom: 70px; }
+.product-process-heading h2 { max-width: 11ch; margin: 0; font-size: clamp(40px, 5vw, 68px); line-height: 1.04; letter-spacing: -.035em; }
+.product-process-heading p { max-width: 62ch; margin: 0; color: var(--ink-soft); font-size: 16px; line-height: 1.75; }
+.product-process-track { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 58px 0; margin: 0; padding: 0; list-style: none; }
+.product-process-track > li { position: relative; min-height: 300px; padding: 28px 30px 0 0; border-top: 1px solid color-mix(in srgb, var(--lake) 34%, transparent); }
+.product-process-track > li:nth-child(3n + 2) { padding-left: 16px; }
+.product-process-track > li:nth-child(3n) { padding-left: 30px; padding-right: 0; }
+.product-process-track > li::before { content: ""; position: absolute; width: 11px; height: 11px; left: 0; top: -6px; border: 3px solid var(--cream); border-radius: 50%; background: var(--lake); box-shadow: 0 0 0 1px color-mix(in srgb, var(--lake) 32%, transparent); }
+.product-process-track > li:nth-child(3n + 2)::before { left: 16px; background: var(--leaf); }
+.product-process-track > li:nth-child(3n)::before { left: 30px; }
+.process-stage { display: flex; align-items: baseline; gap: 12px; }
+.process-stage span { color: var(--lake); font-size: 11px; font-weight: 900; font-variant-numeric: tabular-nums; }
+.process-stage h3 { margin: 0; font-size: 24px; letter-spacing: -.025em; }
+.product-process-track li > strong { display: block; margin-top: 22px; color: var(--ink); font-size: 14px; line-height: 1.5; }
+.product-process-track li > p { max-width: 34ch; margin: 10px 0 0; color: var(--ink-soft); font-size: 13px; line-height: 1.72; }
+.process-evidence { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 22px; }
+.process-evidence a, .process-evidence > span { min-height: 34px; display: inline-flex; align-items: center; padding: 7px 10px; border-radius: 999px; font-size: 10px; font-weight: 800; line-height: 1.35; }
+.process-evidence a { color: var(--leaf-dark); background: color-mix(in srgb, var(--leaf) 16%, var(--paper)); text-decoration: underline; text-decoration-color: color-mix(in srgb, var(--leaf-dark) 38%, transparent); text-underline-offset: 3px; }
+.process-evidence > span[data-status="framework"] { color: var(--lake); background: color-mix(in srgb, var(--sky) 66%, var(--paper)); }
+.product-process-conclusion { max-width: 970px; margin: 35px auto 0; padding: 34px 40px; border-radius: 20px; color: var(--ink); background: var(--mist); font-size: clamp(20px, 2.4vw, 29px); font-weight: 800; line-height: 1.48; letter-spacing: -.02em; }
 .case-body { display: grid; grid-template-columns: 250px 1fr; gap: 90px; padding-top: 100px; padding-bottom: 100px; }
 .case-body aside { position: sticky; top: 115px; align-self: start; }
 .case-body aside h2 { margin: 0 0 25px; font-size: 17px; }
@@ -378,6 +399,7 @@ footer { color: #45616d; background: #f9fcf9; }
   .experience-node:hover { z-index: 7; transform: scale(1.12); box-shadow: var(--shadow-hover); }
   .drawer-close:hover { background: var(--mist); }
   .personal-card:hover .personal-photo img { transform: scale(1.025); }
+  .process-evidence a:hover { color: var(--ink); background: color-mix(in srgb, var(--leaf) 24%, var(--paper)); }
   .personal-copy button:hover, .personal-back-head button:hover, .photo-book-controls button:not(:disabled):hover { color: var(--lake); }
   .contact-links a:hover { color: #fff; text-decoration: underline; text-underline-offset: 6px; }
 }
@@ -406,6 +428,13 @@ footer { color: #45616d; background: #f9fcf9; }
   .personal-archive-grid { grid-template-columns: 1fr 1fr; }
   .case-hero .shell { grid-template-columns: 1fr; }
   .case-shot { min-height: 440px; transform: none; }
+  .product-process-heading { grid-template-columns: 1fr; gap: 24px; }
+  .product-process-heading h2 { max-width: 15ch; }
+  .product-process-track { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .product-process-track > li, .product-process-track > li:nth-child(3n + 2), .product-process-track > li:nth-child(3n) { padding-left: 0; padding-right: 28px; }
+  .product-process-track > li:nth-child(even) { padding-left: 24px; padding-right: 0; }
+  .product-process-track > li::before, .product-process-track > li:nth-child(3n + 2)::before, .product-process-track > li:nth-child(3n)::before { left: 0; }
+  .product-process-track > li:nth-child(even)::before { left: 24px; }
   .case-body { grid-template-columns: 1fr; gap: 45px; }
   .case-body aside { position: static; display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
   .case-body aside h2 { grid-column: 1 / -1; }
@@ -478,6 +507,16 @@ footer { color: #45616d; background: #f9fcf9; }
   .case-title h1 { font-size: 52px; }
   .case-lead { font-size: 19px; }
   .case-shot { min-height: 280px; }
+  .product-process { padding-top: 76px; padding-bottom: 0; }
+  .product-process-heading { margin-bottom: 48px; }
+  .product-process-heading h2 { font-size: 39px; }
+  .product-process-heading p { font-size: 14px; }
+  .product-process-track { display: block; }
+  .product-process-track > li, .product-process-track > li:nth-child(3n + 2), .product-process-track > li:nth-child(3n), .product-process-track > li:nth-child(even) { min-height: 0; padding: 0 0 42px 34px; border-top: 0; border-left: 1px solid color-mix(in srgb, var(--lake) 34%, transparent); }
+  .product-process-track > li:last-child { padding-bottom: 12px; }
+  .product-process-track > li::before, .product-process-track > li:nth-child(3n + 2)::before, .product-process-track > li:nth-child(3n)::before, .product-process-track > li:nth-child(even)::before { left: -6px; top: 2px; }
+  .product-process-track li > p { max-width: 60ch; }
+  .product-process-conclusion { margin-top: 32px; padding: 26px 24px; font-size: 20px; }
   .case-body { padding-top: 70px; padding-bottom: 70px; }
   .case-body aside { grid-template-columns: 1fr 1fr; }
   .case-sections article { grid-template-columns: 34px 1fr; gap: 10px; }
