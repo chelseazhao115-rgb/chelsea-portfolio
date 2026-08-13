@@ -1,8 +1,11 @@
 "use client";
 
 import { useEffect } from "react";
+import { usePathname } from "next/navigation";
 
 export function ExperienceMotion() {
+  const pathname = usePathname();
+
   useEffect(() => {
     const root = document.documentElement;
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -55,7 +58,7 @@ export function ExperienceMotion() {
       cancelAnimationFrame(pointerFrame);
       root.classList.remove("motion-ready");
     };
-  }, []);
+  }, [pathname]);
 
   return <div className="reading-progress" aria-hidden="true"><span /></div>;
 }

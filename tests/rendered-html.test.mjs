@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { readFile } from "node:fs/promises";
 import test from "node:test";
 
 async function render(path) {
@@ -58,4 +59,10 @@ test("keeps the root route pointed at Chinese", async () => {
   const response = await render("/");
   assert.ok([301, 302, 303, 307, 308].includes(response.status));
   assert.equal(new URL(response.headers.get("location"), "http://localhost").pathname, "/zh");
+});
+
+test("reinitialises reveal animations after client-side route changes", async () => {
+  const source = await readFile(new URL("../components/ExperienceMotion.tsx", import.meta.url), "utf8");
+  assert.match(source, /usePathname/);
+  assert.match(source, /\[pathname\]/);
 });
