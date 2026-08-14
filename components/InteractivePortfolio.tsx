@@ -47,6 +47,12 @@ const experienceLogos: Record<Experience["id"], string> = {
   kalowave: "/career-logo-kalodata.png",
 };
 
+const experienceCompactLogos: Record<Experience["id"], string> = {
+  ...experienceLogos,
+  utu: "/career-logo-utu-symbol.png",
+  kalowave: "/career-logo-kalodata-symbol.png",
+};
+
 export function ExperienceOrbit({ items, hint, labels }: { items: Experience[]; hint: string; labels: ExperienceLabels }) {
   const [active, setActive] = useState<number | null>(null);
   const [preview, setPreview] = useState(0);
@@ -123,7 +129,7 @@ export function ExperienceOrbit({ items, hint, labels }: { items: Experience[]; 
               aria-label={`${entry.company}, ${entry.role}, ${entry.date}`}
               key={entry.id}
             >
-              <span className="experience-brand"><Image src={experienceLogos[entry.id]} alt={`${entry.company} logo`} fill sizes="64px" /></span>
+              <span className="experience-brand"><Image src={experienceCompactLogos[entry.id]} alt={`${entry.company} logo`} fill sizes="64px" /></span>
               <span className="experience-node-copy"><strong>{entry.company}</strong><small>{entry.role}</small><time>{entry.date}</time></span>
             </button>
           ))}
