@@ -79,7 +79,7 @@ export default async function CasePage({ params }: { params: Promise<{ locale: s
         </div>
       </section>
 
-      {item.gallery && <section className="case-gallery shell" data-reveal><h2>{locale === "zh" ? "过程证据" : "Process evidence"}</h2><div>{item.gallery.map((asset) => <figure key={asset.src}><Image src={asset.src} alt={asset.alt} fill sizes="(max-width: 700px) 92vw, 45vw" /></figure>)}</div></section>}
+      {item.gallery && <section className="case-gallery shell" data-reveal><h2>{locale === "zh" ? "过程证据" : "Process evidence"}</h2><div>{item.gallery.map((asset) => <figure key={asset.src}><Image src={asset.src} alt={asset.alt} width={asset.width} height={asset.height} sizes="(max-width: 700px) 92vw, 45vw" /></figure>)}</div></section>}
 
       <section className="next-case"><div className="shell"><span>{t.nextCase}</span><Link href={`/${locale}/projects/${nextSlug}`}>{nextItem.title}</Link></div></section>
     </main>

@@ -70,16 +70,11 @@ function ProjectCard({ locale, project, index }: { locale: Locale; project: Proj
       data-reveal
     >
       <div className={`archive-media ${usesPortraitPoster ? "archive-media-poster" : ""}`}>
-        {usesPortraitPoster && (
-          <Image className="archive-media-backdrop" src={project.image} alt="" fill sizes="(max-width: 700px) 94vw, 42vw" aria-hidden="true" />
+        {usesPortraitPoster ? (
+          <Image className="archive-media-foreground" src={project.image} alt={`${project.title} interface`} width={1024} height={1365} sizes="(max-width: 700px) 72vw, 270px" />
+        ) : (
+          <Image src={project.image} alt={`${project.title} interface`} fill sizes={index < 2 ? "(max-width: 900px) 94vw, 52vw" : "(max-width: 700px) 94vw, 42vw"} />
         )}
-        <Image
-          className={usesPortraitPoster ? "archive-media-foreground" : undefined}
-          src={project.image}
-          alt={`${project.title} interface`}
-          fill
-          sizes={index < 2 ? "(max-width: 900px) 94vw, 52vw" : "(max-width: 700px) 94vw, 42vw"}
-        />
       </div>
       <div className="archive-copy">
         <span className="archive-kind">{project.kind}</span>

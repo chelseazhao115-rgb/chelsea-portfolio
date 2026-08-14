@@ -294,7 +294,7 @@ export type ProjectCase = {
   image: string;
   live?: string;
   access?: string;
-  gallery?: { src: string; alt: string }[];
+  gallery?: { src: string; alt: string; width: number; height: number }[];
   process?: {
     title: string;
     intro: string;
@@ -337,7 +337,7 @@ export const projectCases: Record<Locale, Record<ProjectSlug, ProjectCase>> = {
           { title: "运营迭代", question: "如何让价值长期成立？", method: "围绕北极星指标、用户生命周期、增长、商业化和复盘机制持续调整产品。", evidence: [{ label: "数据运营与商业化 · 课程框架", status: "framework" }] },
         ],
       },
-      gallery: [{ src: "/tencent-foundation.png", alt: "腾讯未来产品经理创造营入门版结课证书" }, { src: "/tencent-advanced.png", alt: "腾讯未来产品经理创造营进阶版结课证书" }],
+      gallery: [{ src: "/tencent-foundation.png", alt: "腾讯未来产品经理创造营入门版结课证书", width: 750, height: 1334 }, { src: "/tencent-advanced.png", alt: "腾讯未来产品经理创造营进阶版结课证书", width: 750, height: 1334 }],
     },
     portfolio: { status: "AI 独立开发 · 2026", title: "个人网站／作品集", lead: "用一个可运行的网站，重新回答“招聘方如何快速理解我”。", summary: "从职位匹配与证据识别出发，重组教育、数据、用户测试和 0→1 经历，独立完成中英双语信息架构、案例叙事、前端实现、响应式适配与部署。", sections: [["真实问题与用户任务", "招聘方需要快速判断岗位匹配度，一页简历却难以承载产品决策、迭代过程和个人表达；普通作品集又容易变成更长、更难扫描的简历。"], ["产品目标与成功标准", "让访客在 20–30 秒内看懂定位、核心项目和经历范围，同时能继续探索决策过程与真实证据。"], ["信息优先级与范围", "首屏保留通用产品经理定位，项目作为主证据，履历、教育、荣誉和 About 解释能力来源；首版不加入博客、登录、CMS、完整照片墙和未经核验的结果。"], ["双语信息架构", "中英文路由共享同一套类型化内容模型，语言切换保留当前页面上下文；四个项目拥有独立案例页，首页只承担快速识别。"], ["独立交付与质量检查", "使用 AI 编程完成需求梳理、页面原型、前端开发、键盘与触屏交互、响应式适配和私密部署，并通过生产构建与路由检查验证交付。"], ["反馈与持续迭代", "网站保留版本历史，根据真实观看反馈调整图片加载、信息密度、布局和交互。当前只陈述已完成的改动，不把视觉优化包装成招聘转化结果。"]], metrics: [["2", "种语言"], ["4", "个项目档案"], ["1", "套响应式体验"]], image: "/hero-chelsea.png" },
   },
@@ -365,7 +365,7 @@ export const projectCases: Record<Locale, Record<ProjectSlug, ProjectCase>> = {
           { title: "Operate & evolve", question: "How can value remain sustainable?", method: "Iterate around a north-star metric, user lifecycle, growth, commercialisation and regular review.", evidence: [{ label: "Data operations & commercialisation · learned framework", status: "framework" }] },
         ],
       },
-      gallery: [{ src: "/tencent-foundation.png", alt: "Tencent Future Product Manager foundation certificate" }, { src: "/tencent-advanced.png", alt: "Tencent Future Product Manager advanced certificate" }],
+      gallery: [{ src: "/tencent-foundation.png", alt: "Tencent Future Product Manager foundation certificate", width: 750, height: 1334 }, { src: "/tencent-advanced.png", alt: "Tencent Future Product Manager advanced certificate", width: 750, height: 1334 }],
     },
     portfolio: { status: "INDEPENDENT AI BUILD · 2026", title: "Personal portfolio", lead: "Using a working website to rethink how recruiters understand me.", summary: "Built from the need to recognise role-fit evidence quickly, the site reframes education, data, user testing and zero-to-one work through bilingual information architecture, case storytelling, responsive implementation and deployment.", sections: [["Real problem & user task", "Recruiters need to judge role fit quickly, but a one-page resume cannot carry product decisions, iteration and personal perspective; many portfolios simply become longer, harder-to-scan resumes."], ["Product goal & success criterion", "Help visitors recognise positioning, core projects and experience range within 20–30 seconds, then continue into decision process and real evidence."], ["Information priority & scope", "The hero keeps a general product-manager position, projects lead as evidence, and work, education, awards and About explain capability sources. The first version excludes a blog, login, CMS, a full photo wall and unverified outcomes."], ["Bilingual information architecture", "Chinese and English routes share one typed content model, and language switching preserves page context. Four projects have dedicated case pages while the homepage supports rapid scanning."], ["Independent delivery & quality checks", "AI coding supported requirement framing, prototyping, frontend implementation, keyboard and touch interactions, responsive adaptation and private deployment, verified through production builds and route checks."], ["Feedback & ongoing iteration", "Version history remains recoverable, and real viewing feedback guides image performance, information density, layout and interaction. Visual improvements are described as changes, not recruiter-conversion outcomes."]], metrics: [["2", "languages"], ["4", "project profiles"], ["1", "responsive experience"]], image: "/hero-chelsea.png" },
   },
