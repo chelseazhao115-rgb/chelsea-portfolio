@@ -89,16 +89,18 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
 
           <div className="awards-layout">
             <div className="awards-heading" data-reveal><h2>{t.awardsTitle}</h2><p>{t.awardsIntro}</p></div>
-            <div className="honors-timeline" data-reveal>
-              {t.awards.map((award, index) => (
-                <article className="honor-item" data-pending={award.pending} key={award.title}>
-                  <span className="honor-dot" aria-hidden="true" />
-                  <time>{award.date}</time>
-                  <h3>{award.title}</h3>
-                  <p>{award.detail}</p>
-                  <small>{String(index + 1).padStart(2, "0")}</small>
-                </article>
-              ))}
+            <div className="honors-scroller">
+              <div className="honors-timeline" data-reveal>
+                {t.awards.map((award, index) => (
+                  <article className="honor-item" data-pending={award.pending} key={award.title}>
+                    <span className="honor-dot" aria-hidden="true" />
+                    <time>{award.date}</time>
+                    <h3>{award.title}</h3>
+                    <p>{award.detail}</p>
+                    <small>{String(index + 1).padStart(2, "0")}</small>
+                  </article>
+                ))}
+              </div>
             </div>
           </div>
 
