@@ -216,7 +216,7 @@ img { display: block; }
 .drawer-section li { position: relative; padding: 12px 0 12px 24px; border-bottom: 1px solid var(--line); color: #2e4e5c; font-size: 14px; line-height: 1.6; }
 .drawer-section li::before { content: ""; position: absolute; left: 0; top: 19px; width: 8px; height: 8px; border-radius: 50%; background: var(--leaf); }
 .drawer-evidence > div { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-.drawer-evidence strong { min-height: 100px; display: flex; align-items: flex-end; padding: 18px; border-radius: 16px; background: var(--sky); font-size: 14px; line-height: 1.45; }
+.drawer-evidence strong { min-height: 72px; display: flex; align-items: center; padding: 14px 18px; border-radius: 14px; background: var(--sky); font-size: 14px; line-height: 1.45; }
 .drawer-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 24px; }
 .drawer-tags span { padding: 8px 12px; border-radius: 999px; background: #e9f3e6; color: var(--leaf-dark); font-size: 11px; font-weight: 800; }
 .drawer-gallery { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
