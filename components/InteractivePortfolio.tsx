@@ -235,16 +235,10 @@ type PersonalArchiveLabels = {
 export function PersonalArchiveCards({ items, labels }: { items: AboutCard[]; labels: PersonalArchiveLabels }) {
   const [flipped, setFlipped] = useState<Record<string, boolean>>({});
   const [photoPage, setPhotoPage] = useState(1);
-  const [photoDirection, setPhotoDirection] = useState<"next" | "previous">("next");
   const pageCount = 9;
 
   const setCardFlipped = (id: AboutCard["id"], value: boolean) => {
     setFlipped((current) => ({ ...current, [id]: value }));
-  };
-
-  const turnPhotoPage = (direction: "next" | "previous") => {
-    setPhotoDirection(direction);
-    setPhotoPage((page) => direction === "next" ? Math.min(pageCount, page + 1) : Math.max(1, page - 1));
   };
 
   return (
@@ -284,26 +278,16 @@ export function PersonalArchiveCards({ items, labels }: { items: AboutCard[]; la
                 {card.id === "photography" ? (
                   <>
                     <div className="photo-book" aria-live="polite">
-                      <button
-                        type="button"
-                        className="photo-book-page"
-                        data-direction={photoDirection}
-                        key={`${photoPage}-${photoDirection}`}
-                        disabled={photoPage === pageCount}
-                        onClick={() => turnPhotoPage("next")}
-                        aria-label={photoPage === pageCount ? `${labels.page} ${photoPage} / ${pageCount}` : labels.next}
-                        tabIndex={isFlipped ? 0 : -1}
-                      >
+                      <div className="photo-book-page" key={photoPage}>
                         <small>{labels.page} {photoPage} / {pageCount}</small>
                         <span aria-hidden="true">{String(photoPage).padStart(2, "0")}</span>
                         <strong>{card.placeholder}</strong>
-                        {photoPage < pageCount ? <i aria-hidden="true" /> : null}
-                      </button>
+                      </div>
                     </div>
                     <div className="photo-book-controls">
-                      <button type="button" disabled={photoPage === 1} onClick={() => turnPhotoPage("previous")} tabIndex={isFlipped ? 0 : -1}>{labels.previous}</button>
+                      <button type="button" disabled={photoPage === 1} onClick={() => setPhotoPage((page) => Math.max(1, page - 1))} tabIndex={isFlipped ? 0 : -1}>{labels.previous}</button>
                       <span>{photoPage} / {pageCount}</span>
-                      <button type="button" disabled={photoPage === pageCount} onClick={() => turnPhotoPage("next")} tabIndex={isFlipped ? 0 : -1}>{labels.next}</button>
+                      <button type="button" disabled={photoPage === pageCount} onClick={() => setPhotoPage((page) => Math.min(pageCount, page + 1))} tabIndex={isFlipped ? 0 : -1}>{labels.next}</button>
                     </div>
                   </>
                 ) : null}
