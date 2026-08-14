@@ -142,7 +142,7 @@ export function ExperienceOrbit({ items, hint, labels }: { items: Experience[]; 
               <span aria-hidden="true" />
             </button>
             <div className="drawer-heading">
-              <span className="drawer-brand"><Image src={experienceLogos[item.id]} alt={`${item.company} logo`} fill sizes="82px" /></span>
+              <span className="drawer-brand"><Image src={experienceLogos[item.id]} alt={`${item.company} logo`} fill sizes="(max-width: 640px) 96px, 112px" /></span>
               <p>{labels.title}</p>
               <h2 id="experience-drawer-title">{item.company}</h2>
               <strong>{item.role}</strong>
