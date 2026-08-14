@@ -40,15 +40,16 @@ type ExperienceLabels = {
   gallery: string;
 };
 
-const experienceLogos: Record<Experience["id"], string> = {
+const experienceDrawerLogos: Record<Experience["id"], string> = {
   xiaohongshu: "/career-logo-xiaohongshu.png",
-  "new-oriental": "/career-logo-new-oriental.png",
-  utu: "/career-logo-utu.png",
-  kalowave: "/career-logo-kalodata.png",
+  "new-oriental": "/logo-new-oriental.png",
+  utu: "/logo-utu.png",
+  kalowave: "/logo-kalodata.png",
 };
 
 const experienceCompactLogos: Record<Experience["id"], string> = {
-  ...experienceLogos,
+  xiaohongshu: "/career-logo-xiaohongshu.png",
+  "new-oriental": "/career-logo-new-oriental.png",
   utu: "/career-logo-utu-symbol.png",
   kalowave: "/career-logo-kalodata-symbol.png",
 };
@@ -148,7 +149,7 @@ export function ExperienceOrbit({ items, hint, labels }: { items: Experience[]; 
               <span aria-hidden="true" />
             </button>
             <div className="drawer-heading">
-              <span className="drawer-brand"><Image src={experienceLogos[item.id]} alt={`${item.company} logo`} fill sizes="(max-width: 640px) 96px, 112px" /></span>
+              <span className={`drawer-brand drawer-brand-${item.id}`}><Image src={experienceDrawerLogos[item.id]} alt={`${item.company} logo`} fill sizes="240px" /></span>
               <p>{labels.title}</p>
               <h2 id="experience-drawer-title">{item.company}</h2>
               <strong>{item.role}</strong>

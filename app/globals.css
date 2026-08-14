@@ -199,8 +199,12 @@ img { display: block; }
 .drawer-close span { position: absolute; width: 18px; height: 2px; left: 13px; top: 21px; background: currentColor; transform: rotate(45deg); font-size: 0; }
 .drawer-close span::after { content: ""; position: absolute; inset: 0; background: currentColor; transform: rotate(90deg); }
 .drawer-heading { padding-top: 24px; }
-.drawer-brand { position: relative; display: grid; place-items: center; width: 112px; height: 112px; overflow: hidden; border-radius: 50%; background: #fff; box-shadow: inset 0 0 0 1px rgba(36,82,99,.11), 0 16px 36px rgba(30,77,96,.11); }
-.drawer-brand img { object-fit: cover; }
+.drawer-brand { position: relative; display: block; width: 220px; height: 68px; overflow: visible; }
+.drawer-brand img { object-fit: contain; object-position: left center; }
+.drawer-brand-xiaohongshu { width: 68px; height: 68px; }
+.drawer-brand-new-oriental { width: 172px; height: 68px; }
+.drawer-brand-utu { width: 220px; height: 70px; }
+.drawer-brand-kalowave { width: 232px; height: 60px; }
 .drawer-heading p { margin: 20px 0 5px; color: var(--lake); font-size: 11px; font-weight: 900; }
 .drawer-heading h2 { margin: 0; font-size: 50px; letter-spacing: -.04em; }
 .drawer-heading > strong { display: block; margin-top: 12px; font-size: 17px; }
@@ -508,7 +512,10 @@ footer { color: #45616d; background: #f9fcf9; }
   .experience-nodes { display: flex; gap: 14px; overflow-x: auto; padding: 10px 10px 25px; scroll-snap-type: x mandatory; }
   .experience-node { position: static; flex: 0 0 78%; width: auto; min-height: 100px; scroll-snap-align: center; }
   .experience-drawer { width: 100%; padding: 30px 22px 55px; }
-  .drawer-brand { width: 96px; height: 96px; }
+  .drawer-brand-xiaohongshu { width: 62px; height: 62px; }
+  .drawer-brand-new-oriental { width: 156px; height: 62px; }
+  .drawer-brand-utu { width: 200px; height: 64px; }
+  .drawer-brand-kalowave { width: 214px; height: 55px; }
   @starting-style { .experience-backdrop[data-open="true"] .experience-drawer { transform: translateY(100%); } }
   .drawer-heading h2 { font-size: 42px; }
   .drawer-evidence > div, .drawer-gallery { grid-template-columns: 1fr; }
