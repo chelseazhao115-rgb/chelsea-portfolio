@@ -185,7 +185,7 @@ img { display: block; }
 .experience-node-3 { right: 7%; bottom: 10%; }
 .experience-node-4 { left: 0; bottom: 16%; }
 .experience-brand { position: relative; flex: 0 0 auto; display: grid; place-items: center; width: 64px; height: 64px; overflow: hidden; border-radius: 50%; background: #fff; box-shadow: inset 0 0 0 1px rgba(36,82,99,.11); }
-.experience-brand img { object-fit: contain; padding: 8px; }
+.experience-brand img { object-fit: cover; }
 .experience-node-copy { min-width: 0; display: flex; flex-direction: column; }
 .experience-node-copy strong { font-size: 15px; }
 .experience-node-copy small { margin-top: 3px; overflow: hidden; color: var(--ink-soft); font-size: 10px; text-overflow: ellipsis; white-space: nowrap; }
@@ -200,7 +200,7 @@ img { display: block; }
 .drawer-close span::after { content: ""; position: absolute; inset: 0; background: currentColor; transform: rotate(90deg); }
 .drawer-heading { padding-top: 24px; }
 .drawer-brand { position: relative; display: grid; place-items: center; width: 82px; height: 82px; overflow: hidden; border-radius: 50%; background: #fff; box-shadow: inset 0 0 0 1px rgba(36,82,99,.11), 0 12px 30px rgba(30,77,96,.09); }
-.drawer-brand img { object-fit: contain; padding: 11px; }
+.drawer-brand img { object-fit: cover; }
 .drawer-heading p { margin: 20px 0 5px; color: var(--lake); font-size: 11px; font-weight: 900; }
 .drawer-heading h2 { margin: 0; font-size: 50px; letter-spacing: -.04em; }
 .drawer-heading > strong { display: block; margin-top: 12px; font-size: 17px; }

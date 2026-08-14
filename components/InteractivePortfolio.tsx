@@ -41,10 +41,10 @@ type ExperienceLabels = {
 };
 
 const experienceLogos: Record<Experience["id"], string> = {
-  xiaohongshu: "/logo-xiaohongshu.png",
-  "new-oriental": "/logo-new-oriental.png",
-  utu: "/logo-utu.png",
-  kalowave: "/logo-kalodata.png",
+  xiaohongshu: "/career-logo-xiaohongshu.png",
+  "new-oriental": "/career-logo-new-oriental.png",
+  utu: "/career-logo-utu.png",
+  kalowave: "/career-logo-kalodata.png",
 };
 
 export function ExperienceOrbit({ items, hint, labels }: { items: Experience[]; hint: string; labels: ExperienceLabels }) {
