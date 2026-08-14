@@ -144,15 +144,16 @@ img { display: block; }
 .archive-card-featured { grid-column: 1 / -1; grid-template-columns: 1.05fr .95fr; min-height: 500px; }
 .archive-card-featured:nth-child(2) { grid-template-columns: .95fr 1.05fr; }
 .archive-card-featured:nth-child(2) .archive-media { order: 2; }
-.archive-card-compact { min-height: 700px; grid-template-rows: 340px 1fr; }
+.archive-card-compact { min-height: 650px; grid-template-rows: auto 1fr; }
 .archive-media { position: relative; min-height: 300px; overflow: hidden; background: #dbeef2; }
 .archive-media::after { content: ""; position: absolute; inset: 0; background: linear-gradient(135deg, transparent 58%, rgba(255,255,255,.2)); pointer-events: none; }
 .archive-media img { object-fit: cover; transform: scale(1.012) translate3d(var(--media-x), var(--media-y), 0); transition: transform 700ms var(--ease-out), filter 400ms ease; }
 .archive-card-featured:first-child .archive-media img { object-position: left center; }
 .archive-card-compact .archive-media img { object-position: center 22%; }
-.archive-media-poster { display: flex; align-items: center; justify-content: center; min-height: 340px; isolation: isolate; background: #071a36; }
+.archive-card-compact .archive-media { min-height: 0; aspect-ratio: 2.1 / 1; }
+.archive-media-poster { min-height: 0; isolation: isolate; background: #071a36; }
 .archive-media-poster::after { display: none; }
-.archive-media-poster .archive-media-foreground { position: relative; z-index: 1; width: auto; height: 100%; max-width: 100%; object-fit: contain; object-position: center; filter: drop-shadow(0 18px 34px rgba(2,18,38,.28)); transform: scale(.96); }
+.archive-media-poster .archive-media-foreground { z-index: 1; width: 100%; height: 100%; object-fit: cover; object-position: center top; filter: none; transform: scale(1.012) translate3d(var(--media-x), var(--media-y), 0); }
 .archive-copy { display: flex; flex-direction: column; padding: 42px; }
 .archive-kind { color: var(--leaf-dark); font-size: 12px; font-weight: 900; }
 .archive-copy h3 { margin: 12px 0 0; font-size: clamp(32px, 4vw, 52px); letter-spacing: -.035em; }
@@ -362,6 +363,7 @@ footer { color: #45616d; background: #f9fcf9; }
 .copy-code span { display: block; margin-top: 4px; color: var(--ink-soft); font-size: 9px; }
 .case-shot { position: relative; min-height: 480px; overflow: hidden; border-radius: 22px; background: #fff; box-shadow: 0 30px 90px rgba(27,70,91,.19); transform: perspective(1400px) rotateY(-3deg); transform-origin: left center; }
 .case-shot img { object-fit: cover; object-position: center; }
+.case-tencent-bootcamp .case-shot { min-height: 0; aspect-ratio: 2.1 / 1; }
 .case-tencent-bootcamp .case-shot img { object-position: center top; }
 .case-portfolio .case-shot img { object-position: center; }
 .product-process { padding-top: 110px; padding-bottom: 30px; }
@@ -417,7 +419,7 @@ footer { color: #45616d; background: #f9fcf9; }
   .motion-ready .archive-card[data-reveal][data-visible="true"][data-pointer-active="true"] { transform: perspective(1400px) rotateX(var(--card-rx)) rotateY(var(--card-ry)) translateY(-6px); }
   .archive-card[data-pointer-active="true"]::after { opacity: 1; }
   .archive-card:hover .archive-media img { transform: scale(1.035) translate3d(var(--media-x), var(--media-y), 0); }
-  .archive-card:hover .archive-media-poster .archive-media-foreground { transform: scale(.98) translate3d(calc(var(--media-x) * .2), calc(var(--media-y) * .2), 0); }
+  .archive-card:hover .archive-media-poster .archive-media-foreground { transform: scale(1.025) translate3d(calc(var(--media-x) * .2), calc(var(--media-y) * .2), 0); }
   .archive-card:hover .archive-footer i { transform: translateX(7px); }
   .experience-node:hover { z-index: 7; transform: scale(1.12); box-shadow: var(--shadow-hover); }
   .drawer-close:hover { background: var(--mist); }
@@ -493,9 +495,9 @@ footer { color: #45616d; background: #f9fcf9; }
   .capability-card { flex: 0 0 82%; min-height: 350px; scroll-snap-align: center; }
   .project-archive { grid-template-columns: 1fr; }
   .archive-card-featured, .archive-card-compact { grid-column: auto; min-height: 0; grid-template-columns: 1fr; grid-template-rows: 240px auto; }
-  .archive-card-compact { grid-template-rows: 300px auto; }
+  .archive-card-compact { grid-template-rows: auto 1fr; }
   .archive-card-featured .archive-media { min-height: 240px; }
-  .archive-media-poster { min-height: 300px; }
+  .archive-media-poster { min-height: 0; }
   .archive-copy { padding: 28px 24px; }
   .archive-copy h3 { font-size: 34px; }
   .archive-preview span { grid-template-columns: 54px 1fr; }

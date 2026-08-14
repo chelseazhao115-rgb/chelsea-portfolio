@@ -71,7 +71,7 @@ function ProjectCard({ locale, project, index }: { locale: Locale; project: Proj
     >
       <div className={`archive-media ${usesPortraitPoster ? "archive-media-poster" : ""}`}>
         {usesPortraitPoster ? (
-          <Image className="archive-media-foreground" src={project.image} alt={`${project.title} interface`} width={1024} height={1365} sizes="(max-width: 700px) 72vw, 270px" />
+          <Image className="archive-media-foreground" src={project.image} alt={`${project.title} interface`} fill sizes="(max-width: 700px) 94vw, 42vw" />
         ) : (
           <Image src={project.image} alt={`${project.title} interface`} fill sizes={index < 2 ? "(max-width: 900px) 94vw, 52vw" : "(max-width: 700px) 94vw, 42vw"} />
         )}
