@@ -18,6 +18,7 @@ const labels = {
 function ProjectCard({ locale, project, index }: { locale: Locale; project: ProjectSummary; index: number }) {
   const cardRef = useRef<HTMLAnchorElement>(null);
   const frameRef = useRef(0);
+  const usesPortraitPoster = project.slug === "tencent-bootcamp";
 
   useEffect(() => () => cancelAnimationFrame(frameRef.current), []);
 
@@ -61,15 +62,19 @@ function ProjectCard({ locale, project, index }: { locale: Locale; project: Proj
   return (
     <Link
       ref={cardRef}
-      className={`archive-card ${index < 2 ? "archive-card-featured" : "archive-card-compact"}`}
+      className={`archive-card ${index < 2 ? "archive-card-featured" : "archive-card-compact"} ${usesPortraitPoster ? "archive-card-poster" : ""}`}
       href={`/${locale}/projects/${project.slug}`}
       onPointerMove={moveCard}
       onPointerLeave={resetCard}
       onBlur={resetCard}
       data-reveal
     >
-      <div className="archive-media">
+      <div className={`archive-media ${usesPortraitPoster ? "archive-media-poster" : ""}`}>
+        {usesPortraitPoster && (
+          <Image className="archive-media-backdrop" src={project.image} alt="" fill sizes="(max-width: 700px) 94vw, 42vw" aria-hidden="true" />
+        )}
         <Image
+          className={usesPortraitPoster ? "archive-media-foreground" : undefined}
           src={project.image}
           alt={`${project.title} interface`}
           fill

@@ -40,6 +40,13 @@ type ExperienceLabels = {
   gallery: string;
 };
 
+const experienceLogos: Record<Experience["id"], string> = {
+  xiaohongshu: "/logo-xiaohongshu.png",
+  "new-oriental": "/logo-new-oriental.png",
+  utu: "/logo-utu.png",
+  kalowave: "/logo-kalodata.png",
+};
+
 export function ExperienceOrbit({ items, hint, labels }: { items: Experience[]; hint: string; labels: ExperienceLabels }) {
   const [active, setActive] = useState<number | null>(null);
   const [preview, setPreview] = useState(0);
@@ -116,7 +123,7 @@ export function ExperienceOrbit({ items, hint, labels }: { items: Experience[]; 
               aria-label={`${entry.company}, ${entry.role}, ${entry.date}`}
               key={entry.id}
             >
-              <span className="experience-brand">{entry.brand}</span>
+              <span className="experience-brand"><Image src={experienceLogos[entry.id]} alt={`${entry.company} logo`} fill sizes="64px" /></span>
               <span className="experience-node-copy"><strong>{entry.company}</strong><small>{entry.role}</small><time>{entry.date}</time></span>
             </button>
           ))}
@@ -135,7 +142,7 @@ export function ExperienceOrbit({ items, hint, labels }: { items: Experience[]; 
               <span aria-hidden="true" />
             </button>
             <div className="drawer-heading">
-              <span className="drawer-brand">{item.brand}</span>
+              <span className="drawer-brand"><Image src={experienceLogos[item.id]} alt={`${item.company} logo`} fill sizes="82px" /></span>
               <p>{labels.title}</p>
               <h2 id="experience-drawer-title">{item.company}</h2>
               <strong>{item.role}</strong>
