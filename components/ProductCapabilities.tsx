@@ -8,7 +8,6 @@ export function ProductCapabilities({ items }: { items: Capability[] }) {
           <div className="product-capability-heading">
             <span aria-hidden="true">{item.mark}</span>
             <div>
-              <small>{item.subtitle}</small>
               <h3>{item.title}</h3>
             </div>
           </div>

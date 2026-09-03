@@ -40,7 +40,6 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
             <p className="hero-intro-label">{t.heroEyebrow}</p>
             <h1>{t.heroTitle}</h1>
             <p className="hero-intro">{t.heroIntro}</p>
-            <div className="tag-row">{t.tags.map((tag) => <span key={tag}>{tag}</span>)}</div>
             <div className="cta-row">
               <a className="button button-primary" href="#projects">{t.view}</a>
               <a className="button button-light" href="/Chelsea_Zhao_Product_Manager_Resume_CN.pdf" download>{t.resume}</a>

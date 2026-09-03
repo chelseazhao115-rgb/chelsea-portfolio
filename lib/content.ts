@@ -121,7 +121,7 @@ type PageCopy = {
 export const copy: Record<Locale, PageCopy> = {
   zh: {
     nav: [["关于", "#capabilities"], ["作品", "#projects"], ["经历", "#experience"], ["背景", "#education"], ["联系", "#contact"]],
-    heroEyebrow: "Chelsea · Product · AI · Data",
+    heroEyebrow: "Product · AI · Data",
     heroTitle: "把真实的问题，\n做成愿意被使用的产品。",
     heroIntro: "我拥有持续的一线教学、数据分析与互联网协作经验。从真实场景中发现问题，通过 AI 快速构建、用户测试与数据验证，把想法变成可以体验和持续迭代的产品。",
     tags: ["用户洞察", "产品设计", "AI 快速构建", "数据与实验"],
@@ -204,7 +204,7 @@ export const copy: Record<Locale, PageCopy> = {
   },
   en: {
     nav: [["About", "#capabilities"], ["Work", "#projects"], ["Experience", "#experience"], ["Background", "#education"], ["Contact", "#contact"]],
-    heroEyebrow: "Chelsea · Product · AI · Data",
+    heroEyebrow: "Product · AI · Data",
     heroTitle: "Turning real problems into\nproducts people want to use.",
     heroIntro: "I bring frontline teaching, data analysis and internet-team experience. I find problems in real contexts, build quickly with AI, and use testing and evidence to turn ideas into products that can keep evolving.",
     tags: ["User insight", "Product design", "AI prototyping", "Data & experiments"],
