@@ -1,36 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useRef, useState, type CSSProperties, type PointerEvent } from "react";
-import type { AboutCard, Capability, Education, Experience } from "@/lib/content";
-
-export function CapabilityDeck({ items }: { items: Capability[] }) {
-  const [active, setActive] = useState(0);
-
-  return (
-    <div className="capability-deck">
-      {items.map((item, index) => (
-        <button
-          type="button"
-          className="capability-card"
-          data-active={active === index}
-          aria-expanded={active === index}
-          onClick={() => setActive(index)}
-          style={{ "--card-index": index } as CSSProperties}
-          key={item.title}
-        >
-          <span className="capability-mark" aria-hidden="true">{item.mark}</span>
-          <span className="capability-copy">
-            <span className="capability-subtitle">{item.subtitle}</span>
-            <strong>{item.title}</strong>
-            <span className="capability-body">{item.body}</span>
-            <span className="capability-evidence">{item.evidence}</span>
-          </span>
-        </button>
-      ))}
-    </div>
-  );
-}
+import { useEffect, useRef, useState, type PointerEvent } from "react";
+import type { AboutCard, Education, Experience } from "@/lib/content";
 
 type ExperienceLabels = {
   close: string;

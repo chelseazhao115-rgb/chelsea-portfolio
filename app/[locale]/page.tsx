@@ -2,8 +2,9 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { CapabilityDeck, EducationPostcards, ExperienceOrbit, PersonalArchiveCards } from "@/components/InteractivePortfolio";
+import { EducationPostcards, ExperienceOrbit, PersonalArchiveCards } from "@/components/InteractivePortfolio";
 import { ProjectArchive } from "@/components/ProjectArchive";
+import { ProductCapabilities } from "@/components/ProductCapabilities";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { copy, type Locale } from "@/lib/content";
@@ -51,12 +52,16 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
         <a className="scroll-cue" href="#capabilities"><span>{locale === "zh" ? "向下探索" : "Explore below"}</span><i aria-hidden="true" /></a>
       </section>
 
-      <section className="section capability-section shell" id="capabilities" data-reveal>
-        <div className="section-heading">
-          <h2>{t.capabilityTitle}</h2>
-          <p>{t.capabilityIntro}</p>
+      <section className="section capability-section" id="capabilities" data-reveal>
+        <div className="shell capability-layout">
+          <div className="capability-intro">
+            <span>{t.capabilityEyebrow}</span>
+            <h2>{t.capabilityTitle}</h2>
+            <p>{t.capabilityIntro}</p>
+            <a className="text-link" href="#projects">{t.view}</a>
+          </div>
+          <ProductCapabilities items={t.capabilities} />
         </div>
-        <CapabilityDeck items={t.capabilities} />
       </section>
 
       <section className="section project-section" id="projects">

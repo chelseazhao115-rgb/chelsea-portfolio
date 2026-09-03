@@ -77,6 +77,7 @@ type PageCopy = {
   resume: string;
   contact: string;
   resumeLabel: string;
+  capabilityEyebrow: string;
   capabilityTitle: string;
   capabilityIntro: string;
   capabilities: Capability[];
@@ -119,8 +120,8 @@ type PageCopy = {
 
 export const copy: Record<Locale, PageCopy> = {
   zh: {
-    nav: [["作品", "#projects"], ["经历", "#experience"], ["教育与荣誉", "#education"], ["关于", "#about"], ["联系", "#contact"]],
-    heroEyebrow: "你好，我是 Chelsea · 产品经理候选人",
+    nav: [["关于", "#capabilities"], ["作品", "#projects"], ["经历", "#experience"], ["背景", "#education"], ["联系", "#contact"]],
+    heroEyebrow: "Chelsea · Product · AI · Data",
     heroTitle: "把真实的问题，\n做成愿意被使用的产品。",
     heroIntro: "我拥有持续的一线教学、数据分析与互联网协作经验。从真实场景中发现问题，通过 AI 快速构建、用户测试与数据验证，把想法变成可以体验和持续迭代的产品。",
     tags: ["用户洞察", "产品设计", "AI 快速构建", "数据与实验"],
@@ -128,13 +129,14 @@ export const copy: Record<Locale, PageCopy> = {
     resume: "下载简历",
     contact: "联系我",
     resumeLabel: "产品经理简历 · 中文",
-    capabilityTitle: "我如何把一个模糊问题推进到可验证的产品",
-    capabilityIntro: "点开一张能力卡，查看它如何落到真实经历与产品证据中。",
+    capabilityEyebrow: "About",
+    capabilityTitle: "观察、构建、验证",
+    capabilityIntro: "教育场景让我长期靠近真实用户，统计与数据训练让我重视证据，AI 则让我能快速把产品判断变成可体验、可讨论的方案。",
     capabilities: [
-      { mark: "U", title: "用户洞察", subtitle: "Understand users", body: "从课堂行为、错题、访谈与反馈中区分表层诉求和真实阻力，并明确需求边界。", evidence: "一线教学访谈、30–40 名学生测试、招聘漏斗分析" },
-      { mark: "P", title: "产品设计", subtitle: "Shape the product", body: "把问题拆成目标用户、核心循环、MVP 与暂不实现的边界，让功能围绕一个明确假设工作。", evidence: "Rescue Ducks 学习循环、Agora 六级提示体系" },
-      { mark: "AI", title: "AI 快速构建", subtitle: "Build with AI", body: "用 AI 编程工具把想法做成可运行产品，通过真实交互暴露技术与体验问题。", evidence: "两款可体验产品与中英双语作品集" },
-      { mark: "D", title: "数据与实验", subtitle: "Validate value", body: "用用户反馈、行为路径、转化漏斗与评测框架判断下一步，而不是把上线等同于成功。", evidence: "KPI 看板、90%+ 试听转化、AI 三维评测" },
+      { mark: "01", title: "用户洞察", subtitle: "Understand users", body: "从行为、访谈和反馈中区分表层诉求与真实阻力，再明确目标用户与需求边界。", evidence: "Rescue Ducks · 30–40 名目标用户试玩推动引导与颜色支架迭代" },
+      { mark: "02", title: "产品设计", subtitle: "Shape the product", body: "围绕核心假设确定产品机制、MVP 范围与明确不做的功能。", evidence: "Rescue Ducks · 学习循环与 MVP 取舍；Agora · 六级提示与答案泄露边界" },
+      { mark: "03", title: "AI 快速构建", subtitle: "Build with AI", body: "使用 AI 编程把想法变成可运行原型，让产品决策尽早接受交互与实现检验。", evidence: "独立构建 Rescue Ducks、Agora 原型与中英双语个人网站" },
+      { mark: "04", title: "数据与验证", subtitle: "Validate value", body: "结合用户测试、行为路径、业务指标与评测框架判断下一步。", evidence: "Rescue Ducks · 真实用户反馈；Agora · 机制与 AI 评测框架，尚无用户效果数据" },
     ],
     projectTitle: "不是作品陈列，而是四次把想法做实的过程",
     projectIntro: "先看问题与证据，再进入完整案例。前两个是核心产品，后两个记录产品方法与独立交付。",
@@ -201,8 +203,8 @@ export const copy: Record<Locale, PageCopy> = {
     nextCase: "继续探索",
   },
   en: {
-    nav: [["Work", "#projects"], ["Experience", "#experience"], ["Education & awards", "#education"], ["About", "#about"], ["Contact", "#contact"]],
-    heroEyebrow: "Hi, I’m Chelsea · Product manager candidate",
+    nav: [["About", "#capabilities"], ["Work", "#projects"], ["Experience", "#experience"], ["Background", "#education"], ["Contact", "#contact"]],
+    heroEyebrow: "Chelsea · Product · AI · Data",
     heroTitle: "Turning real problems into\nproducts people want to use.",
     heroIntro: "I bring frontline teaching, data analysis and internet-team experience. I find problems in real contexts, build quickly with AI, and use testing and evidence to turn ideas into products that can keep evolving.",
     tags: ["User insight", "Product design", "AI prototyping", "Data & experiments"],
@@ -210,13 +212,14 @@ export const copy: Record<Locale, PageCopy> = {
     resume: "Download resume",
     contact: "Contact me",
     resumeLabel: "Product manager resume · Chinese",
-    capabilityTitle: "How I move a fuzzy problem toward a testable product",
-    capabilityIntro: "Open a capability card to see the experiences and product evidence behind it.",
+    capabilityEyebrow: "About",
+    capabilityTitle: "Observe, build, validate",
+    capabilityIntro: "Frontline education keeps me close to real users, statistics and data training keep decisions evidence-led, and AI helps me turn product judgement into experiences that can be tested and discussed.",
     capabilities: [
-      { mark: "U", title: "User insight", subtitle: "Understand users", body: "Separate surface requests from real friction through behaviour, mistakes, interviews and feedback, then define the boundary.", evidence: "Frontline teaching interviews, 30–40 learner tests, hiring-funnel analysis" },
-      { mark: "P", title: "Product design", subtitle: "Shape the product", body: "Turn a problem into an audience, core loop, MVP and explicit non-goals so each feature serves one hypothesis.", evidence: "Rescue Ducks learning loop and Agora’s six-level hint system" },
-      { mark: "AI", title: "AI prototyping", subtitle: "Build with AI", body: "Use AI coding tools to make ideas runnable and expose technical and interaction risks through real use.", evidence: "Two testable products and a bilingual portfolio" },
-      { mark: "D", title: "Data & experiments", subtitle: "Validate value", body: "Use feedback, journeys, funnels and evaluation frameworks to decide what comes next—not feature delivery alone.", evidence: "KPI views, 90%+ trial conversion and three-part AI evaluation" },
+      { mark: "01", title: "User insight", subtitle: "Understand users", body: "Separate surface requests from real friction through behaviour, interviews and feedback, then define the audience and need boundary.", evidence: "Rescue Ducks · 30–40 target-user tests drove onboarding and colour-scaffold iterations" },
+      { mark: "02", title: "Product design", subtitle: "Shape the product", body: "Define the core mechanism, MVP scope and explicit non-goals around a testable hypothesis.", evidence: "Rescue Ducks · learning loop and MVP trade-offs; Agora · six-level hints and answer-leakage boundary" },
+      { mark: "03", title: "AI prototyping", subtitle: "Build with AI", body: "Use AI coding to make ideas runnable so product decisions meet interaction and implementation constraints early.", evidence: "Independently built Rescue Ducks, the Agora prototype and this bilingual portfolio" },
+      { mark: "04", title: "Data & validation", subtitle: "Validate value", body: "Use user tests, behavioural journeys, business metrics and evaluation frameworks to decide what comes next.", evidence: "Rescue Ducks · real-user feedback; Agora · mechanism and AI evaluation framework, without user-outcome claims" },
     ],
     projectTitle: "Four attempts to turn ideas into something real",
     projectIntro: "See the problem and evidence first, then enter the full case. The first two are core products; the others document product method and independent delivery.",
