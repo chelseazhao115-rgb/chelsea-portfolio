@@ -30,6 +30,22 @@ typography:
     fontSize: "17px"
     fontWeight: 400
     lineHeight: 1.8
+  supporting:
+    fontSize: "15px"
+    fontWeight: 400
+    lineHeight: 1.65
+  action:
+    fontSize: "14px"
+    fontWeight: 800
+    lineHeight: 1.4
+  meta:
+    fontSize: "13px"
+    fontWeight: 700
+    lineHeight: 1.45
+  decorative:
+    fontSize: "11px"
+    fontWeight: 800
+    lineHeight: 1.4
   label:
     fontFamily: "Plus Jakarta Sans, Noto Sans SC, sans-serif"
     fontSize: "12px"
