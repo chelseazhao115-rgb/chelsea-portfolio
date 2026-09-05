@@ -22,7 +22,7 @@ function CaseVisual({ slug, item }: { slug: ProjectSlug; item: (typeof projectCa
   if (slug === "tencent-bootcamp") return <div className="case-shot case-shot-tencent" role="img" aria-label="Tencent Product Manager Bootcamp">
     <div className="tencent-detail-visual"><span>Tencent 腾讯</span><strong>{item.title}</strong><small>Foundation · Advanced</small></div>
   </div>;
-  return <div className="case-shot"><Image src={item.image} alt={`${item.title} product interface`} fill priority sizes="(max-width: 900px) 94vw, 55vw" /></div>;
+  return <div className="case-shot"><Image src={item.image} alt={`${item.title} product interface`} fill priority sizes="(max-width: 900px) 94vw, 55vw" style={slug === "rescue-ducks" ? { objectFit: "contain" } : undefined} /></div>;
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string; slug: string }> }): Promise<Metadata> {

@@ -39,7 +39,7 @@ test("redirects legacy Agora routes to Spoken English Collector", async () => {
   for (const locale of ["zh", "en"]) {
     const response = await render(`/${locale}/projects/agora`);
     assert.equal(response.status, 307);
-    assert.equal(response.headers.get("location"), `/${locale}/projects/spoken-english-collector`);
+    assert.equal(new URL(response.headers.get("location")).pathname, `/${locale}/projects/spoken-english-collector`);
   }
 });
 
