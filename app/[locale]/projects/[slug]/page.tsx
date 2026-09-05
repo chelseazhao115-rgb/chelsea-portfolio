@@ -1,15 +1,29 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { CopyCode } from "@/components/CopyCode";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 import { copy, projectCases, type Locale, type ProjectSlug } from "@/lib/content";
 
 const locales: Locale[] = ["zh", "en"];
-const slugs: ProjectSlug[] = ["rescue-ducks", "agora", "tencent-bootcamp", "portfolio"];
-export function generateStaticParams() { return locales.flatMap((locale) => slugs.map((slug) => ({ locale, slug }))); }
+const slugs: ProjectSlug[] = ["rescue-ducks", "spoken-english-collector", "tencent-bootcamp", "portfolio"];
+export function generateStaticParams() { return locales.flatMap((locale) => [...slugs, "agora"].map((slug) => ({ locale, slug }))); }
+
+function CaseVisual({ slug, item }: { slug: ProjectSlug; item: (typeof projectCases)[Locale][ProjectSlug] }) {
+  if (slug === "spoken-english-collector") return <div className="case-shot case-shot-spoken" role="img" aria-label="Spoken English Collector product workflow">
+    <div className="spoken-detail-visual">
+      <span>Browser Extension · V1.0</span>
+      <strong>Capture an expression.<br />Keep the context.</strong>
+      <ol><li>Region capture + OCR</li><li>AI candidates</li><li>Local library</li><li>HTML review</li></ol>
+    </div>
+  </div>;
+  if (slug === "tencent-bootcamp") return <div className="case-shot case-shot-tencent" role="img" aria-label="Tencent Product Manager Bootcamp">
+    <div className="tencent-detail-visual"><span>Tencent 腾讯</span><strong>{item.title}</strong><small>Foundation · Advanced</small></div>
+  </div>;
+  return <div className="case-shot"><Image src={item.image} alt={`${item.title} product interface`} fill priority sizes="(max-width: 900px) 94vw, 55vw" /></div>;
+}
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string; slug: string }> }): Promise<Metadata> {
   const { locale, slug } = await params;
@@ -19,6 +33,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 
 export default async function CasePage({ params }: { params: Promise<{ locale: string; slug: string }> }) {
   const { locale: raw, slug: rawSlug } = await params;
+  if (locales.includes(raw as Locale) && rawSlug === "agora") redirect(`/${raw}/projects/spoken-english-collector`);
   if (!locales.includes(raw as Locale) || !slugs.includes(rawSlug as ProjectSlug)) notFound();
   const locale = raw as Locale;
   const slug = rawSlug as ProjectSlug;
@@ -29,7 +44,7 @@ export default async function CasePage({ params }: { params: Promise<{ locale: s
   const nextItem = projectCases[locale][nextSlug];
 
   return <>
-    <SiteHeader locale={locale} path={`/projects/${slug}`} />
+    <SiteHeader locale={locale} path={`/projects/${slug}`} dark={slug === "tencent-bootcamp"} />
     <main className="case-main">
       <section className={`case-hero case-${slug}`}>
         <div className="case-glow" aria-hidden="true" />
@@ -42,7 +57,7 @@ export default async function CasePage({ params }: { params: Promise<{ locale: s
             <p>{item.summary}</p>
             {item.live && <div className="case-actions"><a className="button button-primary" href={item.live} target="_blank" rel="noreferrer">{t.live}</a>{item.access && <div><span className="code-label">{t.code}</span><CopyCode code={item.access} hint={t.copyHint} /></div>}</div>}
           </div>
-          <div className="case-shot"><Image src={item.image} alt={`${item.title} product interface`} fill priority sizes="(max-width: 900px) 94vw, 55vw" /></div>
+          <CaseVisual slug={slug} item={item} />
         </div>
       </section>
 

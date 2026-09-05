@@ -207,7 +207,6 @@ type PersonalArchiveLabels = {
 export function PersonalArchiveCards({ items, labels }: { items: AboutCard[]; labels: PersonalArchiveLabels }) {
   const [flipped, setFlipped] = useState<Record<string, boolean>>({});
   const [photoPage, setPhotoPage] = useState(1);
-  const pageCount = 9;
 
   const setCardFlipped = (id: AboutCard["id"], value: boolean) => {
     setFlipped((current) => ({ ...current, [id]: value }));
@@ -217,6 +216,7 @@ export function PersonalArchiveCards({ items, labels }: { items: AboutCard[]; la
     <div className="personal-archive-grid">
       {items.map((card) => {
         const isFlipped = Boolean(flipped[card.id]);
+        const pageCount = card.gallery?.length ?? 0;
         return (
           <article className="personal-card" data-flipped={isFlipped} data-kind={card.id} data-reveal key={card.id}>
             <div className="personal-card-inner">
@@ -252,8 +252,7 @@ export function PersonalArchiveCards({ items, labels }: { items: AboutCard[]; la
                     <div className="photo-book" aria-live="polite">
                       <div className="photo-book-page" key={photoPage}>
                         <small>{labels.page} {photoPage} / {pageCount}</small>
-                        <span aria-hidden="true">{String(photoPage).padStart(2, "0")}</span>
-                        <strong>{card.placeholder}</strong>
+                        {card.gallery?.[photoPage - 1] ? <Image src={card.gallery[photoPage - 1].src} alt={card.gallery[photoPage - 1].alt} fill sizes="(max-width: 700px) 78vw, 260px" /> : <strong>{card.placeholder}</strong>}
                       </div>
                     </div>
                     <div className="photo-book-controls">

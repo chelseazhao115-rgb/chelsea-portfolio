@@ -126,7 +126,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
         <div className="shell contact-inner">
           <h2>{t.contactTitle}</h2>
           <a className="email-link" href={`mailto:${t.email}`}>{t.email}</a>
-          <div className="contact-links"><a href="https://www.rescueducks.xyz" target="_blank" rel="noreferrer">Rescue Ducks</a><Link href={`/${locale}/projects/agora`}>Agora</Link><a href="/Chelsea_Zhao_Product_Manager_Resume_CN.pdf" download>{t.resumeLabel}</a></div>
+          <div className="contact-links"><a href="https://www.rescueducks.xyz" target="_blank" rel="noreferrer">Rescue Ducks</a><Link href={`/${locale}/projects/spoken-english-collector`}>Spoken English Collector</Link><a href="/Chelsea_Zhao_Product_Manager_Resume_CN.pdf" download>{t.resumeLabel}</a></div>
         </div>
       </section>
     </main>

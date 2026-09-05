@@ -12,11 +12,27 @@ const labels = {
   en: { highlight: "Key design", stage: "Current stage", live: "Try the product" },
 } as const;
 
+function ProjectVisual({ project, featured = false }: { project: ProjectSummary; featured?: boolean }) {
+  if (project.slug === "spoken-english-collector") {
+    return <span className="spoken-cover" aria-hidden="true">
+      <span className="spoken-cover-window">
+        <small>Browser Extension · V1.0</small>
+        <strong>Spoken English<br />Collector</strong>
+        <span className="spoken-cover-flow"><i>Capture</i><i>Understand</i><i>Collect</i><i>Review</i></span>
+      </span>
+    </span>;
+  }
+  if (project.slug === "tencent-bootcamp") {
+    return <span className="tencent-cover" aria-hidden="true"><small>Tencent 腾讯</small><strong>{project.title}</strong><i>Foundation · Advanced</i></span>;
+  }
+  return <Image src={project.image} alt={`${project.title} ${featured ? "interface" : "project visual"}`} fill sizes={featured ? "(max-width: 720px) 94vw, 46vw" : "(max-width: 720px) 34vw, 18vw"} />;
+}
+
 function FeaturedProjectCard({ locale, project }: { locale: Locale; project: ProjectSummary }) {
   return (
     <article className="project-card project-card-featured" data-reveal>
       <Link className="project-card-media" href={`/${locale}/projects/${project.slug}`} aria-label={`${project.title} case study`}>
-        <Image src={project.image} alt={`${project.title} interface`} fill sizes="(max-width: 720px) 94vw, 46vw" />
+        <ProjectVisual project={project} featured />
       </Link>
       <div className="project-card-copy">
         <span className="project-status">{project.kind}</span>
@@ -38,9 +54,9 @@ function FeaturedProjectCard({ locale, project }: { locale: Locale; project: Pro
 
 function SupportingProjectCard({ locale, project }: { locale: Locale; project: ProjectSummary }) {
   return (
-    <article className="project-card project-card-supporting" data-reveal>
+    <article className="project-card project-card-supporting" data-project={project.slug} data-reveal>
       <Link className="project-supporting-media" href={`/${locale}/projects/${project.slug}`} aria-label={`${project.title} case study`}>
-        <Image src={project.image} alt={`${project.title} project visual`} fill sizes="(max-width: 720px) 34vw, 18vw" />
+        <ProjectVisual project={project} />
       </Link>
       <div className="project-supporting-copy">
         <span className="project-status">{project.kind}</span>
