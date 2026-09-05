@@ -252,7 +252,7 @@ export function PersonalArchiveCards({ items, labels }: { items: AboutCard[]; la
                     <div className="photo-book" aria-live="polite">
                       <div className="photo-book-page" key={photoPage}>
                         <small>{labels.page} {photoPage} / {pageCount}</small>
-                        {card.gallery?.[photoPage - 1] ? <Image src={card.gallery[photoPage - 1].src} alt={card.gallery[photoPage - 1].alt} fill sizes="(max-width: 700px) 78vw, 260px" /> : <strong>{card.placeholder}</strong>}
+                        {card.gallery?.[photoPage - 1] ? <Image src={card.gallery[photoPage - 1].src} alt={card.gallery[photoPage - 1].alt} fill sizes="(max-width: 700px) 78vw, 260px" style={{ objectFit: "contain" }} /> : <strong>{card.placeholder}</strong>}
                       </div>
                     </div>
                     <div className="photo-book-controls">
