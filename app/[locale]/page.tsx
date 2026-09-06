@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import { EducationPostcards, ExperienceOrbit, PersonalArchiveCards } from "@/components/InteractivePortfolio";
 import { ProjectArchive } from "@/components/ProjectArchive";
@@ -30,7 +29,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
 
   return <>
     <SiteHeader locale={locale} />
-    <main>
+    <main id="top">
       <section className="hero">
         <Image src="/hero-chelsea.png" alt={locale === "zh" ? "Chelsea 在湖边草地的自然人像" : "Chelsea in a bright lakeside meadow"} fill priority sizes="100vw" className="hero-image" />
         <div className="hero-wash" />
@@ -122,14 +121,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
         </div>
       </section>
 
-      <section className="contact section" id="contact">
-        <div className="shell contact-inner">
-          <h2>{t.contactTitle}</h2>
-          <a className="email-link" href={`mailto:${t.email}`}>{t.email}</a>
-          <div className="contact-links"><a href="https://www.rescueducks.xyz" target="_blank" rel="noreferrer">Rescue Ducks</a><Link href={`/${locale}/projects/spoken-english-collector`}>Spoken English Collector</Link><a href="/Chelsea_Zhao_Product_Manager_Resume_CN.pdf" download>{t.resumeLabel}</a></div>
-        </div>
-      </section>
     </main>
-    <SiteFooter locale={locale} />
+    <SiteFooter locale={locale} email={t.email} title={t.contactTitle} />
   </>;
 }

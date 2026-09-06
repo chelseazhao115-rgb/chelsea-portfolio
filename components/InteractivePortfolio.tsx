@@ -224,14 +224,16 @@ export function PersonalArchiveCards({ items, labels }: { items: AboutCard[]; la
         const isFlipped = Boolean(flipped[card.id]);
         const pageCount = card.gallery?.length ?? 0;
         if (card.id === "photography") {
+          const endPage = pageCount + 1;
           const basePage = photoTurn ? (photoTurn.direction === "next" ? photoTurn.to : photoTurn.from) : photoPage;
           const turningPage = photoTurn ? (photoTurn.direction === "next" ? photoTurn.from : photoTurn.to) : null;
           const renderPage = (page: number, className: string) => {
             const photo = page === 0 ? (card.image ? { src: card.image, alt: card.imageAlt } : null) : card.gallery?.[page - 1];
             return (
-              <div className={className} data-cover={page === 0} data-rotate={page === 1}>
+              <div className={className} data-cover={page === 0} data-rotate={page === 1} data-end={page === endPage}>
                 {photo ? <Image src={photo.src} alt={photo.alt} fill sizes="(max-width: 700px) 92vw, 31vw" loading="lazy" decoding="async" /> : null}
                 {page === 0 ? <h3>{card.title}</h3> : null}
+                {page === endPage ? <p>To be continued.</p> : null}
               </div>
             );
           };
@@ -256,11 +258,8 @@ export function PersonalArchiveCards({ items, labels }: { items: AboutCard[]; la
                 {photoPage > 0 || photoTurn ? (
                   <>
                     <button type="button" className="photo-album-close" onClick={() => turnPhoto(0)} disabled={Boolean(photoTurn)} aria-label={labels.close}><span aria-hidden="true" /></button>
-                    <div className="photo-album-controls">
-                      <button type="button" onClick={() => turnPhoto(Math.max(1, photoPage - 1))} disabled={Boolean(photoTurn) || photoPage <= 1}>{labels.previous}</button>
-                      <span>{String(Math.max(1, photoPage)).padStart(2, "0")} / {String(pageCount).padStart(2, "0")}</span>
-                      <button type="button" onClick={() => turnPhoto(Math.min(pageCount, photoPage + 1))} disabled={Boolean(photoTurn) || photoPage >= pageCount}>{labels.next}</button>
-                    </div>
+                    {photoPage > 1 ? <button type="button" className="photo-album-nav photo-album-nav-previous" onClick={() => turnPhoto(photoPage - 1)} disabled={Boolean(photoTurn)} aria-label={labels.previous}><span aria-hidden="true" /></button> : null}
+                    {photoPage < endPage ? <button type="button" className="photo-album-nav photo-album-nav-next" onClick={() => turnPhoto(photoPage + 1)} disabled={Boolean(photoTurn)} aria-label={labels.next}><span aria-hidden="true" /></button> : null}
                   </>
                 ) : null}
               </div>

@@ -10,16 +10,16 @@ export type Capability = {
 };
 
 export type ProjectSummary = {
-  slug: ProjectSlug;
+  id: string;
+  caseSlug?: ProjectSlug;
+  category: "project" | "skill";
+  status: "completed" | "working" | "placeholder";
   kind: string;
   title: string;
   subtitle: string;
-  image: string;
-  highlight: string;
-  facts: string[];
-  stage?: string;
+  image?: string;
+  github?: string;
   live?: string;
-  cta: string;
 };
 
 export type Experience = {
@@ -141,13 +141,17 @@ export const copy: Record<Locale, PageCopy> = {
       { mark: "03", title: "AI 快速构建", subtitle: "Build with AI", body: "我用 AI 编程把想法做成可操作的版本，尽早发现交互和实现问题。", evidence: "独立完成 Rescue Ducks、Spoken English Collector 和这个中英双语网站" },
       { mark: "04", title: "数据与验证", subtitle: "Validate value", body: "我会结合用户反馈、行为路径、业务指标和测试结果决定下一步。", evidence: "Rescue Ducks · 用户反馈；Spoken English Collector · 59/59 自动化测试" },
     ],
-    projectTitle: "我做过的项目",
-    projectIntro: "前两个是我持续打磨的核心项目，后两个记录产品训练和独立开发。",
+    projectTitle: "我的产品经历",
+    projectIntro: "这里收录我做过的产品、实验和工具，也会继续更新。",
     projects: [
-      { slug: "rescue-ducks", kind: "已上线 · 游戏化学习", title: "Rescue Ducks", subtitle: "一款练习雅思阅读同义替换的词汇游戏。", image: "/rescue-ducks-cover.jpg", highlight: "把孤立背词改成语义配对，并用救援循环完成练习。", facts: ["30–40 名学生试玩", "55 个关卡", "376 组词库"], live: "https://www.rescueducks.xyz", cta: "查看案例" },
-      { slug: "spoken-english-collector", kind: "AI 英语学习工具 · Browser Extension", title: "Spoken English Collector", subtitle: "面向 YouTube 与英文网页学习场景的口语表达采集插件。", image: "/spoken-english-collector-cover", highlight: "把截图识别、候选筛选、本地收藏、搜索整理和导出复习连成一条本地学习链路。", facts: ["Target Lookup / Sentence Discovery", "V1.0 封版", "59/59 测试通过"], stage: "本地完整链路已实现", cta: "查看产品设计" },
-      { slug: "tencent-bootcamp", kind: "产品训练", title: "腾讯产品经理创造营", subtitle: "入门版与进阶版产品训练。", image: "/tencent-pm-banner.png", highlight: "完成入门 29/29、进阶 32/32，共 61 项训练任务。", facts: [], cta: "查看学习记录" },
-      { slug: "portfolio", kind: "独立开发", title: "个人网站／作品集", subtitle: "中英双语个人作品集。", image: "/portfolio-cover.jpg", highlight: "完成中英文路由、四个项目案例和响应式交付。", facts: [], cta: "查看构建过程" },
+      { id: "rescue-ducks", caseSlug: "rescue-ducks", category: "project", status: "completed", kind: "AI Education", title: "Rescue Ducks", subtitle: "练习雅思阅读同义替换的游戏化学习产品。", image: "/rescue-ducks-cover.jpg", live: "https://www.rescueducks.xyz" },
+      { id: "spoken-english-collector", caseSlug: "spoken-english-collector", category: "project", status: "completed", kind: "Browser Extension", title: "Spoken English Collector", subtitle: "把英文表达的查找、理解、收藏和复习放进一条本地学习链路。" },
+      { id: "reading-lens", category: "project", status: "working", kind: "AI Reading", title: "Reading Lens", subtitle: "项目说明与链接待补充。" },
+      { id: "job-tracker", category: "project", status: "placeholder", kind: "Productivity", title: "Job Tracker", subtitle: "项目信息待补充。" },
+      { id: "tencent-bootcamp", caseSlug: "tencent-bootcamp", category: "project", status: "completed", kind: "Product Training", title: "腾讯产品经理创造营", subtitle: "完成入门与进阶共 61 项产品训练任务。" },
+      { id: "portfolio", caseSlug: "portfolio", category: "project", status: "completed", kind: "Independent Build", title: "个人网站／作品集", subtitle: "独立完成中英双语信息架构、设计与响应式交付。", image: "/portfolio-cover.jpg" },
+      { id: "skill-01", category: "skill", status: "placeholder", kind: "Skill", title: "Skill 01", subtitle: "用途、状态与链接待补充。" },
+      { id: "skill-02", category: "skill", status: "placeholder", kind: "Skill", title: "Skill 02", subtitle: "用途、状态与链接待补充。" },
     ],
     experienceTitle: "我做过几种很不一样的工作",
     experienceIntro: "这些经历涉及教育、互联网招聘和数据分析。点击公司，可以查看工作内容和现场照片。",
@@ -224,13 +228,17 @@ export const copy: Record<Locale, PageCopy> = {
       { mark: "03", title: "AI prototyping", subtitle: "Build with AI", body: "Use AI coding to make ideas runnable so product decisions meet interaction and implementation constraints early.", evidence: "Independently built Rescue Ducks, Spoken English Collector and this bilingual portfolio" },
       { mark: "04", title: "Data & validation", subtitle: "Validate value", body: "Use user tests, behavioural journeys, business metrics and automated checks to decide what comes next.", evidence: "Rescue Ducks · real-user feedback; Spoken English Collector · 59/59 automated tests" },
     ],
-    projectTitle: "Four attempts to turn ideas into something real",
-    projectIntro: "See the problem and evidence first, then enter the full case. The first two are core products; the others document product method and independent delivery.",
+    projectTitle: "Things I've Built",
+    projectIntro: "Products, experiments and tools I have made, with more to come.",
     projects: [
-      { slug: "rescue-ducks", kind: "Live · Gamified learning", title: "Rescue Ducks", subtitle: "A vocabulary game for practising IELTS Reading paraphrases.", image: "/rescue-ducks-cover.jpg", highlight: "Turns isolated memorisation into semantic matching inside a rescue loop.", facts: ["30–40 student testers", "55 levels", "376 semantic groups"], live: "https://www.rescueducks.xyz", cta: "View case" },
-      { slug: "spoken-english-collector", kind: "AI English learning tool · Browser Extension", title: "Spoken English Collector", subtitle: "A speaking-expression collector for YouTube and English webpages.", image: "/spoken-english-collector-cover", highlight: "Connects region capture, AI candidate selection, local saving, search and HTML review exports in one local workflow.", facts: ["Target Lookup / Sentence Discovery", "V1.0 frozen", "59/59 tests passed"], stage: "Complete local workflow implemented", cta: "View product design" },
-      { slug: "tencent-bootcamp", kind: "Product training", title: "Tencent PM Bootcamp", subtitle: "Foundation and advanced product training.", image: "/tencent-pm-banner.png", highlight: "Completed 29/29 foundation and 32/32 advanced tasks—61 in total.", facts: [], cta: "View learning record" },
-      { slug: "portfolio", kind: "Independent build", title: "Personal portfolio", subtitle: "A bilingual personal product portfolio.", image: "/portfolio-cover.jpg", highlight: "Delivered bilingual routes, four project cases and a responsive experience.", facts: [], cta: "See the build process" },
+      { id: "rescue-ducks", caseSlug: "rescue-ducks", category: "project", status: "completed", kind: "AI Education", title: "Rescue Ducks", subtitle: "A gamified product for practising IELTS Reading paraphrases.", image: "/rescue-ducks-cover.jpg", live: "https://www.rescueducks.xyz" },
+      { id: "spoken-english-collector", caseSlug: "spoken-english-collector", category: "project", status: "completed", kind: "Browser Extension", title: "Spoken English Collector", subtitle: "A local workflow for finding, understanding, collecting and reviewing spoken English." },
+      { id: "reading-lens", category: "project", status: "working", kind: "AI Reading", title: "Reading Lens", subtitle: "Project details and links to follow." },
+      { id: "job-tracker", category: "project", status: "placeholder", kind: "Productivity", title: "Job Tracker", subtitle: "Project details to follow." },
+      { id: "tencent-bootcamp", caseSlug: "tencent-bootcamp", category: "project", status: "completed", kind: "Product Training", title: "Tencent PM Bootcamp", subtitle: "Completed 61 foundation and advanced product training tasks." },
+      { id: "portfolio", caseSlug: "portfolio", category: "project", status: "completed", kind: "Independent Build", title: "Personal Portfolio", subtitle: "A bilingual portfolio designed, built and delivered independently.", image: "/portfolio-cover.jpg" },
+      { id: "skill-01", category: "skill", status: "placeholder", kind: "Skill", title: "Skill 01", subtitle: "Purpose, status and links to follow." },
+      { id: "skill-02", category: "skill", status: "placeholder", kind: "Skill", title: "Skill 02", subtitle: "Purpose, status and links to follow." },
     ],
     experienceTitle: "Four roles, one orbit of product capability",
     experienceIntro: "Company and role give the overview. Move closer to a node to see what that experience shaped.",

@@ -14,7 +14,7 @@ async function render(path) {
 }
 
 test("renders the bilingual portfolio home pages", async () => {
-  for (const [path, expected] of [["/zh", "Rescue Ducks"], ["/en", "Four attempts"]]) {
+  for (const [path, expected] of [["/zh", "我的产品经历"], ["/en", "Things I've Built"]]) {
     const response = await render(path);
     assert.equal(response.status, 200);
     assert.match(response.headers.get("content-type") ?? "", /^text\/html\b/i);
