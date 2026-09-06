@@ -307,6 +307,10 @@ img { display: block; }
 .personal-card { min-width: 0; height: 590px; perspective: 1600px; }
 .personal-card-inner { position: relative; width: 100%; height: 100%; transform-style: preserve-3d; transition: transform 520ms var(--ease-in-out); }
 .personal-card[data-flipped="true"] .personal-card-inner { transform: rotateY(180deg); }
+.personal-card .personal-front { pointer-events: auto; }
+.personal-card .personal-back { pointer-events: none; }
+.personal-card[data-flipped="true"] .personal-front { pointer-events: none; }
+.personal-card[data-flipped="true"] .personal-back { pointer-events: auto; }
 .personal-face { position: absolute; inset: 0; overflow: hidden; border-radius: 20px; background: var(--paper); box-shadow: 0 16px 45px rgba(35,78,96,.1); backface-visibility: hidden; }
 .personal-front { color: #fff; background: var(--ink); }
 .personal-photo { position: absolute; inset: 0; overflow: hidden; background: linear-gradient(150deg, #37677d, #193746); }
@@ -330,17 +334,28 @@ img { display: block; }
 .personal-back-head > div { min-width: 0; }
 .personal-back-head h3 { font-size: 21px; }
 .personal-back-head button { flex: 0 0 auto; max-width: 112px; padding: 0 2px; color: var(--ink-soft); }
-.photo-book { flex: 1; display: grid; place-items: center; padding: 24px 8px 16px; perspective: 1000px; }
-.photo-book-page { position: relative; width: min(92%, 260px); aspect-ratio: 2 / 3; overflow: hidden; color: var(--ink); background: var(--cream); box-shadow: 7px 9px 0 -3px var(--paper), 12px 15px 28px rgba(31,72,87,.16); transform: rotateY(-4deg); transform-origin: left center; animation: book-page-settle 180ms var(--ease-out); }
-.photo-book-page::after { content: ""; position: absolute; inset: 0 auto 0 0; width: 1px; background: rgba(44,94,108,.16); box-shadow: 7px 0 16px rgba(32,71,83,.08); }
-.photo-book-page small { position: absolute; z-index: 2; left: 12px; bottom: 12px; padding: 6px 8px; border-radius: 999px; color: #fff; background: rgba(10,34,45,.68); font-size: 10px; font-weight: 900; }
-.photo-book-page img { object-fit: contain; background: #eef4f1; }
-.photo-book-page strong { color: var(--ink-soft); font-size: var(--text-action); line-height: 1.5; text-align: center; }
-.photo-book-controls { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 12px; }
-.photo-book-controls button:first-child { justify-self: start; }
-.photo-book-controls button:last-child { justify-self: end; }
-.photo-book-controls button:disabled { opacity: .34; cursor: default; }
-.photo-book-controls > span { color: var(--ink-soft); font-size: 12px; font-weight: 900; font-variant-numeric: tabular-nums; }
+.photo-album-card { perspective: 1500px; }
+.photo-album-stage { position: relative; width: 100%; height: 100%; overflow: hidden; border-radius: 20px; background: #122934; box-shadow: 0 16px 45px rgba(35,78,96,.1); perspective: 1800px; }
+.photo-album-page { position: absolute; inset: 0; overflow: hidden; background: #122934; backface-visibility: hidden; transform-style: preserve-3d; }
+.photo-album-page img { object-fit: cover; object-position: center; }
+.photo-album-page[data-cover="true"]::after { content: ""; position: absolute; inset: 45% 0 0; background: linear-gradient(180deg, transparent, rgba(8,29,40,.78)); }
+.photo-album-page[data-cover="true"] h3 { position: absolute; z-index: 1; left: 28px; bottom: 28px; margin: 0; color: #fff; font-size: 28px; letter-spacing: -.025em; }
+.photo-album-page[data-rotate="true"] img { width: 156% !important; height: 64% !important; left: -28% !important; top: 18% !important; object-fit: cover; transform: rotate(90deg); }
+.photo-album-turn { position: absolute; z-index: 2; inset: 0; transform-origin: left center; transform-style: preserve-3d; will-change: transform, filter; }
+.photo-album-turn-next { animation: photo-page-next 760ms var(--ease-in-out) forwards; }
+.photo-album-turn-previous { animation: photo-page-previous 760ms var(--ease-in-out) forwards; }
+.photo-album-turn::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(90deg, rgba(8,29,40,.3), transparent 16%, transparent 72%, rgba(8,29,40,.12)); opacity: .45; backface-visibility: hidden; }
+.photo-album-open { position: absolute; z-index: 3; inset: 0; width: 100%; border: 0; background: transparent; cursor: pointer; }
+.photo-album-open span { position: absolute; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); }
+.photo-album-close { position: absolute; z-index: 4; top: 18px; right: 18px; width: 44px; height: 44px; border: 0; border-radius: 50%; color: #fff; background: rgba(8,29,40,.62); cursor: pointer; backdrop-filter: blur(8px); }
+.photo-album-close span, .photo-album-close span::after { position: absolute; left: 13px; top: 21px; width: 18px; height: 2px; content: ""; background: currentColor; transform: rotate(45deg); }
+.photo-album-close span::after { inset: 0; transform: rotate(90deg); }
+.photo-album-controls { position: absolute; z-index: 4; left: 18px; right: 18px; bottom: 18px; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 12px; }
+.photo-album-controls button { min-height: 42px; padding: 0 14px; border: 0; border-radius: 12px; color: #fff; background: rgba(8,29,40,.66); font-size: var(--text-action); font-weight: 900; cursor: pointer; backdrop-filter: blur(8px); }
+.photo-album-controls button:first-child { justify-self: start; }
+.photo-album-controls button:last-child { justify-self: end; }
+.photo-album-controls button:disabled { opacity: .38; cursor: default; }
+.photo-album-controls > span { padding: 7px 9px; border-radius: 999px; color: rgba(255,255,255,.88); background: rgba(8,29,40,.5); font-size: 11px; font-weight: 900; font-variant-numeric: tabular-nums; backdrop-filter: blur(8px); }
 .dance-video-placeholder { position: relative; flex: 1; align-self: center; width: min(72%, 205px); margin-top: 24px; display: grid; place-items: center; align-content: center; gap: 18px; aspect-ratio: 9 / 16; overflow: hidden; border-radius: 18px; color: var(--paper); background: linear-gradient(160deg, var(--ink), var(--lake)); }
 .dance-video-placeholder::after { content: ""; position: absolute; inset: 14px; border: 1px solid rgba(255,255,255,.22); border-radius: 12px; }
 .dance-video-placeholder i { z-index: 1; width: 29px; height: 34px; background: var(--paper); clip-path: polygon(0 0, 100% 50%, 0 100%); }
@@ -356,7 +371,8 @@ img { display: block; }
 .volunteer-copy-placeholder i:nth-of-type(3) { width: 72%; }
 .volunteer-copy-placeholder i:nth-of-type(4) { width: 47%; }
 
-@keyframes book-page-settle { from { opacity: .55; transform: rotateY(-12deg) translateX(6px); } to { opacity: 1; transform: rotateY(-4deg) translateX(0); } }
+@keyframes photo-page-next { 0% { transform: rotateY(0deg); filter: brightness(1); } 55% { filter: brightness(.72); } 100% { transform: rotateY(-180deg); filter: brightness(.58); } }
+@keyframes photo-page-previous { 0% { transform: rotateY(-180deg); filter: brightness(.58); } 45% { filter: brightness(.72); } 100% { transform: rotateY(0deg); filter: brightness(1); } }
 
 .contact { padding: 110px 0; color: #fff; background: linear-gradient(135deg, #244f66, #356f76 54%, #507b50); }
 .contact-inner { text-align: center; }
@@ -460,7 +476,8 @@ footer { color: #45616d; background: #f9fcf9; }
   .drawer-close:hover { background: var(--mist); }
   .personal-card:hover .personal-photo img { transform: scale(1.035); }
   .process-evidence a:hover { color: var(--ink); background: color-mix(in srgb, var(--leaf) 24%, var(--paper)); }
-  .personal-back-head button:hover, .photo-book-controls button:not(:disabled):hover { color: var(--lake); }
+  .personal-back-head button:hover { color: var(--lake); }
+  .photo-album-controls button:not(:disabled):hover, .photo-album-close:hover { background: rgba(8,29,40,.82); }
   .contact-links a:hover { color: #fff; text-decoration: underline; text-underline-offset: 6px; }
 }
 
@@ -620,5 +637,9 @@ footer { color: #45616d; background: #f9fcf9; }
   .hero-image, .hero-compass, .career-ring { transform: none; }
   .postcard-inner, .personal-card-inner { transition: none; }
   .personal-photo img { filter: none; transform: none; }
-  .photo-book-page { animation: none; }
+  .photo-album-turn-next { animation-name: photo-page-next-reduced; animation-duration: 180ms !important; }
+  .photo-album-turn-previous { animation-name: photo-page-previous-reduced; animation-duration: 180ms !important; }
 }
+
+@keyframes photo-page-next-reduced { from { opacity: 1; } to { opacity: 0; } }
+@keyframes photo-page-previous-reduced { from { opacity: 0; } to { opacity: 1; } }

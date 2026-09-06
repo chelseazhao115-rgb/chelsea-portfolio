@@ -206,10 +206,16 @@ type PersonalArchiveLabels = {
 
 export function PersonalArchiveCards({ items, labels }: { items: AboutCard[]; labels: PersonalArchiveLabels }) {
   const [flipped, setFlipped] = useState<Record<string, boolean>>({});
-  const [photoPage, setPhotoPage] = useState(1);
+  const [photoPage, setPhotoPage] = useState(0);
+  const [photoTurn, setPhotoTurn] = useState<{ from: number; to: number; direction: "next" | "previous" } | null>(null);
 
   const setCardFlipped = (id: AboutCard["id"], value: boolean) => {
     setFlipped((current) => ({ ...current, [id]: value }));
+  };
+
+  const turnPhoto = (to: number) => {
+    if (photoTurn || to === photoPage) return;
+    setPhotoTurn({ from: photoPage, to, direction: to > photoPage ? "next" : "previous" });
   };
 
   return (
@@ -217,6 +223,50 @@ export function PersonalArchiveCards({ items, labels }: { items: AboutCard[]; la
       {items.map((card) => {
         const isFlipped = Boolean(flipped[card.id]);
         const pageCount = card.gallery?.length ?? 0;
+        if (card.id === "photography") {
+          const basePage = photoTurn ? (photoTurn.direction === "next" ? photoTurn.to : photoTurn.from) : photoPage;
+          const turningPage = photoTurn ? (photoTurn.direction === "next" ? photoTurn.from : photoTurn.to) : null;
+          const renderPage = (page: number, className: string) => {
+            const photo = page === 0 ? (card.image ? { src: card.image, alt: card.imageAlt } : null) : card.gallery?.[page - 1];
+            return (
+              <div className={className} data-cover={page === 0} data-rotate={page === 1}>
+                {photo ? <Image src={photo.src} alt={photo.alt} fill sizes="(max-width: 700px) 92vw, 31vw" loading="lazy" decoding="async" /> : null}
+                {page === 0 ? <h3>{card.title}</h3> : null}
+              </div>
+            );
+          };
+
+          return (
+            <article className="personal-card photo-album-card" data-open={photoPage > 0 || Boolean(photoTurn)} data-reveal key={card.id}>
+              <div className="photo-album-stage">
+                {renderPage(basePage, "photo-album-page photo-album-base")}
+                {turningPage !== null ? (
+                  <div
+                    className={`photo-album-turn photo-album-turn-${photoTurn?.direction}`}
+                    onAnimationEnd={() => {
+                      if (!photoTurn) return;
+                      setPhotoPage(photoTurn.to);
+                      setPhotoTurn(null);
+                    }}
+                  >
+                    {renderPage(turningPage, "photo-album-page")}
+                  </div>
+                ) : null}
+                {photoPage === 0 && !photoTurn ? <button type="button" className="photo-album-open" onClick={() => turnPhoto(1)} aria-label={card.action}><span>{card.action}</span></button> : null}
+                {photoPage > 0 || photoTurn ? (
+                  <>
+                    <button type="button" className="photo-album-close" onClick={() => turnPhoto(0)} disabled={Boolean(photoTurn)} aria-label={labels.close}><span aria-hidden="true" /></button>
+                    <div className="photo-album-controls">
+                      <button type="button" onClick={() => turnPhoto(Math.max(1, photoPage - 1))} disabled={Boolean(photoTurn) || photoPage <= 1}>{labels.previous}</button>
+                      <span>{String(Math.max(1, photoPage)).padStart(2, "0")} / {String(pageCount).padStart(2, "0")}</span>
+                      <button type="button" onClick={() => turnPhoto(Math.min(pageCount, photoPage + 1))} disabled={Boolean(photoTurn) || photoPage >= pageCount}>{labels.next}</button>
+                    </div>
+                  </>
+                ) : null}
+              </div>
+            </article>
+          );
+        }
         return (
           <article className="personal-card" data-flipped={isFlipped} data-kind={card.id} data-reveal key={card.id}>
             <div className="personal-card-inner">
@@ -247,22 +297,6 @@ export function PersonalArchiveCards({ items, labels }: { items: AboutCard[]; la
                   <div><span>{card.subtitle}</span><h3>{card.backTitle}</h3></div>
                   <button type="button" onClick={() => setCardFlipped(card.id, false)} tabIndex={isFlipped ? 0 : -1}>{labels.close}</button>
                 </div>
-
-                {card.id === "photography" ? (
-                  <>
-                    <div className="photo-book" aria-live="polite">
-                      <div className="photo-book-page" key={photoPage}>
-                        <small>{labels.page} {photoPage} / {pageCount}</small>
-                        {card.gallery?.[photoPage - 1] ? <Image src={card.gallery[photoPage - 1].src} alt={card.gallery[photoPage - 1].alt} fill sizes="(max-width: 700px) 78vw, 260px" style={{ objectFit: "contain" }} /> : <strong>{card.placeholder}</strong>}
-                      </div>
-                    </div>
-                    <div className="photo-book-controls">
-                      <button type="button" disabled={photoPage === 1} onClick={() => setPhotoPage((page) => Math.max(1, page - 1))} tabIndex={isFlipped ? 0 : -1}>{labels.previous}</button>
-                      <span>{photoPage} / {pageCount}</span>
-                      <button type="button" disabled={photoPage === pageCount} onClick={() => setPhotoPage((page) => Math.min(pageCount, page + 1))} tabIndex={isFlipped ? 0 : -1}>{labels.next}</button>
-                    </div>
-                  </>
-                ) : null}
 
                 {card.id === "dance" ? (
                   <div className="dance-video-placeholder" role="img" aria-label={card.placeholder}>
