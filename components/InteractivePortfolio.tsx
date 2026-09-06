@@ -140,7 +140,7 @@ export function ExperienceOrbit({ items, hint, labels }: { items: Experience[]; 
             <section className="drawer-section">
               <h3>{labels.gallery}</h3>
               {item.images.length ? (
-                <div className="drawer-gallery">{item.images.map((photo) => <figure key={photo.src}><Image src={photo.src} alt={photo.alt} fill sizes="(max-width: 700px) 88vw, 360px" loading="lazy" decoding="async" /></figure>)}</div>
+                <div className="drawer-gallery">{item.images.map((photo) => <figure key={photo.src}><img src={photo.src} alt={photo.alt} decoding="async" /></figure>)}</div>
               ) : (
                 <div className="asset-placeholder"><span>{item.brand}</span><p>{item.placeholder}</p></div>
               )}
