@@ -157,6 +157,8 @@ img { display: block; }
 .tencent-cover { align-content: center; justify-items: start; gap: 8px; padding: 20px; color: #fff; background: linear-gradient(145deg, #06162f, #0d3156); }
 .tencent-cover small { color: rgba(255,255,255,.76); font-size: 12px; font-weight: 800; }
 .tencent-cover strong { max-width: 12ch; font-size: 20px; line-height: 1.12; }
+.tencent-cover::after { content: ""; position: absolute; right: 8px; bottom: 0; width: 88px; height: 155px; background: url("/tencent-pm-banner.png") -32px -130px / 603px 285px no-repeat; opacity: .65; mix-blend-mode: screen; mask-image: linear-gradient(to right, transparent, #000 20%, #000 80%, transparent), linear-gradient(to bottom, transparent, #000 10%, #000 85%, transparent); mask-composite: intersect; pointer-events: none; }
+.tencent-cover small, .tencent-cover strong { position: relative; z-index: 1; }
 .builder-card-copy { flex: 1; min-height: 0; display: flex; flex-direction: column; padding: 13px 18px 12px; }
 .builder-card-meta { display: flex; align-items: center; justify-content: space-between; gap: 10px; color: var(--ink-soft); font-size: 11px; font-weight: 800; }
 .builder-card-meta > span { padding: 5px 8px; border-radius: 999px; background: var(--mist); }

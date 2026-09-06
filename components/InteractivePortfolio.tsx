@@ -141,7 +141,7 @@ export function ExperienceOrbit({ items, hint, labels }: { items: Experience[]; 
             <section className="drawer-section">
               <h3>{labels.gallery}</h3>
               {item.images.length ? (
-                <ExperienceGallery key={item.id} images={item.images} />
+                <ExperienceGallery key={item.id} images={item.images} hero={item.id !== "new-oriental" && item.id !== "utu"} />
               ) : (
                 <div className="asset-placeholder"><span>{item.brand}</span><p>{item.placeholder}</p></div>
               )}

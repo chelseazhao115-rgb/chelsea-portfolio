@@ -13,9 +13,9 @@ const evidencePositions: Record<string, string> = {
 };
 
 /** Consistent evidence frames; each link opens the uncropped original. */
-export function ExperienceGallery({ images }: { images: Photo[] }) {
+export function ExperienceGallery({ images, hero = true }: { images: Photo[]; hero?: boolean }) {
   return <div className="drawer-gallery">{images.map((photo, index) => (
-    <figure className="drawer-gallery-photo" data-hero={index === 0} key={photo.src}>
+    <figure className="drawer-gallery-photo" data-hero={hero && index === 0} key={photo.src}>
       <a href={photo.src} target="_blank" rel="noopener noreferrer">
         <img src={photo.src} alt={photo.alt} decoding="async"
           style={{ objectPosition: evidencePositions[photo.src] ?? "50% 50%" }} />
