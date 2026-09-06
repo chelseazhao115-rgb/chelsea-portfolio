@@ -204,7 +204,8 @@ img { display: block; }
 
 .experience-backdrop { position: fixed; z-index: 120; inset: 0; display: grid; place-items: center; padding: 24px; background: rgba(12, 32, 43, .48); opacity: 0; pointer-events: none; transition: opacity 220ms ease; }
 .experience-backdrop[data-open="true"] { opacity: 1; pointer-events: auto; }
-.experience-drawer { position: relative; width: min(62vw, 900px); max-height: calc(100dvh - 48px); overflow-y: auto; overscroll-behavior: contain; padding: 46px 50px 58px; border-radius: 24px; background: #f9fcf9; box-shadow: 0 30px 90px rgba(13, 44, 59, .28); opacity: 1; transform: translateY(0) scale(1); transition: opacity 220ms ease, transform 260ms var(--ease-out); }
+.experience-modal-dismiss { position: absolute; inset: 0; width: 100%; height: 100%; padding: 0; border: 0; background: transparent; cursor: default; }
+.experience-drawer { position: relative; z-index: 1; width: min(62vw, 900px); max-height: calc(100dvh - 48px); overflow-y: auto; overscroll-behavior: contain; padding: 46px 50px 58px; border-radius: 24px; background: #f9fcf9; box-shadow: 0 30px 90px rgba(13, 44, 59, .28); opacity: 1; transform: translateY(0) scale(1); transition: opacity 220ms ease, transform 260ms var(--ease-out); }
 @starting-style { .experience-backdrop[data-open="true"] { opacity: 0; } .experience-backdrop[data-open="true"] .experience-drawer { opacity: 0; transform: translateY(10px) scale(.975); } }
 .drawer-close { position: sticky; z-index: 5; top: 0; float: right; width: 46px; height: 46px; border: 1px solid var(--line); border-radius: 50%; background: rgba(255,255,255,.94); cursor: pointer; }
 .drawer-close span { position: absolute; width: 18px; height: 2px; left: 13px; top: 21px; background: currentColor; transform: rotate(45deg); font-size: 0; }

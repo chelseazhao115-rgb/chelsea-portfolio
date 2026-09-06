@@ -113,8 +113,8 @@ export function ExperienceOrbit({ items, hint, labels }: { items: Experience[]; 
         className="experience-backdrop"
         data-open={Boolean(item)}
         aria-hidden={!item}
-        onClick={(event) => { if (event.target === event.currentTarget) setActive(null); }}
       >
+        {item ? <button className="experience-modal-dismiss" type="button" tabIndex={-1} aria-label={labels.close} onClick={() => setActive(null)} /> : null}
         {item && (
           <div className="experience-drawer" role="dialog" aria-modal="true" aria-labelledby="experience-drawer-title" ref={dialogRef}>
             <button type="button" className="drawer-close" onClick={() => setActive(null)} aria-label={labels.close}>
