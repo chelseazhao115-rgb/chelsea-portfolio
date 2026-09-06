@@ -227,10 +227,14 @@ img { display: block; }
 .drawer-evidence strong { min-height: 72px; display: flex; align-items: center; padding: 14px 18px; border-radius: 14px; background: var(--sky); font-size: var(--text-supporting); line-height: 1.45; }
 .drawer-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 24px; }
 .drawer-tags span { padding: 8px 12px; border-radius: 999px; background: #e9f3e6; color: var(--leaf-dark); font-size: var(--text-meta); font-weight: 800; }
-.drawer-gallery { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-.drawer-gallery figure { min-width: 0; margin: 0; overflow: hidden; border-radius: 16px; background: transparent; line-height: 0; }
-.drawer-gallery figure:first-child { grid-column: 1 / -1; }
-.drawer-gallery img { width: 100%; height: auto; object-fit: initial; }
+.drawer-gallery { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; gap: 12px; }
+.drawer-gallery-photo { --photo-height-limit: 50vh; --photo-height-limit: 50dvh; display: flex; justify-content: center; min-width: 0; margin: 0; line-height: 0; }
+.drawer-gallery-photo[data-shape="landscape"], .drawer-gallery-photo[data-hero="true"] { grid-column: 1 / -1; }
+.drawer-gallery-photo[data-hero="true"] { --photo-height-limit: 54vh; --photo-height-limit: 54dvh; }
+/* Width is bounded by the column, native resolution, and viewport height × ratio.
+   Height remains intrinsic; even unusually tall photos stay fully visible. */
+.drawer-gallery-photo img { display: block; width: min(100%, var(--photo-width, 100%), calc(var(--photo-height-limit) * var(--photo-ratio, 1))); height: auto; max-width: 100%; max-height: var(--photo-height-limit); object-fit: contain; border-radius: 16px; }
+.drawer-gallery-photo[data-shape="pending"] img { width: auto; }
 .asset-placeholder { min-height: 260px; display: grid; place-items: center; align-content: center; gap: 14px; border: 1px dashed rgba(47,100,118,.32); border-radius: 18px; color: var(--ink-soft); background: linear-gradient(145deg, #eef8fb, #f1f8ee); text-align: center; }
 .asset-placeholder span { display: grid; place-items: center; width: 72px; height: 72px; border-radius: 50%; color: #fff; background: var(--ink); font-size: 13px; font-weight: 900; }
 .asset-placeholder p { margin: 0; font-size: var(--text-action); }
@@ -577,7 +581,7 @@ img { display: block; }
   .drawer-brand-kalowave { width: 214px; height: 55px; }
   .drawer-heading h2 { font-size: 42px; }
   .drawer-evidence > div, .drawer-gallery { grid-template-columns: 1fr; }
-  .drawer-gallery figure:first-child { grid-column: auto; }
+  .drawer-gallery-photo[data-shape], .drawer-gallery-photo[data-hero="true"] { grid-column: 1; }
   .postcard-grid { grid-template-columns: 1fr; }
   .postcard, .postcard-inner { min-height: 450px; height: 450px; }
   .postcard-front { grid-template-columns: 1fr; grid-template-rows: 288px 162px; }

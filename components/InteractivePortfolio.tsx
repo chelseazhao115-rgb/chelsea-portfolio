@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { ExperienceGallery } from "./ExperienceGallery";
 import { useEffect, useRef, useState, type PointerEvent } from "react";
 import type { AboutCard, Education, Experience } from "@/lib/content";
 
@@ -140,7 +141,7 @@ export function ExperienceOrbit({ items, hint, labels }: { items: Experience[]; 
             <section className="drawer-section">
               <h3>{labels.gallery}</h3>
               {item.images.length ? (
-                <div className="drawer-gallery">{item.images.map((photo) => <figure key={photo.src}><img src={photo.src} alt={photo.alt} decoding="async" /></figure>)}</div>
+                <ExperienceGallery key={item.id} images={item.images} />
               ) : (
                 <div className="asset-placeholder"><span>{item.brand}</span><p>{item.placeholder}</p></div>
               )}
