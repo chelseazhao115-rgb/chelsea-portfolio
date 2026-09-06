@@ -113,7 +113,7 @@ export function ExperienceOrbit({ items, hint, labels }: { items: Experience[]; 
         className="experience-backdrop"
         data-open={Boolean(item)}
         aria-hidden={!item}
-        onPointerDown={(event) => { if (event.target === event.currentTarget) setActive(null); }}
+        onClick={(event) => { if (event.target === event.currentTarget) setActive(null); }}
       >
         {item && (
           <div className="experience-drawer" role="dialog" aria-modal="true" aria-labelledby="experience-drawer-title" ref={dialogRef}>
