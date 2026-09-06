@@ -236,9 +236,10 @@ export function PersonalArchiveCards({ items, labels }: { items: AboutCard[]; la
                 <div className="personal-copy">
                   <span>{card.subtitle}</span>
                   <h3>{card.title}</h3>
-                  <p>{card.body}</p>
-                  <button type="button" onClick={() => setCardFlipped(card.id, true)} tabIndex={isFlipped ? -1 : 0}>{card.action}</button>
                 </div>
+                <button className="personal-cover-action" type="button" onClick={() => setCardFlipped(card.id, true)} tabIndex={isFlipped ? -1 : 0} aria-label={card.action}>
+                  <span>{card.action}</span>
+                </button>
               </section>
 
               <section className="personal-face personal-back" aria-hidden={!isFlipped}>

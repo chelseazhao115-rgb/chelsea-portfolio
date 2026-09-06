@@ -25,7 +25,7 @@ function ProjectVisual({ project, featured = false }: { project: ProjectSummary;
   if (project.slug === "tencent-bootcamp") {
     return <span className="tencent-cover" aria-hidden="true"><small>Tencent 腾讯</small><strong>{project.title}</strong><i>Foundation · Advanced</i></span>;
   }
-  return <Image src={project.image} alt={`${project.title} ${featured ? "interface" : "project visual"}`} fill sizes={featured ? "(max-width: 720px) 94vw, 46vw" : "(max-width: 720px) 34vw, 18vw"} style={project.slug === "portfolio" ? { objectFit: "contain", objectPosition: "center bottom" } : undefined} />;
+  return <Image src={project.image} alt={`${project.title} ${featured ? "interface" : "project visual"}`} fill sizes={featured ? "(max-width: 720px) 94vw, 46vw" : "(max-width: 720px) 38vw, 18vw"} style={project.slug === "portfolio" ? { objectFit: "cover", objectPosition: "50% 42%" } : undefined} />;
 }
 
 function FeaturedProjectCard({ locale, project }: { locale: Locale; project: ProjectSummary }) {
