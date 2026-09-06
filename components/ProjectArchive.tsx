@@ -65,7 +65,7 @@ export function ProjectArchive({ locale, projects }: ProjectArchiveProps) {
       <button type="button" onClick={() => move(1)} disabled={atEnd} aria-label={text.next}><ArrowIcon /></button>
     </div>
     <div className="builder-track" ref={trackRef} onScroll={syncControls} onWheel={handleWheel} tabIndex={0} aria-label={locale === "zh" ? "横向浏览产品项目" : "Browse projects horizontally"}>
-      {visibleProjects.map((project) => <article className="builder-card" data-category={project.category} data-status={project.status} key={project.id}>
+      {visibleProjects.map((project) => <article className="builder-card" data-project={project.id} data-category={project.category} data-status={project.status} key={project.id}>
         <div className="builder-card-media"><ProjectVisual project={project} /></div>
         <div className="builder-card-copy">
           <div className="builder-card-meta"><span>{project.kind}</span><strong>{text[project.status]}</strong></div>
