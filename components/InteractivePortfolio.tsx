@@ -103,7 +103,7 @@ export function ExperienceOrbit({ items, hint, labels }: { items: Experience[]; 
               aria-label={`${entry.company}, ${entry.role}, ${entry.date}`}
               key={entry.id}
             >
-              <span className="experience-brand"><Image src={experienceCompactLogos[entry.id]} alt={`${entry.company} logo`} fill sizes="64px" /></span>
+              <span className="experience-brand"><Image src={experienceCompactLogos[entry.id]} alt={`${entry.company} logo`} fill unoptimized sizes="64px" /></span>
               <span className="experience-node-copy"><strong>{entry.company}</strong><small>{entry.role}</small><time>{entry.date}</time></span>
             </button>
           ))}
@@ -122,7 +122,7 @@ export function ExperienceOrbit({ items, hint, labels }: { items: Experience[]; 
               <span aria-hidden="true" />
             </button>
             <div className="drawer-heading">
-              <span className={`drawer-brand drawer-brand-${item.id}`}><Image src={experienceDrawerLogos[item.id]} alt={`${item.company} logo`} fill sizes="240px" /></span>
+              <span className={`drawer-brand drawer-brand-${item.id}`}><Image src={experienceDrawerLogos[item.id]} alt={`${item.company} logo`} fill unoptimized sizes="240px" /></span>
               <p>{labels.title}</p>
               <h2 id="experience-drawer-title">{item.company}</h2>
               <strong>{item.role}</strong>
@@ -171,12 +171,12 @@ export function EducationPostcards({ items, hint }: { items: Education[]; hint: 
             <span className="postcard-inner">
               <span className="postcard-face postcard-front">
                 <span className="postcard-photo">
-                  {item.image ? <Image src={item.image} alt={item.imageAlt} fill sizes="(max-width: 700px) 62vw, 360px" loading="lazy" decoding="async" /> : <span className="postcard-placeholder" aria-label={item.imageAlt}><i>UM</i><small>{item.imageAlt}</small></span>}
+                  {item.image ? <Image src={item.image} alt={item.imageAlt} fill unoptimized sizes="(max-width: 700px) 62vw, 360px" loading="lazy" decoding="async" /> : <span className="postcard-placeholder" aria-label={item.imageAlt}><i>UM</i><small>{item.imageAlt}</small></span>}
                 </span>
                 <span className="postcard-details">
                   {item.secondaryImage ? (
                     <span className="postcard-secondary" aria-hidden="true">
-                      <Image src={item.secondaryImage} alt="" fill sizes="(max-width: 700px) 110px, 220px" loading="lazy" decoding="async" />
+                      <Image src={item.secondaryImage} alt="" fill unoptimized sizes="(max-width: 700px) 110px, 220px" loading="lazy" decoding="async" />
                     </span>
                   ) : null}
                   <span className="postcard-caption"><small>{item.date}</small><strong>{item.school}</strong><em>{hint}</em></span>
@@ -232,7 +232,7 @@ export function PersonalArchiveCards({ items, labels }: { items: AboutCard[]; la
             const photo = page === 0 ? (card.image ? { src: card.image, alt: card.imageAlt } : null) : card.gallery?.[page - 1];
             return (
               <div className={className} data-cover={page === 0} data-rotate={page === 1} data-end={page === endPage}>
-                {photo ? <Image src={photo.src} alt={photo.alt} fill sizes="(max-width: 700px) 92vw, 31vw" loading="lazy" decoding="async" /> : null}
+                {photo ? <Image src={photo.src} alt={photo.alt} fill unoptimized sizes="(max-width: 700px) 92vw, 31vw" loading="lazy" decoding="async" /> : null}
                 {page === 0 ? <h3>{card.title}</h3> : null}
                 {page === endPage ? <p>To be continued.</p> : null}
               </div>
@@ -273,7 +273,7 @@ export function PersonalArchiveCards({ items, labels }: { items: AboutCard[]; la
               <section className="personal-face personal-front" aria-hidden={isFlipped}>
                 <div className="personal-photo">
                   {card.image ? (
-                    <Image src={card.image} alt={card.imageAlt} fill sizes="(max-width: 700px) 92vw, 31vw" loading="lazy" decoding="async" />
+                    <Image src={card.image} alt={card.imageAlt} fill unoptimized sizes="(max-width: 700px) 92vw, 31vw" loading="lazy" decoding="async" />
                   ) : (
                     <div className="personal-front-placeholder" aria-label={card.imageAlt}>
                       <span>{card.title}</span>

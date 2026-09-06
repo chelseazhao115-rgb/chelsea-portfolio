@@ -76,3 +76,18 @@ test("reinitialises reveal animations after client-side route changes", async ()
   assert.match(source, /usePathname/);
   assert.match(source, /\[pathname\]/);
 });
+
+test("serves portfolio images directly without the Vinext optimizer endpoint", async () => {
+  for (const [path, expectedImage] of [
+    ["/zh", "/hero-chelsea.png"],
+    ["/zh/projects/rescue-ducks", "/rescue-ducks-cover.jpg"],
+    ["/zh/projects/tencent-bootcamp", "/tencent-foundation.png"],
+    ["/zh/projects/portfolio", "/hero-chelsea.png"],
+  ]) {
+    const response = await render(path);
+    assert.equal(response.status, 200, path);
+    const html = await response.text();
+    assert.doesNotMatch(html, /\/_vinext\/image/);
+    assert.match(html, new RegExp(expectedImage.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")));
+  }
+});

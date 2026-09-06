@@ -31,7 +31,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
     <SiteHeader locale={locale} />
     <main id="top">
       <section className="hero">
-        <Image src="/hero-chelsea.png" alt={locale === "zh" ? "Chelsea 在湖边草地的自然人像" : "Chelsea in a bright lakeside meadow"} fill priority sizes="100vw" className="hero-image" />
+        <Image src="/hero-chelsea.png" alt={locale === "zh" ? "Chelsea 在湖边草地的自然人像" : "Chelsea in a bright lakeside meadow"} fill priority unoptimized sizes="100vw" className="hero-image" />
         <div className="hero-wash" />
         <div className="hero-compass" aria-hidden="true"><i /><i /><i /></div>
         <div className="shell hero-inner">

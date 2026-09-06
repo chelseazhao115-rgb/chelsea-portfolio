@@ -16,7 +16,7 @@ function ProjectVisual({ project }: { project: ProjectSummary }) {
   if (project.id === "reading-lens") return <span className="reading-cover" aria-hidden="true"><span><small>Evidence-based review</small><strong>Reading Lens</strong><i>Highlight → Diagnose → Review</i></span></span>;
   if (project.id === "job-tracker") return <span className="job-cover" aria-hidden="true"><span><small>Local-first workspace</small><strong>Job Tracker</strong><i>Interested → Applied → Interview</i></span></span>;
   if (project.id === "tencent-bootcamp") return <span className="tencent-cover" aria-hidden="true"><small>Tencent 腾讯</small><strong>{project.title}</strong></span>;
-  if (project.image) return <Image src={project.image} alt={`${project.title} project visual`} fill sizes="(max-width: 720px) 92vw, (max-width: 1100px) 46vw, 30vw" />;
+  if (project.image) return <Image src={project.image} alt={`${project.title} project visual`} fill unoptimized sizes="(max-width: 720px) 92vw, (max-width: 1100px) 46vw, 30vw" />;
   return <span className="builder-card-placeholder" aria-hidden="true"><strong>{project.category === "skill" ? "Skill" : project.title.slice(0, 2)}</strong></span>;
 }
 

@@ -30,7 +30,7 @@ function CaseVisual({ slug, item }: { slug: ProjectSlug; item: (typeof projectCa
   if (slug === "tencent-bootcamp") return <div className="case-shot case-shot-tencent" role="img" aria-label="Tencent Product Manager Bootcamp">
     <div className="tencent-detail-visual"><span>Tencent 腾讯</span><strong>{item.title}</strong><small>Foundation · Advanced</small></div>
   </div>;
-  return <div className="case-shot"><Image src={item.image} alt={`${item.title} product interface`} fill priority sizes="(max-width: 900px) 94vw, 55vw" style={slug === "rescue-ducks" ? { objectFit: "contain" } : undefined} /></div>;
+  return <div className="case-shot"><Image src={item.image} alt={`${item.title} product interface`} fill priority unoptimized sizes="(max-width: 900px) 94vw, 55vw" style={slug === "rescue-ducks" ? { objectFit: "contain" } : undefined} /></div>;
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string; slug: string }> }): Promise<Metadata> {
@@ -102,7 +102,7 @@ export default async function CasePage({ params }: { params: Promise<{ locale: s
         </div>
       </section>
 
-      {item.gallery && <section className="case-gallery shell" data-reveal><h2>{locale === "zh" ? "过程证据" : "Process evidence"}</h2><div>{item.gallery.map((asset) => <figure key={asset.src}><Image src={asset.src} alt={asset.alt} width={asset.width} height={asset.height} sizes="(max-width: 700px) 92vw, 45vw" /></figure>)}</div></section>}
+      {item.gallery && <section className="case-gallery shell" data-reveal><h2>{locale === "zh" ? "过程证据" : "Process evidence"}</h2><div>{item.gallery.map((asset) => <figure key={asset.src}><Image src={asset.src} alt={asset.alt} width={asset.width} height={asset.height} unoptimized sizes="(max-width: 700px) 92vw, 45vw" /></figure>)}</div></section>}
 
       <section className="next-case"><div className="shell"><span>{t.nextCase}</span><Link href={`/${locale}/projects/${nextSlug}`}>{nextItem.title}</Link></div></section>
     </main>
