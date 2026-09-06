@@ -8,15 +8,23 @@ import { SiteHeader } from "@/components/SiteHeader";
 import { copy, projectCases, type Locale, type ProjectSlug } from "@/lib/content";
 
 const locales: Locale[] = ["zh", "en"];
-const slugs: ProjectSlug[] = ["rescue-ducks", "spoken-english-collector", "tencent-bootcamp", "portfolio"];
-export function generateStaticParams() { return locales.flatMap((locale) => [...slugs, "agora"].map((slug) => ({ locale, slug }))); }
+const slugs: ProjectSlug[] = ["rescue-ducks", "reading-lens", "job-tracker", "tencent-bootcamp", "portfolio"];
+const legacySlugs = ["agora", "spoken-english-collector"];
+export function generateStaticParams() { return locales.flatMap((locale) => [...slugs, ...legacySlugs].map((slug) => ({ locale, slug }))); }
 
 function CaseVisual({ slug, item }: { slug: ProjectSlug; item: (typeof projectCases)[Locale][ProjectSlug] }) {
-  if (slug === "spoken-english-collector") return <div className="case-shot case-shot-spoken" role="img" aria-label="Spoken English Collector product workflow">
-    <div className="spoken-detail-visual">
-      <span>Browser Extension · V1.0</span>
-      <strong>Capture an expression.<br />Keep the context.</strong>
-      <ol><li>Region capture + OCR</li><li>AI candidates</li><li>Local library</li><li>HTML review</li></ol>
+  if (slug === "reading-lens") return <div className="case-shot case-shot-reading" role="img" aria-label="Reading Lens product structure">
+    <div className="reading-detail-visual">
+      <span>Browser Extension · Evidence-based diagnosis</span>
+      <strong>Highlight evidence.<br />Diagnose the mistake.</strong>
+      <ol><li>Location</li><li>Paraphrase</li><li>Comprehension</li><li>Question strategy</li><li>Unsupported inference</li></ol>
+    </div>
+  </div>;
+  if (slug === "job-tracker") return <div className="case-shot case-shot-job" role="img" aria-label="Job Tracker workflow structure">
+    <div className="job-detail-visual">
+      <span>Local-first · Personal workspace</span>
+      <strong>Know what to do next.</strong>
+      <ol><li>Interested</li><li>Applied</li><li>Assessment</li><li>Interview</li><li>Offer / Reject</li></ol>
     </div>
   </div>;
   if (slug === "tencent-bootcamp") return <div className="case-shot case-shot-tencent" role="img" aria-label="Tencent Product Manager Bootcamp">
@@ -33,7 +41,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 
 export default async function CasePage({ params }: { params: Promise<{ locale: string; slug: string }> }) {
   const { locale: raw, slug: rawSlug } = await params;
-  if (locales.includes(raw as Locale) && rawSlug === "agora") redirect(`/${raw}/projects/spoken-english-collector`);
+  if (locales.includes(raw as Locale) && legacySlugs.includes(rawSlug)) redirect(`/${raw}/projects/reading-lens`);
   if (!locales.includes(raw as Locale) || !slugs.includes(rawSlug as ProjectSlug)) notFound();
   const locale = raw as Locale;
   const slug = rawSlug as ProjectSlug;

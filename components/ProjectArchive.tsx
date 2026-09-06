@@ -8,12 +8,13 @@ import type { Locale, ProjectSummary } from "@/lib/content";
 type ProjectArchiveProps = { locale: Locale; projects: ProjectSummary[] };
 
 const labels = {
-  zh: { completed: "Completed", working: "Working on", placeholder: "待补充", caseStudy: "查看案例", live: "打开产品", github: "GitHub", previous: "向左浏览", next: "向右浏览" },
+  zh: { completed: "Completed", working: "持续迭代中", placeholder: "待补充", caseStudy: "查看案例", live: "打开产品", github: "GitHub", previous: "向左浏览", next: "向右浏览" },
   en: { completed: "Completed", working: "Working on", placeholder: "To add", caseStudy: "View case study", live: "Live product", github: "GitHub", previous: "Scroll left", next: "Scroll right" },
 } as const;
 
 function ProjectVisual({ project }: { project: ProjectSummary }) {
-  if (project.id === "spoken-english-collector") return <span className="spoken-cover" aria-hidden="true"><span className="spoken-cover-window"><small>Browser Extension · V1.0</small><strong>Spoken English<br />Collector</strong></span></span>;
+  if (project.id === "reading-lens") return <span className="reading-cover" aria-hidden="true"><span><small>Evidence-based review</small><strong>Reading Lens</strong><i>Highlight → Diagnose → Review</i></span></span>;
+  if (project.id === "job-tracker") return <span className="job-cover" aria-hidden="true"><span><small>Local-first workspace</small><strong>Job Tracker</strong><i>Interested → Applied → Interview</i></span></span>;
   if (project.id === "tencent-bootcamp") return <span className="tencent-cover" aria-hidden="true"><small>Tencent 腾讯</small><strong>{project.title}</strong></span>;
   if (project.image) return <Image src={project.image} alt={`${project.title} project visual`} fill sizes="(max-width: 720px) 92vw, (max-width: 1100px) 46vw, 30vw" />;
   return <span className="builder-card-placeholder" aria-hidden="true"><strong>{project.category === "skill" ? "Skill" : project.title.slice(0, 2)}</strong></span>;
@@ -70,6 +71,7 @@ export function ProjectArchive({ locale, projects }: ProjectArchiveProps) {
         <div className="builder-card-copy">
           <div className="builder-card-meta"><span>{project.kind}</span><strong>{text[project.status]}</strong></div>
           <h3>{project.title}</h3>
+          <p>{project.subtitle}</p>
           <div className="builder-card-actions">
             {project.caseSlug ? <Link href={`/${locale}/projects/${project.caseSlug}`}>{text.caseStudy}<ArrowIcon /></Link> : null}
             {project.github ? <a className="builder-icon-link" href={project.github} target="_blank" rel="noreferrer" aria-label={`${project.title} ${text.github}`} title={text.github}><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3.3-.4 6.8-1.6 6.8-7A5.4 5.4 0 0 0 19.4 4 5 5 0 0 0 19.3.5S18.2.1 15 1.8a13.4 13.4 0 0 0-7 0C4.8.1 3.7.5 3.7.5A5 5 0 0 0 3.6 4a5.4 5.4 0 0 0-1.4 3.7c0 5.3 3.5 6.5 6.8 7A4.8 4.8 0 0 0 8 18v4M8 19c-3 .9-3-1.5-4-2" /></svg></a> : null}

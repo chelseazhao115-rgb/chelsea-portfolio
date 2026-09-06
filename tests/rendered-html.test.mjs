@@ -22,8 +22,8 @@ test("renders the bilingual portfolio home pages", async () => {
   }
 });
 
-test("renders all four project cases in both languages", async () => {
-  const slugs = ["rescue-ducks", "spoken-english-collector", "tencent-bootcamp", "portfolio"];
+test("renders all five project cases in both languages", async () => {
+  const slugs = ["rescue-ducks", "reading-lens", "job-tracker", "tencent-bootcamp", "portfolio"];
   for (const locale of ["zh", "en"]) {
     for (const slug of slugs) {
       const response = await render(`/${locale}/projects/${slug}`);
@@ -35,11 +35,13 @@ test("renders all four project cases in both languages", async () => {
   }
 });
 
-test("redirects legacy Agora routes to Spoken English Collector", async () => {
+test("redirects legacy learning-tool routes to Reading Lens", async () => {
   for (const locale of ["zh", "en"]) {
-    const response = await render(`/${locale}/projects/agora`);
-    assert.equal(response.status, 307);
-    assert.equal(new URL(response.headers.get("location")).pathname, `/${locale}/projects/spoken-english-collector`);
+    for (const slug of ["agora", "spoken-english-collector"]) {
+      const response = await render(`/${locale}/projects/${slug}`);
+      assert.equal(response.status, 307);
+      assert.equal(new URL(response.headers.get("location")).pathname, `/${locale}/projects/reading-lens`);
+    }
   }
 });
 
@@ -56,7 +58,7 @@ test("renders the bilingual product workflow with honest evidence boundaries", a
 });
 
 test("keeps the product workflow exclusive to the methods case", async () => {
-  for (const slug of ["rescue-ducks", "spoken-english-collector", "portfolio"]) {
+  for (const slug of ["rescue-ducks", "reading-lens", "job-tracker", "portfolio"]) {
     const response = await render(`/zh/projects/${slug}`);
     assert.equal(response.status, 200);
     assert.doesNotMatch(await response.text(), /class="product-process shell"/);
