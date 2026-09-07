@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { ExperienceGallery } from "./ExperienceGallery";
-import { useEffect, useRef, useState, type PointerEvent } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore, type PointerEvent } from "react";
 import { createPortal } from "react-dom";
 import type { AboutCard, Education, Experience } from "@/lib/content";
 
@@ -251,12 +251,25 @@ function DanceArchiveCard({ card, close }: { card: AboutCard; close: string }) {
   );
 }
 
+const volunteerMobileQuery = "(max-width: 720px)";
+const subscribeVolunteerLayout = (onStoreChange: () => void) => {
+  const media = window.matchMedia(volunteerMobileQuery);
+  media.addEventListener("change", onStoreChange);
+  return () => media.removeEventListener("change", onStoreChange);
+};
+const getVolunteerLayout = () => window.matchMedia(volunteerMobileQuery).matches;
+const getVolunteerServerLayout = () => false;
+
 function VolunteerArchiveCard({ card, labels }: { card: AboutCard; labels: PersonalArchiveLabels }) {
   const [open, setOpen] = useState(false);
-  const [activeEvidence, setActiveEvidence] = useState<number | null>(null);
+  const [opening, setOpening] = useState(false);
+  const [page, setPage] = useState(0);
+  const [turn, setTurn] = useState<{ from: number; to: number; direction: "next" | "previous" } | null>(null);
+  const [activeImage, setActiveImage] = useState<NonNullable<AboutCard["volunteer"]>["pages"][number]["image"] | null>(null);
+  const mobile = useSyncExternalStore(subscribeVolunteerLayout, getVolunteerLayout, getVolunteerServerLayout);
   const opener = useRef<HTMLButtonElement>(null);
   const dialog = useRef<HTMLDivElement>(null);
-  const evidenceTrigger = useRef<HTMLButtonElement | null>(null);
+  const imageTrigger = useRef<HTMLButtonElement | null>(null);
   const volunteer = card.volunteer;
 
   useEffect(() => {
@@ -276,9 +289,9 @@ function VolunteerArchiveCard({ card, labels }: { card: AboutCard; labels: Perso
     requestAnimationFrame(() => focusable()[0]?.focus({ preventScroll: true }));
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
-        if (activeEvidence !== null) {
-          setActiveEvidence(null);
-          requestAnimationFrame(() => evidenceTrigger.current?.focus({ preventScroll: true }));
+        if (activeImage) {
+          setActiveImage(null);
+          requestAnimationFrame(() => imageTrigger.current?.focus({ preventScroll: true }));
         } else {
           setOpen(false);
         }
@@ -299,10 +312,49 @@ function VolunteerArchiveCard({ card, labels }: { card: AboutCard; labels: Perso
     };
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
-  }, [open, activeEvidence]);
+  }, [open, activeImage]);
 
   if (!volunteer) return null;
-  const selectedEvidence = activeEvidence === null ? null : volunteer.evidence[activeEvidence];
+  const pagesPerView = mobile ? 1 : 2;
+  const startPage = mobile ? page : Math.floor(page / 2) * 2;
+  const finalPage = mobile ? volunteer.pages.length - 1 : Math.max(0, volunteer.pages.length - 2);
+  const visibleNumber = Math.floor(startPage / pagesPerView) + 1;
+  const visibleTotal = Math.ceil(volunteer.pages.length / pagesPerView);
+
+  const turnBook = (to: number) => {
+    if (turn || opening || to < 0 || to > finalPage || to === startPage) return;
+    setTurn({ from: startPage, to, direction: to > startPage ? "next" : "previous" });
+  };
+
+  const openImage = (image: NonNullable<typeof activeImage>, trigger: HTMLButtonElement) => {
+    imageTrigger.current = trigger;
+    setActiveImage(image);
+  };
+
+  const renderBookPages = (from: number, className: string) => (
+    <div className={`${className} volunteer-story-spread`}>
+      {volunteer.pages.slice(from, from + pagesPerView).map((storyPage, index) => (
+        <article className="volunteer-story-page" data-tone={storyPage.tone} data-overlay={storyPage.overlay || undefined} key={`${from + index}-${storyPage.title ?? storyPage.image?.src}`}>
+          {storyPage.image ? (
+            <button type="button" className="volunteer-story-media" data-fit={storyPage.image.fit} onClick={(event) => openImage(storyPage.image!, event.currentTarget)} aria-label={`${storyPage.image.openLabel}: ${storyPage.image.caption}`}>
+              <Image src={storyPage.image.src} alt={storyPage.image.alt} fill unoptimized loading="eager" sizes={mobile ? "94vw" : "47vw"} />
+            </button>
+          ) : null}
+          {storyPage.title || storyPage.body || storyPage.highlight ? (
+            <div className="volunteer-story-copy">
+              {storyPage.highlight ? <strong>{storyPage.highlight}</strong> : null}
+              {storyPage.title ? <h2>{storyPage.title}</h2> : null}
+              {storyPage.body ? <p>{storyPage.body}</p> : null}
+            </div>
+          ) : null}
+          {storyPage.image?.caption ? <small className="volunteer-story-caption">{storyPage.image.caption}</small> : null}
+        </article>
+      ))}
+    </div>
+  );
+
+  const basePage = turn ? (turn.direction === "next" ? turn.to : turn.from) : startPage;
+  const turningPage = turn ? (turn.direction === "next" ? turn.from : turn.to) : null;
 
   return (
     <>
@@ -312,62 +364,46 @@ function VolunteerArchiveCard({ card, labels }: { card: AboutCard; labels: Perso
             <div className="volunteer-cover-metric"><strong>{volunteer.coverMetric}</strong><span>h</span><small>{volunteer.coverLabel}</small></div>
             <h3>{card.title}</h3>
           </div>
-          <button ref={opener} type="button" className="photo-album-open" onClick={() => setOpen(true)} aria-label={card.action}><span>{card.action}</span></button>
+          <button ref={opener} type="button" className="photo-album-open" onClick={() => {
+            setPage(0);
+            setOpen(true);
+            setOpening(true);
+          }} aria-label={card.action}><span>{card.action}</span></button>
         </div>
       </article>
 
       {open && typeof document !== "undefined" ? createPortal((
         <div className="experience-backdrop volunteer-backdrop" data-open="true">
-          <button className="experience-modal-dismiss" type="button" tabIndex={-1} aria-label={selectedEvidence ? labels.closeImage : labels.close} onClick={() => {
-            if (selectedEvidence) setActiveEvidence(null);
-            else setOpen(false);
-          }} />
-          {selectedEvidence ? (
-            <div className="volunteer-lightbox" role="dialog" aria-modal="true" aria-label={selectedEvidence.title} ref={dialog}>
+          <button className="experience-modal-dismiss" type="button" tabIndex={-1} aria-label={activeImage ? labels.closeImage : labels.close} onClick={() => activeImage ? setActiveImage(null) : setOpen(false)} />
+          {activeImage ? (
+            <div className="volunteer-lightbox" role="dialog" aria-modal="true" aria-label={activeImage.caption} ref={dialog}>
               <button type="button" className="photo-album-close" aria-label={labels.closeImage} onClick={() => {
-                setActiveEvidence(null);
-                requestAnimationFrame(() => evidenceTrigger.current?.focus({ preventScroll: true }));
+                setActiveImage(null);
+                requestAnimationFrame(() => imageTrigger.current?.focus({ preventScroll: true }));
               }}><span aria-hidden="true" /></button>
-              <Image src={selectedEvidence.src} alt={selectedEvidence.alt} width={selectedEvidence.width} height={selectedEvidence.height} unoptimized priority />
-              <p>{selectedEvidence.title}</p>
+              <Image src={activeImage.src} alt={activeImage.alt} width={activeImage.width} height={activeImage.height} unoptimized priority />
+              <p>{activeImage.caption}</p>
             </div>
           ) : (
-            <div className="volunteer-dialog" role="dialog" aria-modal="true" aria-labelledby="volunteer-dialog-title" ref={dialog}>
-              <button type="button" className="drawer-close" onClick={() => setOpen(false)} aria-label={labels.close}><span aria-hidden="true" /></button>
-              <header className="volunteer-dialog-heading">
-                <h2 id="volunteer-dialog-title">{card.title}</h2>
-                <p>{volunteer.positioning}</p>
-              </header>
-
-              <section className="volunteer-dialog-section" aria-labelledby="volunteer-impact-title">
-                <h3 id="volunteer-impact-title">{volunteer.summaryLabel}</h3>
-                <div className="volunteer-stats">
-                  {volunteer.stats.map((stat) => (
-                    <article key={`${stat.value}-${stat.label}`} data-role={stat.role || undefined}>
-                      <strong>{stat.value}</strong>
-                      <span>{stat.label}</span>
-                    </article>
-                  ))}
-                </div>
-              </section>
-
-              <section className="volunteer-dialog-section" aria-labelledby="volunteer-evidence-title">
-                <div className="volunteer-evidence-heading">
-                  <h3 id="volunteer-evidence-title">{volunteer.evidenceLabel}</h3>
-                  <p>{volunteer.privacyNote}</p>
-                </div>
-                <div className="volunteer-evidence-grid">
-                  {volunteer.evidence.map((evidence, index) => (
-                    <button type="button" className="volunteer-evidence-card" key={evidence.src} onClick={(event) => {
-                      evidenceTrigger.current = event.currentTarget;
-                      setActiveEvidence(index);
-                    }} aria-label={`${evidence.openLabel}: ${evidence.title}`}>
-                      <span className="volunteer-evidence-image"><Image src={evidence.src} alt={evidence.alt} width={evidence.width} height={evidence.height} unoptimized /></span>
-                      <span>{evidence.title}</span>
-                    </button>
-                  ))}
-                </div>
-              </section>
+            <div className="volunteer-book-shell" role="dialog" aria-modal="true" aria-label={card.backTitle} ref={dialog}>
+              <div className="volunteer-book-stage">
+                {renderBookPages(basePage, "volunteer-story-base")}
+                {turn && turningPage !== null ? (
+                  <div className={`photo-album-turn photo-album-turn-${turn.direction}`} onAnimationEnd={() => {
+                    setPage(turn.to);
+                    setTurn(null);
+                  }}>{renderBookPages(turningPage, "volunteer-story-turning")}</div>
+                ) : null}
+                {opening ? (
+                  <div className="photo-album-turn photo-album-turn-next volunteer-opening-sheet" onAnimationEnd={() => setOpening(false)}>
+                    <div className="volunteer-book-cover"><strong>{card.title}</strong><span>{volunteer.coverLabel}</span></div>
+                  </div>
+                ) : null}
+                <button type="button" className="photo-album-close" aria-label={labels.close} onClick={() => setOpen(false)}><span aria-hidden="true" /></button>
+                {startPage > 0 ? <button type="button" className="photo-album-nav photo-album-nav-previous" aria-label={labels.previous} disabled={Boolean(turn) || opening} onClick={() => turnBook(Math.max(0, startPage - pagesPerView))}><span aria-hidden="true" /></button> : null}
+                {startPage < finalPage ? <button type="button" className="photo-album-nav photo-album-nav-next" aria-label={labels.next} disabled={Boolean(turn) || opening} onClick={() => turnBook(Math.min(finalPage, startPage + pagesPerView))}><span aria-hidden="true" /></button> : null}
+                <p className="volunteer-book-progress" aria-live="polite"><span>{String(visibleNumber).padStart(2, "0")}</span> / {String(visibleTotal).padStart(2, "0")}</p>
+              </div>
             </div>
           )}
         </div>

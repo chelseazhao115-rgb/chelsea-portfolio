@@ -71,12 +71,14 @@ export type AboutCard = {
   volunteer?: {
     coverMetric: string;
     coverLabel: string;
-    positioning: string;
-    summaryLabel: string;
-    evidenceLabel: string;
-    privacyNote: string;
-    stats: { value: string; label: string; role?: boolean }[];
-    evidence: { src: string; alt: string; title: string; openLabel: string; width: number; height: number }[];
+    pages: {
+      title?: string;
+      body?: string;
+      highlight?: string;
+      tone: "green" | "paper" | "photo" | "leaf";
+      overlay?: boolean;
+      image?: { src: string; alt: string; caption: string; openLabel: string; fit: "cover" | "contain"; width: number; height: number };
+    }[];
   };
 };
 
@@ -201,22 +203,22 @@ export const copy: Record<Locale, PageCopy> = {
       { id: "photography", title: "摄影", subtitle: "用镜头捕捉碎片", body: "我喜欢带着相机旅行，也会记录日常里容易错过的光线和细节。", action: "翻开摄影集", backTitle: "十页摄影手记", image: "/photography-01.jpg", imageAlt: "Chelsea 的摄影作品：花树下的人像", placeholder: "个人摄影作品", gallery: Array.from({ length: 10 }, (_, index) => ({ src: index === 0 ? "/photography-02-landscape.jpg" : `/photography-${String(index + 2).padStart(2, "0")}.jpg`, alt: `Chelsea 摄影作品 ${index + 2}` })) },
       { id: "dance", title: "舞蹈", subtitle: "", body: "我一直喜欢跳舞。练习、记动作和跟上音乐，是工作之外很放松的时刻。", action: "观看舞蹈视频", backTitle: "舞蹈片段", imageAlt: "舞蹈视频封面待补充", placeholder: "舞蹈视频待补充" },
       {
-        id: "volunteering", title: "志愿活动", subtitle: "Volunteer Service", body: "累计志愿服务 582.4 小时，持续参与公益组织、影像服务与校园志愿行动。", action: "查看志愿影响与证明", backTitle: "志愿服务记录", imageAlt: "志愿活动数据封面", placeholder: "志愿服务证明",
+        id: "volunteering", title: "志愿活动", subtitle: "Volunteer Service", body: "累计志愿服务 582.4 小时，持续参与公益组织、影像服务与校园志愿行动。", action: "翻开公益档案", backTitle: "个人公益档案", imageAlt: "志愿活动档案封面", placeholder: "志愿服务档案",
         volunteer: {
-          coverMetric: "582.4", coverLabel: "Volunteer Service", positioning: "Social Impact · Volunteer Leadership · Verified Credentials", summaryLabel: "Impact Summary", evidenceLabel: "Selected Evidence", privacyNote: "公开展示副本已隐藏志愿者编号、证书编号与二维码。",
-          stats: [
-            { value: "582.4 h", label: "累计志愿服务时长" },
-            { value: "兰州大学负责人", label: "浙江省新华爱心基金会「捡回珍珠计划」", role: true },
-            { value: "20", label: "YICCI 公益摄影师" },
-            { value: "10+", label: "公益访谈" },
-            { value: "2K+", label: "线上曝光" },
-            { value: "50+", label: "首期公益证件照服务人次" },
-          ],
-          evidence: [
-            { src: "/volunteer-3-public.png", alt: "志愿汇出具的志愿服务记录证明，显示累计服务 582.4 小时；志愿者编号与二维码已隐藏", title: "志愿服务记录证明", openLabel: "查看完整大图", width: 640, height: 456 },
-            { src: "/volunteer-4-public.png", alt: "兰州珍珠之家服务委员会负责人聘书", title: "“珍珠伙伴”负责人聘书", openLabel: "查看完整大图", width: 627, height: 443 },
-            { src: "/volunteer-2-public.png", alt: "兰州大学暑期社会实践优秀团队负责人证书；证书编号已隐藏", title: "优秀团队负责人证书", openLabel: "查看完整大图", width: 579, height: 425 },
-            { src: "/volunteer-1-public.png", alt: "兰州大学暑期社会实践优秀团队证书；证书编号已隐藏", title: "优秀团队证书", openLabel: "查看完整大图", width: 576, height: 432 },
+          coverMetric: "582.4", coverLabel: "Volunteer & Community",
+          pages: [
+            { tone: "green", highlight: "582.4 h", title: "志愿活动", body: "从公益组织到影像服务，一本关于行动、协作与长期投入的个人档案。" },
+            { tone: "paper", image: { src: "/volunteer-3-public.png", alt: "志愿汇出具的志愿服务记录证明，累计服务 582.4 小时；志愿者编号与二维码已隐藏", caption: "志愿服务记录证明 · 582.4 小时", openLabel: "查看完整大图", fit: "contain", width: 640, height: 456 } },
+            { tone: "leaf", title: "捡回珍珠计划", body: "曾任浙江省新华爱心基金会「捡回珍珠计划」兰州大学负责人，组织 2021 级珍珠生迎新；担任九九公益日兰州大学站公益大使，获兰州高校募捐第二名。" },
+            { tone: "paper", image: { src: "/volunteer-4-public.png", alt: "兰州珍珠之家服务委员会负责人聘书", caption: "“珍珠伙伴”负责人聘书", openLabel: "查看完整大图", fit: "contain", width: 627, height: 443 } },
+            { tone: "photo", overlay: true, title: "让影像成为服务", body: "组织 YICCI 公益摄影项目，与兰大就业中心合作开展公益证件照拍摄。", image: { src: "/volunteer-yicci-photo-service.jpg", alt: "YICCI 公益证件照拍摄现场与团队合影", caption: "YICCI 公益证件照拍摄现场", openLabel: "查看现场照片", fit: "cover", width: 549, height: 733 } },
+            { tone: "paper", title: "20 位摄影师，50+ 人次", body: "平台专职公益摄影师 20 位；首期公益证件照服务 50+ 人次。", image: { src: "/volunteer-id-photo-feedback.png", alt: "公益证件照活动参与者与团队反馈截图", caption: "公益证件照活动反馈", openLabel: "查看反馈大图", fit: "contain", width: 553, height: 552 } },
+            { tone: "paper", image: { src: "/volunteer-mopa-interview.jpg", alt: "YICCI 公益访谈第一期莫帕老师专访文章截图", caption: "YICCI 公益访谈 No.1 · 莫帕老师", openLabel: "查看访谈大图", fit: "contain", width: 560, height: 1240 } },
+            { tone: "paper", title: "10+ 访谈，2K+ 曝光", body: "策划公益访谈 10+；首期专访获兰州晨报、奔流新闻等媒体转载。", image: { src: "/volunteer-mopa-coverage.jpg", alt: "莫帕老师公益访谈被多家媒体转载的报道截图合集", caption: "公益访谈媒体转载记录", openLabel: "查看报道大图", fit: "contain", width: 851, height: 851 } },
+            { tone: "photo", overlay: true, title: "走进真实场景", body: "支教与暑期社会实践，是长期志愿行动的一部分。", image: { src: "/volunteer-field-activity.jpg", alt: "暑期社会实践中志愿者与学生开展户外活动", caption: "暑期社会实践现场", openLabel: "查看活动照片", fit: "cover", width: 1178, height: 884 } },
+            { tone: "photo", overlay: true, title: "把参与变成长期习惯", body: "也参与疫情防控、「榜样的力量」、出彩毕业生拍摄等志愿服务。", image: { src: "/volunteer-field-classroom.jpg", alt: "暑期社会实践课堂现场", caption: "暑期社会实践课堂", openLabel: "查看课堂照片", fit: "cover", width: 682, height: 459 } },
+            { tone: "paper", image: { src: "/volunteer-2-public.png", alt: "兰州大学暑期社会实践优秀团队负责人证书；证书编号已隐藏", caption: "优秀团队负责人证书", openLabel: "查看完整大图", fit: "contain", width: 579, height: 425 } },
+            { tone: "paper", image: { src: "/volunteer-1-public.png", alt: "兰州大学暑期社会实践优秀团队证书；证书编号已隐藏", caption: "优秀团队证书", openLabel: "查看完整大图", fit: "contain", width: 576, height: 432 } },
           ],
         },
       },
@@ -307,22 +309,22 @@ export const copy: Record<Locale, PageCopy> = {
       { id: "photography", title: "Photography", subtitle: "Selected moments", body: "I notice easy-to-miss light, places and moments, and keep them in photographs.", action: "Open photo book", backTitle: "A ten-page photo journal", image: "/photography-01.jpg", imageAlt: "Chelsea portrait beneath flowering trees", placeholder: "Photography work", gallery: Array.from({ length: 10 }, (_, index) => ({ src: index === 0 ? "/photography-02-landscape.jpg" : `/photography-${String(index + 2).padStart(2, "0")}.jpg`, alt: `Chelsea photography work ${index + 2}` })) },
       { id: "dance", title: "Dance", subtitle: "", body: "Long-term practice made me comfortable with feedback, decomposition and the pacing of an experience.", action: "Watch dance video", backTitle: "Dance reel", imageAlt: "Dance video cover to add", placeholder: "Dance video to add" },
       {
-        id: "volunteering", title: "Volunteer", subtitle: "Volunteer Service", body: "582.4 verified service hours across nonprofit leadership, public-interest photography and campus volunteering.", action: "View impact and credentials", backTitle: "Volunteer service record", imageAlt: "Volunteer service data cover", placeholder: "Volunteer credentials",
+        id: "volunteering", title: "Volunteer", subtitle: "Volunteer Service", body: "582.4 verified service hours across nonprofit leadership, public-interest photography and campus volunteering.", action: "Open volunteer archive", backTitle: "Volunteer story archive", imageAlt: "Volunteer archive cover", placeholder: "Volunteer archive",
         volunteer: {
-          coverMetric: "582.4", coverLabel: "Volunteer Service", positioning: "Social Impact · Volunteer Leadership · Verified Credentials", summaryLabel: "Impact Summary", evidenceLabel: "Selected Evidence", privacyNote: "Public display copies conceal volunteer IDs, certificate numbers and QR codes.",
-          stats: [
-            { value: "582.4 h", label: "verified volunteer service" },
-            { value: "LZU Lead", label: "Pearl Retrieval Program · Zhejiang Xinhua Compassion Education Foundation", role: true },
-            { value: "20", label: "YICCI volunteer photographers" },
-            { value: "10+", label: "public-interest interviews" },
-            { value: "2K+", label: "online exposure" },
-            { value: "50+", label: "people served in the first ID-photo session" },
-          ],
-          evidence: [
-            { src: "/volunteer-3-public.png", alt: "Volunteer service record showing 582.4 verified hours; volunteer ID and QR code concealed", title: "Volunteer Service Record", openLabel: "View full-size image", width: 640, height: 456 },
-            { src: "/volunteer-4-public.png", alt: "Appointment letter for the Lanzhou University Pearl Partner lead", title: "Pearl Partner Appointment", openLabel: "View full-size image", width: 627, height: 443 },
-            { src: "/volunteer-2-public.png", alt: "Outstanding Team Leader certificate; certificate number concealed", title: "Outstanding Team Leader", openLabel: "View full-size image", width: 579, height: 425 },
-            { src: "/volunteer-1-public.png", alt: "Outstanding Team certificate; certificate number concealed", title: "Outstanding Team", openLabel: "View full-size image", width: 576, height: 432 },
+          coverMetric: "582.4", coverLabel: "Volunteer & Community",
+          pages: [
+            { tone: "green", highlight: "582.4 h", title: "Volunteer & Community", body: "A personal archive of sustained service, nonprofit leadership and photography used as practical support." },
+            { tone: "paper", image: { src: "/volunteer-3-public.png", alt: "Volunteer service record showing 582.4 verified hours; volunteer ID and QR code concealed", caption: "Verified volunteer record · 582.4 hours", openLabel: "View full-size image", fit: "contain", width: 640, height: 456 } },
+            { tone: "leaf", title: "Pearl Retrieval Program", body: "Lanzhou University lead for the Zhejiang Xinhua Compassion Education Foundation program; organised the 2021 welcome and served as campus ambassador for the 99 Giving Day campaign, ranking second among Lanzhou universities." },
+            { tone: "paper", image: { src: "/volunteer-4-public.png", alt: "Appointment letter for the Lanzhou University Pearl Partner lead", caption: "Pearl Partner lead appointment", openLabel: "View full-size image", fit: "contain", width: 627, height: 443 } },
+            { tone: "photo", overlay: true, title: "Photography as service", body: "Organised YICCI public-interest photography and worked with LZU Career Services on free ID-photo sessions.", image: { src: "/volunteer-yicci-photo-service.jpg", alt: "YICCI public-interest ID-photo session and team photograph", caption: "YICCI public-interest photography", openLabel: "View event photo", fit: "cover", width: 549, height: 733 } },
+            { tone: "paper", title: "20 photographers, 50+ people served", body: "A 20-person volunteer photography team; the first ID-photo session served more than 50 people.", image: { src: "/volunteer-id-photo-feedback.png", alt: "Feedback from participants and the public-interest photography team", caption: "Feedback from the ID-photo service", openLabel: "View feedback", fit: "contain", width: 553, height: 552 } },
+            { tone: "paper", image: { src: "/volunteer-mopa-interview.jpg", alt: "YICCI public-interest interview No.1 with teacher Mopa", caption: "YICCI Interview No.1 · Teacher Mopa", openLabel: "View interview", fit: "contain", width: 560, height: 1240 } },
+            { tone: "paper", title: "10+ interviews, 2K+ reach", body: "Planned more than 10 public-interest interviews; the first was republished by Lanzhou Morning Post, Benliu News and other media.", image: { src: "/volunteer-mopa-coverage.jpg", alt: "Media coverage collage for the YICCI interview with teacher Mopa", caption: "Media republication record", openLabel: "View coverage", fit: "contain", width: 851, height: 851 } },
+            { tone: "photo", overlay: true, title: "Working in real settings", body: "Rural teaching and summer social practice formed part of the long-term service record.", image: { src: "/volunteer-field-activity.jpg", alt: "Volunteers and students during an outdoor summer social-practice activity", caption: "Summer social-practice activity", openLabel: "View event photo", fit: "cover", width: 1178, height: 884 } },
+            { tone: "photo", overlay: true, title: "Making service a habit", body: "Other work included pandemic support and volunteer photography for role-model and graduate stories.", image: { src: "/volunteer-field-classroom.jpg", alt: "Classroom during a summer social-practice programme", caption: "Summer social-practice classroom", openLabel: "View classroom photo", fit: "cover", width: 682, height: 459 } },
+            { tone: "paper", image: { src: "/volunteer-2-public.png", alt: "Outstanding Team Leader certificate; certificate number concealed", caption: "Outstanding Team Leader", openLabel: "View full-size image", fit: "contain", width: 579, height: 425 } },
+            { tone: "paper", image: { src: "/volunteer-1-public.png", alt: "Outstanding Team certificate; certificate number concealed", caption: "Outstanding Team", openLabel: "View full-size image", fit: "contain", width: 576, height: 432 } },
           ],
         },
       },
