@@ -68,6 +68,16 @@ export type AboutCard = {
   imageAlt: string;
   placeholder: string;
   gallery?: { src: string; alt: string }[];
+  volunteer?: {
+    coverMetric: string;
+    coverLabel: string;
+    positioning: string;
+    summaryLabel: string;
+    evidenceLabel: string;
+    privacyNote: string;
+    stats: { value: string; label: string; role?: boolean }[];
+    evidence: { src: string; alt: string; title: string; openLabel: string; width: number; height: number }[];
+  };
 };
 
 type PageCopy = {
@@ -104,6 +114,7 @@ type PageCopy = {
   aboutIntro: string;
   aboutCards: AboutCard[];
   aboutClose: string;
+  aboutImageClose: string;
   previousPage: string;
   nextPage: string;
   pageLabel: string;
@@ -185,13 +196,33 @@ export const copy: Record<Locale, PageCopy> = {
       { label: "产品实践", value: "用户研究 · 需求定义 · 优先级判断 · MVP · 用户测试 · AI 评测 · 数据复盘" },
     ],
     aboutTitle: "工作之外",
-    aboutIntro: "我喜欢摄影和跳舞，也做过 581 小时志愿服务。这里只放一些生活里的记录。",
+    aboutIntro: "我喜欢摄影和跳舞，也累计完成了 582.4 小时志愿服务。这里只放一些生活里的记录。",
     aboutCards: [
       { id: "photography", title: "摄影", subtitle: "用镜头捕捉碎片", body: "我喜欢带着相机旅行，也会记录日常里容易错过的光线和细节。", action: "翻开摄影集", backTitle: "十页摄影手记", image: "/photography-01.jpg", imageAlt: "Chelsea 的摄影作品：花树下的人像", placeholder: "个人摄影作品", gallery: Array.from({ length: 10 }, (_, index) => ({ src: index === 0 ? "/photography-02-landscape.jpg" : `/photography-${String(index + 2).padStart(2, "0")}.jpg`, alt: `Chelsea 摄影作品 ${index + 2}` })) },
       { id: "dance", title: "舞蹈", subtitle: "", body: "我一直喜欢跳舞。练习、记动作和跟上音乐，是工作之外很放松的时刻。", action: "观看舞蹈视频", backTitle: "舞蹈片段", imageAlt: "舞蹈视频封面待补充", placeholder: "舞蹈视频待补充" },
-      { id: "volunteering", title: "志愿活动", subtitle: "社区与服务", body: "大学期间累计完成 581 小时志愿服务，参与过校园活动和社区服务。", action: "查看服务档案", backTitle: "志愿服务记录", imageAlt: "志愿服务封面待补充", placeholder: "志愿服务图片与项目介绍待补充" },
+      {
+        id: "volunteering", title: "志愿活动", subtitle: "Volunteer Service", body: "累计志愿服务 582.4 小时，持续参与公益组织、影像服务与校园志愿行动。", action: "查看志愿影响与证明", backTitle: "志愿服务记录", imageAlt: "志愿活动数据封面", placeholder: "志愿服务证明",
+        volunteer: {
+          coverMetric: "582.4", coverLabel: "Volunteer Service", positioning: "Social Impact · Volunteer Leadership · Verified Credentials", summaryLabel: "Impact Summary", evidenceLabel: "Selected Evidence", privacyNote: "公开展示副本已隐藏志愿者编号、证书编号与二维码。",
+          stats: [
+            { value: "582.4 h", label: "累计志愿服务时长" },
+            { value: "兰州大学负责人", label: "浙江省新华爱心基金会「捡回珍珠计划」", role: true },
+            { value: "20", label: "YICCI 公益摄影师" },
+            { value: "10+", label: "公益访谈" },
+            { value: "2K+", label: "线上曝光" },
+            { value: "50+", label: "首期公益证件照服务人次" },
+          ],
+          evidence: [
+            { src: "/volunteer-3-public.png", alt: "志愿汇出具的志愿服务记录证明，显示累计服务 582.4 小时；志愿者编号与二维码已隐藏", title: "志愿服务记录证明", openLabel: "查看完整大图", width: 640, height: 456 },
+            { src: "/volunteer-4-public.png", alt: "兰州珍珠之家服务委员会负责人聘书", title: "“珍珠伙伴”负责人聘书", openLabel: "查看完整大图", width: 627, height: 443 },
+            { src: "/volunteer-2-public.png", alt: "兰州大学暑期社会实践优秀团队负责人证书；证书编号已隐藏", title: "优秀团队负责人证书", openLabel: "查看完整大图", width: 579, height: 425 },
+            { src: "/volunteer-1-public.png", alt: "兰州大学暑期社会实践优秀团队证书；证书编号已隐藏", title: "优秀团队证书", openLabel: "查看完整大图", width: 576, height: 432 },
+          ],
+        },
+      },
     ],
     aboutClose: "返回卡片正面",
+    aboutImageClose: "返回志愿服务档案",
     previousPage: "上一页",
     nextPage: "下一页",
     pageLabel: "页",
@@ -271,13 +302,33 @@ export const copy: Record<Locale, PageCopy> = {
       { label: "Product practice", value: "User research · Requirement definition · Prioritisation · MVP · User testing · AI evaluation · Data review" },
     ],
     aboutTitle: "Analytical by training. Attentive by nature.",
-    aboutIntro: "Teaching trained me to explain complexity, statistics taught me to respect evidence, and product work connects observation with action. Photography, dance and 581 hours of volunteering shape my aesthetics, expression and empathy.",
+    aboutIntro: "Teaching trained me to explain complexity, statistics taught me to respect evidence, and product work connects observation with action. Photography, dance and 582.4 hours of volunteering shape my aesthetics, expression and empathy.",
     aboutCards: [
       { id: "photography", title: "Photography", subtitle: "Selected moments", body: "I notice easy-to-miss light, places and moments, and keep them in photographs.", action: "Open photo book", backTitle: "A ten-page photo journal", image: "/photography-01.jpg", imageAlt: "Chelsea portrait beneath flowering trees", placeholder: "Photography work", gallery: Array.from({ length: 10 }, (_, index) => ({ src: index === 0 ? "/photography-02-landscape.jpg" : `/photography-${String(index + 2).padStart(2, "0")}.jpg`, alt: `Chelsea photography work ${index + 2}` })) },
       { id: "dance", title: "Dance", subtitle: "", body: "Long-term practice made me comfortable with feedback, decomposition and the pacing of an experience.", action: "Watch dance video", backTitle: "Dance reel", imageAlt: "Dance video cover to add", placeholder: "Dance video to add" },
-      { id: "volunteering", title: "Volunteer", subtitle: "Community & service", body: "Service brought me closer to different realities and taught me to turn empathy into concrete action.", action: "Open service notes", backTitle: "Volunteering field notes", imageAlt: "Volunteer cover to add", placeholder: "Volunteering images and project notes to add" },
+      {
+        id: "volunteering", title: "Volunteer", subtitle: "Volunteer Service", body: "582.4 verified service hours across nonprofit leadership, public-interest photography and campus volunteering.", action: "View impact and credentials", backTitle: "Volunteer service record", imageAlt: "Volunteer service data cover", placeholder: "Volunteer credentials",
+        volunteer: {
+          coverMetric: "582.4", coverLabel: "Volunteer Service", positioning: "Social Impact · Volunteer Leadership · Verified Credentials", summaryLabel: "Impact Summary", evidenceLabel: "Selected Evidence", privacyNote: "Public display copies conceal volunteer IDs, certificate numbers and QR codes.",
+          stats: [
+            { value: "582.4 h", label: "verified volunteer service" },
+            { value: "LZU Lead", label: "Pearl Retrieval Program · Zhejiang Xinhua Compassion Education Foundation", role: true },
+            { value: "20", label: "YICCI volunteer photographers" },
+            { value: "10+", label: "public-interest interviews" },
+            { value: "2K+", label: "online exposure" },
+            { value: "50+", label: "people served in the first ID-photo session" },
+          ],
+          evidence: [
+            { src: "/volunteer-3-public.png", alt: "Volunteer service record showing 582.4 verified hours; volunteer ID and QR code concealed", title: "Volunteer Service Record", openLabel: "View full-size image", width: 640, height: 456 },
+            { src: "/volunteer-4-public.png", alt: "Appointment letter for the Lanzhou University Pearl Partner lead", title: "Pearl Partner Appointment", openLabel: "View full-size image", width: 627, height: 443 },
+            { src: "/volunteer-2-public.png", alt: "Outstanding Team Leader certificate; certificate number concealed", title: "Outstanding Team Leader", openLabel: "View full-size image", width: 579, height: 425 },
+            { src: "/volunteer-1-public.png", alt: "Outstanding Team certificate; certificate number concealed", title: "Outstanding Team", openLabel: "View full-size image", width: 576, height: 432 },
+          ],
+        },
+      },
     ],
     aboutClose: "Return to card front",
+    aboutImageClose: "Return to volunteer record",
     previousPage: "Previous",
     nextPage: "Next",
     pageLabel: "Page",

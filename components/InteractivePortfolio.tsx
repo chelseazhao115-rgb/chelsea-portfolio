@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { ExperienceGallery } from "./ExperienceGallery";
 import { useEffect, useRef, useState, type PointerEvent } from "react";
+import { createPortal } from "react-dom";
 import type { AboutCard, Education, Experience } from "@/lib/content";
 
 type ExperienceLabels = {
@@ -200,6 +201,7 @@ export function EducationPostcards({ items, hint }: { items: Education[]; hint: 
 
 type PersonalArchiveLabels = {
   close: string;
+  closeImage: string;
   previous: string;
   next: string;
   page: string;
@@ -249,6 +251,131 @@ function DanceArchiveCard({ card, close }: { card: AboutCard; close: string }) {
   );
 }
 
+function VolunteerArchiveCard({ card, labels }: { card: AboutCard; labels: PersonalArchiveLabels }) {
+  const [open, setOpen] = useState(false);
+  const [activeEvidence, setActiveEvidence] = useState<number | null>(null);
+  const opener = useRef<HTMLButtonElement>(null);
+  const dialog = useRef<HTMLDivElement>(null);
+  const evidenceTrigger = useRef<HTMLButtonElement | null>(null);
+  const volunteer = card.volunteer;
+
+  useEffect(() => {
+    if (!open) return;
+    const previousOverflow = document.body.style.overflow;
+    const openerNode = opener.current;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      openerNode?.focus({ preventScroll: true });
+    };
+  }, [open]);
+
+  useEffect(() => {
+    if (!open) return;
+    const focusable = () => Array.from(dialog.current?.querySelectorAll<HTMLElement>('button, [href], [tabindex]:not([tabindex="-1"])') ?? []);
+    requestAnimationFrame(() => focusable()[0]?.focus({ preventScroll: true }));
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        if (activeEvidence !== null) {
+          setActiveEvidence(null);
+          requestAnimationFrame(() => evidenceTrigger.current?.focus({ preventScroll: true }));
+        } else {
+          setOpen(false);
+        }
+        return;
+      }
+      if (event.key !== "Tab") return;
+      const nodes = focusable();
+      if (!nodes.length) return;
+      const first = nodes[0];
+      const last = nodes[nodes.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [open, activeEvidence]);
+
+  if (!volunteer) return null;
+  const selectedEvidence = activeEvidence === null ? null : volunteer.evidence[activeEvidence];
+
+  return (
+    <>
+      <article className="personal-card volunteer-archive-card" data-kind="volunteering" data-reveal>
+        <div className="photo-album-stage volunteer-cover-stage">
+          <div className="volunteer-cover" aria-hidden="true">
+            <div className="volunteer-cover-metric"><strong>{volunteer.coverMetric}</strong><span>h</span><small>{volunteer.coverLabel}</small></div>
+            <h3>{card.title}</h3>
+          </div>
+          <button ref={opener} type="button" className="photo-album-open" onClick={() => setOpen(true)} aria-label={card.action}><span>{card.action}</span></button>
+        </div>
+      </article>
+
+      {open && typeof document !== "undefined" ? createPortal((
+        <div className="experience-backdrop volunteer-backdrop" data-open="true">
+          <button className="experience-modal-dismiss" type="button" tabIndex={-1} aria-label={selectedEvidence ? labels.closeImage : labels.close} onClick={() => {
+            if (selectedEvidence) setActiveEvidence(null);
+            else setOpen(false);
+          }} />
+          {selectedEvidence ? (
+            <div className="volunteer-lightbox" role="dialog" aria-modal="true" aria-label={selectedEvidence.title} ref={dialog}>
+              <button type="button" className="photo-album-close" aria-label={labels.closeImage} onClick={() => {
+                setActiveEvidence(null);
+                requestAnimationFrame(() => evidenceTrigger.current?.focus({ preventScroll: true }));
+              }}><span aria-hidden="true" /></button>
+              <Image src={selectedEvidence.src} alt={selectedEvidence.alt} width={selectedEvidence.width} height={selectedEvidence.height} unoptimized priority />
+              <p>{selectedEvidence.title}</p>
+            </div>
+          ) : (
+            <div className="volunteer-dialog" role="dialog" aria-modal="true" aria-labelledby="volunteer-dialog-title" ref={dialog}>
+              <button type="button" className="drawer-close" onClick={() => setOpen(false)} aria-label={labels.close}><span aria-hidden="true" /></button>
+              <header className="volunteer-dialog-heading">
+                <h2 id="volunteer-dialog-title">{card.title}</h2>
+                <p>{volunteer.positioning}</p>
+              </header>
+
+              <section className="volunteer-dialog-section" aria-labelledby="volunteer-impact-title">
+                <h3 id="volunteer-impact-title">{volunteer.summaryLabel}</h3>
+                <div className="volunteer-stats">
+                  {volunteer.stats.map((stat) => (
+                    <article key={`${stat.value}-${stat.label}`} data-role={stat.role || undefined}>
+                      <strong>{stat.value}</strong>
+                      <span>{stat.label}</span>
+                    </article>
+                  ))}
+                </div>
+              </section>
+
+              <section className="volunteer-dialog-section" aria-labelledby="volunteer-evidence-title">
+                <div className="volunteer-evidence-heading">
+                  <h3 id="volunteer-evidence-title">{volunteer.evidenceLabel}</h3>
+                  <p>{volunteer.privacyNote}</p>
+                </div>
+                <div className="volunteer-evidence-grid">
+                  {volunteer.evidence.map((evidence, index) => (
+                    <button type="button" className="volunteer-evidence-card" key={evidence.src} onClick={(event) => {
+                      evidenceTrigger.current = event.currentTarget;
+                      setActiveEvidence(index);
+                    }} aria-label={`${evidence.openLabel}: ${evidence.title}`}>
+                      <span className="volunteer-evidence-image"><Image src={evidence.src} alt={evidence.alt} width={evidence.width} height={evidence.height} unoptimized /></span>
+                      <span>{evidence.title}</span>
+                    </button>
+                  ))}
+                </div>
+              </section>
+            </div>
+          )}
+        </div>
+      ), document.body) : null}
+    </>
+  );
+}
+
 export function PersonalArchiveCards({ items, labels }: { items: AboutCard[]; labels: PersonalArchiveLabels }) {
   const [flipped, setFlipped] = useState<Record<string, boolean>>({});
   const [photoPage, setPhotoPage] = useState(0);
@@ -269,6 +396,7 @@ export function PersonalArchiveCards({ items, labels }: { items: AboutCard[]; la
         const isFlipped = Boolean(flipped[card.id]);
         const pageCount = card.gallery?.length ?? 0;
         if (card.id === "dance") return <DanceArchiveCard key={card.id} card={card} close={labels.close} />;
+        if (card.id === "volunteering") return <VolunteerArchiveCard key={card.id} card={card} labels={labels} />;
         if (card.id === "photography") {
           const endPage = pageCount + 1;
           const basePage = photoTurn ? (photoTurn.direction === "next" ? photoTurn.to : photoTurn.from) : photoPage;
