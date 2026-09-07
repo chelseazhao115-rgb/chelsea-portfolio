@@ -41,7 +41,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
             <p className="hero-intro">{t.heroIntro}</p>
             <div className="cta-row">
               <a className="button button-primary" href="#projects">{t.view}</a>
-              <a className="button button-light" href="/Chelsea_Zhao_Product_Manager_Resume_CN.pdf" download>{t.resume}</a>
+              <a className="button button-light" href="/Chelsea_AI_edu_PM.pdf" download>{t.resume}</a>
               <a className="text-link" href={`mailto:${t.email}`}>{t.contact}</a>
             </div>
             <small>{t.resumeLabel}</small>
