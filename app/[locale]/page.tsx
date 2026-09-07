@@ -117,7 +117,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
       <section className="section about-section" id="about">
         <div className="shell">
           <div className="about-intro" data-reveal><h2>{t.aboutTitle}</h2><p>{t.aboutIntro}</p></div>
-          <PersonalArchiveCards items={t.aboutCards} labels={{ close: t.aboutClose, closeImage: t.aboutImageClose, previous: t.previousPage, next: t.nextPage, page: t.pageLabel }} />
+          <PersonalArchiveCards items={t.aboutCards} labels={{ close: t.aboutClose, previous: t.previousPage, next: t.nextPage, page: t.pageLabel }} />
         </div>
       </section>
 

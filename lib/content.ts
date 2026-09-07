@@ -116,7 +116,6 @@ type PageCopy = {
   aboutIntro: string;
   aboutCards: AboutCard[];
   aboutClose: string;
-  aboutImageClose: string;
   previousPage: string;
   nextPage: string;
   pageLabel: string;
@@ -224,7 +223,6 @@ export const copy: Record<Locale, PageCopy> = {
       },
     ],
     aboutClose: "返回卡片正面",
-    aboutImageClose: "返回志愿服务档案",
     previousPage: "上一页",
     nextPage: "下一页",
     pageLabel: "页",
@@ -330,7 +328,6 @@ export const copy: Record<Locale, PageCopy> = {
       },
     ],
     aboutClose: "Return to card front",
-    aboutImageClose: "Return to volunteer record",
     previousPage: "Previous",
     nextPage: "Next",
     pageLabel: "Page",

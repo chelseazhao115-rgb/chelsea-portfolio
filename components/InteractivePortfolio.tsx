@@ -2,8 +2,7 @@
 
 import Image from "next/image";
 import { ExperienceGallery } from "./ExperienceGallery";
-import { useEffect, useRef, useState, useSyncExternalStore, type PointerEvent } from "react";
-import { createPortal } from "react-dom";
+import { useEffect, useRef, useState, type PointerEvent } from "react";
 import type { AboutCard, Education, Experience } from "@/lib/content";
 
 type ExperienceLabels = {
@@ -201,7 +200,6 @@ export function EducationPostcards({ items, hint }: { items: Education[]; hint: 
 
 type PersonalArchiveLabels = {
   close: string;
-  closeImage: string;
   previous: string;
   next: string;
   page: string;
@@ -251,164 +249,66 @@ function DanceArchiveCard({ card, close }: { card: AboutCard; close: string }) {
   );
 }
 
-const volunteerMobileQuery = "(max-width: 720px)";
-const subscribeVolunteerLayout = (onStoreChange: () => void) => {
-  const media = window.matchMedia(volunteerMobileQuery);
-  media.addEventListener("change", onStoreChange);
-  return () => media.removeEventListener("change", onStoreChange);
-};
-const getVolunteerLayout = () => window.matchMedia(volunteerMobileQuery).matches;
-const getVolunteerServerLayout = () => false;
-
 function VolunteerArchiveCard({ card, labels }: { card: AboutCard; labels: PersonalArchiveLabels }) {
-  const [open, setOpen] = useState(false);
-  const [opening, setOpening] = useState(false);
   const [page, setPage] = useState(0);
   const [turn, setTurn] = useState<{ from: number; to: number; direction: "next" | "previous" } | null>(null);
-  const [activeImage, setActiveImage] = useState<NonNullable<AboutCard["volunteer"]>["pages"][number]["image"] | null>(null);
-  const mobile = useSyncExternalStore(subscribeVolunteerLayout, getVolunteerLayout, getVolunteerServerLayout);
-  const opener = useRef<HTMLButtonElement>(null);
-  const dialog = useRef<HTMLDivElement>(null);
-  const imageTrigger = useRef<HTMLButtonElement | null>(null);
   const volunteer = card.volunteer;
 
-  useEffect(() => {
-    if (!open) return;
-    const previousOverflow = document.body.style.overflow;
-    const openerNode = opener.current;
-    document.body.style.overflow = "hidden";
-    return () => {
-      document.body.style.overflow = previousOverflow;
-      openerNode?.focus({ preventScroll: true });
-    };
-  }, [open]);
-
-  useEffect(() => {
-    if (!open) return;
-    const focusable = () => Array.from(dialog.current?.querySelectorAll<HTMLElement>('button, [href], [tabindex]:not([tabindex="-1"])') ?? []);
-    requestAnimationFrame(() => focusable()[0]?.focus({ preventScroll: true }));
-    const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
-        if (activeImage) {
-          setActiveImage(null);
-          requestAnimationFrame(() => imageTrigger.current?.focus({ preventScroll: true }));
-        } else {
-          setOpen(false);
-        }
-        return;
-      }
-      if (event.key !== "Tab") return;
-      const nodes = focusable();
-      if (!nodes.length) return;
-      const first = nodes[0];
-      const last = nodes[nodes.length - 1];
-      if (event.shiftKey && document.activeElement === first) {
-        event.preventDefault();
-        last.focus();
-      } else if (!event.shiftKey && document.activeElement === last) {
-        event.preventDefault();
-        first.focus();
-      }
-    };
-    window.addEventListener("keydown", onKeyDown);
-    return () => window.removeEventListener("keydown", onKeyDown);
-  }, [open, activeImage]);
-
   if (!volunteer) return null;
-  const pagesPerView = mobile ? 1 : 2;
-  const startPage = mobile ? page : Math.floor(page / 2) * 2;
-  const finalPage = mobile ? volunteer.pages.length - 1 : Math.max(0, volunteer.pages.length - 2);
-  const visibleNumber = Math.floor(startPage / pagesPerView) + 1;
-  const visibleTotal = Math.ceil(volunteer.pages.length / pagesPerView);
-
-  const turnBook = (to: number) => {
-    if (turn || opening || to < 0 || to > finalPage || to === startPage) return;
-    setTurn({ from: startPage, to, direction: to > startPage ? "next" : "previous" });
-  };
-
-  const openImage = (image: NonNullable<typeof activeImage>, trigger: HTMLButtonElement) => {
-    imageTrigger.current = trigger;
-    setActiveImage(image);
-  };
-
-  const renderBookPages = (from: number, className: string) => (
-    <div className={`${className} volunteer-story-spread`}>
-      {volunteer.pages.slice(from, from + pagesPerView).map((storyPage, index) => (
-        <article className="volunteer-story-page" data-tone={storyPage.tone} data-overlay={storyPage.overlay || undefined} key={`${from + index}-${storyPage.title ?? storyPage.image?.src}`}>
-          {storyPage.image ? (
-            <button type="button" className="volunteer-story-media" data-fit={storyPage.image.fit} onClick={(event) => openImage(storyPage.image!, event.currentTarget)} aria-label={`${storyPage.image.openLabel}: ${storyPage.image.caption}`}>
-              <Image src={storyPage.image.src} alt={storyPage.image.alt} fill unoptimized loading="eager" sizes={mobile ? "94vw" : "47vw"} />
-            </button>
-          ) : null}
-          {storyPage.title || storyPage.body || storyPage.highlight ? (
-            <div className="volunteer-story-copy">
-              {storyPage.highlight ? <strong>{storyPage.highlight}</strong> : null}
-              {storyPage.title ? <h2>{storyPage.title}</h2> : null}
-              {storyPage.body ? <p>{storyPage.body}</p> : null}
-            </div>
-          ) : null}
-          {storyPage.image?.caption ? <small className="volunteer-story-caption">{storyPage.image.caption}</small> : null}
-        </article>
-      ))}
-    </div>
-  );
-
-  const basePage = turn ? (turn.direction === "next" ? turn.to : turn.from) : startPage;
+  const endPage = volunteer.pages.length;
+  const basePage = turn ? (turn.direction === "next" ? turn.to : turn.from) : page;
   const turningPage = turn ? (turn.direction === "next" ? turn.from : turn.to) : null;
+  const turnPage = (to: number) => {
+    if (turn || to === page) return;
+    setTurn({ from: page, to, direction: to > page ? "next" : "previous" });
+  };
+  const renderPage = (pageNumber: number, className: string) => {
+    const storyPage = pageNumber === 0 ? null : volunteer.pages[pageNumber - 1];
+    return (
+      <div className={`${className} volunteer-album-page`} data-cover={pageNumber === 0} data-tone={storyPage?.tone} data-overlay={storyPage?.overlay || undefined}>
+        {pageNumber === 0 ? (
+          <Image src="/volunteer-yicci-photo-service.jpg" alt={card.imageAlt} fill unoptimized sizes="(max-width: 700px) 92vw, 31vw" loading="lazy" />
+        ) : storyPage?.image ? (
+          <span className="volunteer-album-media" data-fit={storyPage.image.fit}>
+            <Image src={storyPage.image.src} alt={storyPage.image.alt} fill unoptimized loading="eager" sizes="(max-width: 700px) 92vw, 31vw" style={{ objectFit: storyPage.image.fit }} />
+          </span>
+        ) : null}
+        {pageNumber === 0 ? <h3>{card.title}</h3> : null}
+        {storyPage?.title || storyPage?.body || storyPage?.highlight ? (
+          <div className="volunteer-album-copy">
+            {storyPage.highlight ? <strong>{storyPage.highlight}</strong> : null}
+            {storyPage.title ? <h3>{storyPage.title}</h3> : null}
+            {storyPage.body ? <p>{storyPage.body}</p> : null}
+          </div>
+        ) : null}
+        {storyPage?.image?.caption ? <small className="volunteer-album-caption">{storyPage.image.caption}</small> : null}
+      </div>
+    );
+  };
 
   return (
-    <>
-      <article className="personal-card volunteer-archive-card" data-kind="volunteering" data-reveal>
-        <div className="photo-album-stage volunteer-cover-stage">
-          <div className="volunteer-cover" aria-hidden="true">
-            <div className="volunteer-cover-metric"><strong>{volunteer.coverMetric}</strong><span>h</span><small>{volunteer.coverLabel}</small></div>
-            <h3>{card.title}</h3>
-          </div>
-          <button ref={opener} type="button" className="photo-album-open" onClick={() => {
-            setPage(0);
-            setOpen(true);
-            setOpening(true);
-          }} aria-label={card.action}><span>{card.action}</span></button>
-        </div>
-      </article>
-
-      {open && typeof document !== "undefined" ? createPortal((
-        <div className="experience-backdrop volunteer-backdrop" data-open="true">
-          <button className="experience-modal-dismiss" type="button" tabIndex={-1} aria-label={activeImage ? labels.closeImage : labels.close} onClick={() => activeImage ? setActiveImage(null) : setOpen(false)} />
-          {activeImage ? (
-            <div className="volunteer-lightbox" role="dialog" aria-modal="true" aria-label={activeImage.caption} ref={dialog}>
-              <button type="button" className="photo-album-close" aria-label={labels.closeImage} onClick={() => {
-                setActiveImage(null);
-                requestAnimationFrame(() => imageTrigger.current?.focus({ preventScroll: true }));
-              }}><span aria-hidden="true" /></button>
-              <Image src={activeImage.src} alt={activeImage.alt} width={activeImage.width} height={activeImage.height} unoptimized priority />
-              <p>{activeImage.caption}</p>
-            </div>
-          ) : (
-            <div className="volunteer-book-shell" role="dialog" aria-modal="true" aria-label={card.backTitle} ref={dialog}>
-              <div className="volunteer-book-stage">
-                {renderBookPages(basePage, "volunteer-story-base")}
-                {turn && turningPage !== null ? (
-                  <div className={`photo-album-turn photo-album-turn-${turn.direction}`} onAnimationEnd={() => {
-                    setPage(turn.to);
-                    setTurn(null);
-                  }}>{renderBookPages(turningPage, "volunteer-story-turning")}</div>
-                ) : null}
-                {opening ? (
-                  <div className="photo-album-turn photo-album-turn-next volunteer-opening-sheet" onAnimationEnd={() => setOpening(false)}>
-                    <div className="volunteer-book-cover"><strong>{card.title}</strong><span>{volunteer.coverLabel}</span></div>
-                  </div>
-                ) : null}
-                <button type="button" className="photo-album-close" aria-label={labels.close} onClick={() => setOpen(false)}><span aria-hidden="true" /></button>
-                {startPage > 0 ? <button type="button" className="photo-album-nav photo-album-nav-previous" aria-label={labels.previous} disabled={Boolean(turn) || opening} onClick={() => turnBook(Math.max(0, startPage - pagesPerView))}><span aria-hidden="true" /></button> : null}
-                {startPage < finalPage ? <button type="button" className="photo-album-nav photo-album-nav-next" aria-label={labels.next} disabled={Boolean(turn) || opening} onClick={() => turnBook(Math.min(finalPage, startPage + pagesPerView))}><span aria-hidden="true" /></button> : null}
-                <p className="volunteer-book-progress" aria-live="polite"><span>{String(visibleNumber).padStart(2, "0")}</span> / {String(visibleTotal).padStart(2, "0")}</p>
-              </div>
-            </div>
-          )}
-        </div>
-      ), document.body) : null}
-    </>
+    <article className="personal-card photo-album-card volunteer-album-card" data-kind="volunteering" data-open={page > 0 || Boolean(turn)} data-reveal>
+      <div className="photo-album-stage" onKeyDown={(event) => {
+        if (event.key === "Escape" && page > 0 && !turn) turnPage(0);
+      }}>
+        {renderPage(basePage, "photo-album-page photo-album-base")}
+        {turningPage !== null ? (
+          <div className={`photo-album-turn photo-album-turn-${turn?.direction}`} onAnimationEnd={() => {
+            if (!turn) return;
+            setPage(turn.to);
+            setTurn(null);
+          }}>{renderPage(turningPage, "photo-album-page")}</div>
+        ) : null}
+        {page === 0 && !turn ? <button type="button" className="photo-album-open" onClick={() => turnPage(1)} aria-label={card.action}><span>{card.action}</span></button> : null}
+        {page > 0 || turn ? (
+          <>
+            <button type="button" className="photo-album-close" onClick={() => turnPage(0)} disabled={Boolean(turn)} aria-label={labels.close}><span aria-hidden="true" /></button>
+            {page > 1 ? <button type="button" className="photo-album-nav photo-album-nav-previous" onClick={() => turnPage(page - 1)} disabled={Boolean(turn)} aria-label={labels.previous}><span aria-hidden="true" /></button> : null}
+            {page < endPage ? <button type="button" className="photo-album-nav photo-album-nav-next" onClick={() => turnPage(page + 1)} disabled={Boolean(turn)} aria-label={labels.next}><span aria-hidden="true" /></button> : null}
+          </>
+        ) : null}
+      </div>
+    </article>
   );
 }
 
