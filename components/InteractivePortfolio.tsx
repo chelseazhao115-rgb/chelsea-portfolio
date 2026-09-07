@@ -205,6 +205,50 @@ type PersonalArchiveLabels = {
   page: string;
 };
 
+function DanceArchiveCard({ card, close }: { card: AboutCard; close: string }) {
+  const [open, setOpen] = useState(false);
+  const [turn, setTurn] = useState<"next" | "previous" | null>(null);
+  const [started, setStarted] = useState(false);
+  const video = useRef<HTMLVideoElement>(null);
+  const opener = useRef<HTMLButtonElement>(null);
+  const playButton = useRef<HTMLButtonElement>(null);
+  const cover = <div className="photo-album-page" data-cover="true">
+    <Image src="/dance_cover.jpg" alt={card.title} fill unoptimized sizes="(max-width: 700px) 92vw, 31vw" loading="lazy" />
+    <h3>{card.title}</h3>
+  </div>;
+
+  return (
+    <article className="personal-card photo-album-card dance-album-card" data-kind="dance" data-open={open || Boolean(turn)} data-reveal>
+      <div className="photo-album-stage" onKeyDown={(event) => {
+        if (event.key === "Escape" && open && !turn) {
+          video.current?.pause();
+          setTurn("previous");
+        }
+      }}>
+        {open || turn ? <div className="dance-video-stage">
+          <video ref={video} src="/dance.mp4" poster="/dance-poster.jpg" preload="metadata" playsInline controls={started} aria-label={card.title} onPlay={() => setStarted(true)} />
+          {!started ? <button ref={playButton} className="dance-play" type="button" aria-label={card.action} disabled={Boolean(turn)} onClick={() => {
+            const player = video.current;
+            if (player) void player.play().then(() => player.focus()).catch(() => setStarted(false));
+          }}><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z" /></svg></button> : null}
+        </div> : cover}
+        {turn ? <div className={`photo-album-turn photo-album-turn-${turn}`} onAnimationEnd={() => {
+          const opening = turn === "next";
+          setOpen(opening);
+          setTurn(null);
+          if (!opening) setStarted(false);
+          requestAnimationFrame(() => (opening ? playButton.current : opener.current)?.focus({ preventScroll: true }));
+        }}>{cover}</div> : null}
+        {!open && !turn ? <button ref={opener} type="button" className="photo-album-open" aria-label={card.action} onClick={() => setTurn("next")}><span>{card.action}</span></button> : null}
+        {open || turn ? <button type="button" className="photo-album-close" aria-label={close} disabled={Boolean(turn)} onClick={() => {
+          video.current?.pause();
+          setTurn("previous");
+        }}><span aria-hidden="true" /></button> : null}
+      </div>
+    </article>
+  );
+}
+
 export function PersonalArchiveCards({ items, labels }: { items: AboutCard[]; labels: PersonalArchiveLabels }) {
   const [flipped, setFlipped] = useState<Record<string, boolean>>({});
   const [photoPage, setPhotoPage] = useState(0);
@@ -224,6 +268,7 @@ export function PersonalArchiveCards({ items, labels }: { items: AboutCard[]; la
       {items.map((card) => {
         const isFlipped = Boolean(flipped[card.id]);
         const pageCount = card.gallery?.length ?? 0;
+        if (card.id === "dance") return <DanceArchiveCard key={card.id} card={card} close={labels.close} />;
         if (card.id === "photography") {
           const endPage = pageCount + 1;
           const basePage = photoTurn ? (photoTurn.direction === "next" ? photoTurn.to : photoTurn.from) : photoPage;
@@ -297,14 +342,6 @@ export function PersonalArchiveCards({ items, labels }: { items: AboutCard[]; la
                   <div><span>{card.subtitle}</span><h3>{card.backTitle}</h3></div>
                   <button type="button" onClick={() => setCardFlipped(card.id, false)} tabIndex={isFlipped ? 0 : -1}>{labels.close}</button>
                 </div>
-
-                {card.id === "dance" ? (
-                  <div className="dance-video-placeholder" role="img" aria-label={card.placeholder}>
-                    <i aria-hidden="true" />
-                    <strong>{card.placeholder}</strong>
-                    <span>9:16</span>
-                  </div>
-                ) : null}
 
                 {card.id === "volunteering" ? (
                   <div className="volunteer-record" aria-label={card.placeholder}>
